@@ -83,49 +83,55 @@
     <!-- ========================================== -->
     <!-- ÁREA DA PLATAFORMA INTERATIVA              -->
     <!-- ========================================== -->
-    <div id="platform-screen" class="hidden min-h-screen flex flex-col">
-        <header class="bg-blue-900 text-white shadow-lg sticky top-0 z-50 no-print">
-            <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-                <div class="flex items-center space-x-3">
-                    <i class="fa-solid fa-helmet-safety text-amber-400 text-3xl"></i>
-                    <div>
-                        <h1 class="font-bold text-lg leading-tight">MasterClass Gestão Integrada de Obras</h1>
-                        <p class="text-xs text-blue-200">Ambiente Prático de Aprendizagem e Simulação</p>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <span class="text-xs font-medium bg-blue-800 px-3 py-1.5 rounded-lg border border-blue-700">Aluno Conectado</span>
-                    <button onclick="fazerLogout()" class="text-xs bg-rose-600 hover:bg-rose-700 px-3 py-1.5 rounded-lg transition font-bold">Sair</button>
-                </div>
-            </div>
-        </header>
-
-        <main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-4 gap-8 flex-1 w-full">
-            <!-- Sidebar Navigation -->
+    <!-- Sidebar Navigation -->
             <aside class="lg:col-span-1 space-y-2 no-print">
                 <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 px-1">Módulos do Curso</h2>
 
+                <!-- MÓDULO 1 -->
                 <button onclick="switchTab('mod1')" id="btn-mod1" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm transition flex items-center space-x-3 border-blue-600 ring-2 ring-blue-100">
                     <div class="p-2 bg-blue-50 text-blue-600 rounded-lg"><i class="fa-solid fa-file-contract"></i></div>
                     <div>
-                        <p class="font-bold text-xs text-slate-800">Módulo 1: Licitação & Contrato</p>
-                        <p class="text-[10px] text-slate-500">Premissas & Licitação</p>
+                        <p class="font-bold text-xs text-slate-800">Módulo 1: Parâmetros & Viabilidade</p>
+                        <p class="text-[10px] text-slate-500">Premissas, Licitação & BDI</p>
                     </div>
                 </button>
 
+                <!-- MÓDULO 2 -->
                 <button onclick="switchTab('mod2')" id="btn-mod2" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm hover:border-blue-500 transition flex items-center space-x-3 border-slate-200">
                     <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg"><i class="fa-solid fa-calculator"></i></div>
                     <div>
-                        <p class="font-bold text-xs text-slate-800">Módulo 2: Orçamento & EAP</p>
-                        <p class="text-[10px] text-slate-500">Insumos, BDI & Quantitativos</p>
+                        <p class="font-bold text-xs text-slate-800">Módulo 2: Orçamento (EAP & MOP)</p>
+                        <p class="text-[10px] text-slate-500">Composição Analítica & Pessoal</p>
                     </div>
                 </button>
 
+                <!-- MÓDULO 3 -->
                 <button onclick="switchTab('mod3')" id="btn-mod3" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm hover:border-blue-500 transition flex items-center space-x-3 border-slate-200">
-                    <div class="p-2 bg-cyan-50 text-cyan-600 rounded-lg"><i class="fa-solid fa-clock"></i></div>
+                    <div class="p-2 bg-cyan-50 text-cyan-600 rounded-lg"><i class="fa-solid fa-chart-area"></i></div>
                     <div>
-                        <p class="font-bold text-xs text-slate-800">Módulo 3: Prazos & PERT</p>
-                        <p class="text-[10px] text-slate-500">Estimativas & Prazos</p>
+                        <p class="font-bold text-xs text-slate-800">Módulo 3: Cronograma & Curva S</p>
+                        <p class="text-[10px] text-slate-500">Avanço Físico-Financeiro & PERT</p>
+                    </div>
+                </button>
+
+                <!-- MÓDULO 4 -->
+                <button onclick="switchTab('mod4')" id="btn-mod4" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm hover:border-blue-500 transition flex items-center space-x-3 border-slate-200">
+                    <div class="p-2 bg-violet-50 text-violet-600 rounded-lg"><i class="fa-solid fa-list-check"></i></div>
+                    <div>
+                        <p class="font-bold text-xs text-slate-800">Módulo 4: Medições & Apropriamento</p>
+                        <p class="text-[10px] text-slate-500">Boletins (BM), Notas & Aditivos</p>
+                    </div>
+                </button>
+
+                <!-- MÓDULO 5 -->
+                <button onclick="switchTab('mod5')" id="btn-mod5" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm hover:border-blue-500 transition flex items-center space-x-3 border-slate-200">
+                    <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg"><i class="fa-solid fa-chart-line"></i></div>
+                    <div>
+                        <p class="font-bold text-xs text-slate-800">Módulo 5: Indicadores EVM & Tendência</p>
+                        <p class="text-[10px] text-slate-500">KPIs, Riscos & Forecast (EAC)</p>
+                    </div>
+                </button>
+            </aside>
                     </div>
                 </button>
 
@@ -399,208 +405,181 @@
                     </div>
                 </div>
                 
-                <!-- MODULO 2: ORÇAMENTO & EAP COM INSUMOS E BDI -->
-                <div id="mod2" class="tab-content hidden space-y-6">
+               
+                <!-- MODULO 3: CRONOGRAMA FÍSICO-FINANCEIRO, CURVA S & PERT -->
+                <div id="mod3" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-[10px] font-bold uppercase">Módulo 2 • Engenharia de Custos & EAP</span>
-                        <h2 class="text-xl font-bold mt-2 text-slate-800">Orçamento Analítico, Insumos e BDI</h2>
+                        <span class="px-3 py-1 bg-cyan-100 text-cyan-800 rounded-full text-[10px] font-bold uppercase">Módulo 3 · Planejamento Temporal & Desembolso</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-800">Cronograma Físico-Financeiro e Curva S</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                            Cadastre a EAP e discrimine os insumos (Mão de Obra, Material, Equipamentos, Serviços)[cite: 437]. Atribua os métodos de medição e aplique BDI para formar o preço final ($BAC$)[cite: 214, 362].
+                            Distribua os custos orçados ao longo do tempo (Previsto vs. Realizado), acompanhe o gráfico da Curva S e estipule prazos probabilísticos com PERT.
                         </p>
                     </div>
 
+                    <!-- CRONOGRAMA DESEMBOLSO -->
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2">
-                                <i class="fa-solid fa-list-check text-indigo-600"></i>
-                                <span>Composição Analítica dos Itens da EAP e Insumos</span>
-                            </h3>
-                            <button onclick="adicionarLinhaOrcamento()" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold px-3 py-1.5 rounded-lg text-xs transition border border-indigo-200">
-                                + Adicionar Item EAP
-                            </button>
-                        </div>
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2 border-b pb-2">
+                            <i class="fa-solid fa-calendar-days text-cyan-600"></i>
+                            <span>Cronograma Físico-Financeiro (Desembolso Mensal)</span>
+                        </h3>
 
                         <div class="overflow-x-auto">
                             <table class="w-full text-left border-collapse text-xs">
                                 <thead>
                                     <tr class="bg-slate-100 border-b text-slate-600 font-bold">
-                                        <th class="p-2 w-16">Item EAP</th>
-                                        <th class="p-2 w-28">Tipo Insumo</th>
-                                        <th class="p-2">Descrição do Serviço / Insumo</th>
-                                        <th class="p-2 w-16">Unid.</th>
-                                        <th class="p-2 w-20">Qtd. Total</th>
-                                        <th class="p-2 w-24">Custo Unit. (R$)</th>
-                                        <th class="p-2 w-40">Método Medição</th>
-                                        <th class="p-2 w-28">Total Direto</th>
-                                        <th class="p-2 w-12 text-center">Ação</th>
+                                        <th class="p-2">Período</th>
+                                        <th class="p-2">Previsto Mensal (%)</th>
+                                        <th class="p-2">Valor Previsto (R$)</th>
+                                        <th class="p-2">Realizado Mensal (%)</th>
+                                        <th class="p-2">Valor Realizado (R$)</th>
+                                        <th class="p-2">Acumulado Previsto (%)</th>
+                                        <th class="p-2">Acumulado Realizado (%)</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tabelaOrcamento">
-                                    <tr class="border-b hover:bg-slate-50">
-                                        <td class="p-2"><input type="text" value="1.1" class="w-full p-1 border rounded text-[11px] codigo-eap"></td>
-                                        <td class="p-2">
-                                            <select class="border rounded p-1 text-[11px] tipo-insumo">
-                                                <option value="MO" selected>Mão de Obra</option>
-                                                <option value="MAT">Material</option>
-                                                <option value="EQP">Equipamento</option>
-                                                <option value="SERV">Serviço Terceirizado</option>
-                                            </select>
-                                        </td>
-                                        <td class="p-2"><input type="text" value="Escavação e Movimentação de Terra" class="w-full p-1 border rounded text-[11px] desc-eap"></td>
-                                        <td class="p-2"><input type="text" value="m³" class="w-full p-1 border rounded text-[11px] unid-eap"></td>
-                                        <td class="p-2"><input type="number" value="3500" onchange="recalcularLinha(this)" class="w-full p-1 border rounded text-[11px] qtd-item"></td>
-                                        <td class="p-2"><input type="number" value="45.00" onchange="recalcularLinha(this)" class="w-full p-1 border rounded text-[11px] val-item"></td>
-                                        <td class="p-2">
-                                            <select class="w-full p-1 border rounded text-[11px] metodo-eap">
-                                                <option value="Unidades Concluídas" selected>Unidades Concluídas (Qtd)</option>
-                                                <option value="Marcos Ponderados">Marcos Ponderados (%)</option>
-                                                <option value="Regra 50/50">Regra Início/Término (50/50)</option>
-                                                <option value="Nível de Esforço">Nível de Esforço (LOE)</option>
-                                            </select>
-                                        </td>
-                                        <td class="p-2 font-bold text-slate-700 total-linha">R$ 157.500,00</td>
-                                        <td class="p-2 text-center"><button onclick="removerLinha(this)" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash-can"></i></button></td>
+                                <tbody id="tabelaCronograma">
+                                    <tr class="border-b">
+                                        <td class="p-2 font-bold text-slate-700">Mês 01</td>
+                                        <td class="p-2"><input type="number" value="10" onchange="atualizarCurvaS()" class="w-16 p-1 border rounded prev-pct"> %</td>
+                                        <td class="p-2 prev-val font-medium">R$ 0,00</td>
+                                        <td class="p-2"><input type="number" value="8" onchange="atualizarCurvaS()" class="w-16 p-1 border rounded real-pct"> %</td>
+                                        <td class="p-2 real-val font-medium">R$ 0,00</td>
+                                        <td class="p-2 font-bold text-cyan-700 prev-acum">10.00%</td>
+                                        <td class="p-2 font-bold text-emerald-700 real-acum">8.00%</td>
                                     </tr>
-                                    <tr class="border-b hover:bg-slate-50">
-                                        <td class="p-2"><input type="text" value="2.1" class="w-full p-1 border rounded text-[11px] codigo-eap"></td>
-                                        <td class="p-2">
-                                            <select class="border rounded p-1 text-[11px] tipo-insumo">
-                                                <option value="MAT" selected>Material</option>
-                                                <option value="MO">Mão de Obra</option>
-                                                <option value="EQP">Equipamento</option>
-                                                <option value="SERV">Serviço Terceirizado</option>
-                                            </select>
-                                        </td>
-                                        <td class="p-2"><input type="text" value="Concreto Usinado Fck=30MPa" class="w-full p-1 border rounded text-[11px] desc-eap"></td>
-                                        <td class="p-2"><input type="text" value="m³" class="w-full p-1 border rounded text-[11px] unid-eap"></td>
-                                        <td class="p-2"><input type="number" value="1800" onchange="recalcularLinha(this)" class="w-full p-1 border rounded text-[11px] qtd-item"></td>
-                                        <td class="p-2"><input type="number" value="450.00" onchange="recalcularLinha(this)" class="w-full p-1 border rounded text-[11px] val-item"></td>
-                                        <td class="p-2">
-                                            <select class="w-full p-1 border rounded text-[11px] metodo-eap">
-                                                <option value="Unidades Concluídas" selected>Unidades Concluídas (Qtd)</option>
-                                                <option value="Marcos Ponderados">Marcos Ponderados (%)</option>
-                                                <option value="Regra 50/50">Regra Início/Término (50/50)</option>
-                                                <option value="Nível de Esforço">Nível de Esforço (LOE)</option>
-                                            </select>
-                                        </td>
-                                        <td class="p-2 font-bold text-slate-700 total-linha">R$ 810.000,00</td>
-                                        <td class="p-2 text-center"><button onclick="removerLinha(this)" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash-can"></i></button></td>
+                                    <tr class="border-b">
+                                        <td class="p-2 font-bold text-slate-700">Mês 02</td>
+                                        <td class="p-2"><input type="number" value="25" onchange="atualizarCurvaS()" class="w-16 p-1 border rounded prev-pct"> %</td>
+                                        <td class="p-2 prev-val font-medium">R$ 0,00</td>
+                                        <td class="p-2"><input type="number" value="22" onchange="atualizarCurvaS()" class="w-16 p-1 border rounded real-pct"> %</td>
+                                        <td class="p-2 real-val font-medium">R$ 0,00</td>
+                                        <td class="p-2 font-bold text-cyan-700 prev-acum">35.00%</td>
+                                        <td class="p-2 font-bold text-emerald-700 real-acum">30.00%</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="p-2 font-bold text-slate-700">Mês 03</td>
+                                        <td class="p-2"><input type="number" value="35" onchange="atualizarCurvaS()" class="w-16 p-1 border rounded prev-pct"> %</td>
+                                        <td class="p-2 prev-val font-medium">R$ 0,00</td>
+                                        <td class="p-2"><input type="number" value="30" onchange="atualizarCurvaS()" class="w-16 p-1 border rounded real-pct"> %</td>
+                                        <td class="p-2 real-val font-medium">R$ 0,00</td>
+                                        <td class="p-2 font-bold text-cyan-700 prev-acum">70.00%</td>
+                                        <td class="p-2 font-bold text-emerald-700 real-acum">60.00%</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="p-2 font-bold text-slate-700">Mês 04</td>
+                                        <td class="p-2"><input type="number" value="30" onchange="atualizarCurvaS()" class="w-16 p-1 border rounded prev-pct"> %</td>
+                                        <td class="p-2 prev-val font-medium">R$ 0,00</td>
+                                        <td class="p-2"><input type="number" value="25" onchange="atualizarCurvaS()" class="w-16 p-1 border rounded real-pct"> %</td>
+                                        <td class="p-2 real-val font-medium">R$ 0,00</td>
+                                        <td class="p-2 font-bold text-cyan-700 prev-acum">100.00%</td>
+                                        <td class="p-2 font-bold text-emerald-700 real-acum">85.00%</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs pt-4 border-t">
-                            <div>
-                                <label class="font-bold text-slate-600">Custo Indireto do Canteiro (R$)</label>
-                                <input type="number" id="orcIndireto" value="450000" class="w-full mt-1 p-2.5 border rounded-lg">
-                            </div>
-                            <div>
-                                <label class="font-bold text-slate-600">Taxa de BDI (%)</label>
-                                <input type="number" id="orcBDI" value="25.0" class="w-full mt-1 p-2.5 border rounded-lg">
-                            </div>
-                            <div>
-                                <label class="font-bold text-slate-600">Impostos sobre Fatura (%)</label>
-                                <input type="number" id="orcImpostos" value="8.65" class="w-full mt-1 p-2.5 border rounded-lg">
-                            </div>
-                        </div>
-
-                        <button onclick="calcularOrcamentoTotal()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
-                            Consolidar Orçamento (BAC) & Enviar para Medição
+                        <button onclick="atualizarCurvaS()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
+                            Processar Cronograma e Atualizar Curva S
                         </button>
-
-                        <div id="resOrc" class="hidden bg-indigo-50 border border-indigo-200 p-4 rounded-xl space-y-2 text-xs">
-                            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-center">
-                                <div class="bg-white p-3 rounded-lg border">
-                                    <p class="text-slate-500 font-bold">Custo Direto Insumos</p>
-                                    <p id="valCustoDireto" class="text-sm font-bold text-indigo-900">R$ 0,00</p>
-                                </div>
-                                <div class="bg-white p-3 rounded-lg border">
-                                    <p class="text-slate-500 font-bold">Custo Indireto</p>
-                                    <p id="valCustoIndireto" class="text-sm font-bold text-indigo-900">R$ 0,00</p>
-                                </div>
-                                <div class="bg-white p-3 rounded-lg border">
-                                    <p class="text-slate-500 font-bold">Valor BDI</p>
-                                    <p id="valValorBDI" class="text-sm font-bold text-indigo-900">R$ 0,00</p>
-                                </div>
-                                <div class="bg-white p-3 rounded-lg border">
-                                    <p class="text-slate-500 font-bold">Preço de Venda / BAC</p>
-                                    <p id="valBACFinal" class="text-sm font-bold text-emerald-600">R$ 0,00</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- MODULO 3: PRAZOS & PERT -->
-                <div id="mod3" class="tab-content hidden space-y-6">
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-cyan-100 text-cyan-800 rounded-full text-[10px] font-bold uppercase">Módulo 3 • Planejamento Executivo</span>
-                        <h2 class="text-xl font-bold mt-2 text-slate-800">Estimativa Probabilística PERT e Prazos</h2>
-                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                            Calcule a duração de um pacote de trabalho com incerteza através da média ponderada PERT: $TE = \frac{O + 4M + P}{6}$[cite: 415, 416].
-                        </p>
                     </div>
 
+                    <!-- CURVA S VISUAL -->
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
                         <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2">
-                            <i class="fa-solid fa-calculator text-cyan-600"></i>
-                            <span>Calculadora de Prazos PERT</span>
+                            <i class="fa-solid fa-chart-line text-cyan-600"></i>
+                            <span>Acompanhamento Visual — Curva S Acumulada</span>
+                        </h3>
+                        
+                        <div id="painelCurvaS" class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-xs font-bold">
+                                    <span class="text-cyan-800">Avanço Físico Previsto (Planejado)</span>
+                                    <span id="pctPrevTotal" class="text-cyan-800">100.00%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 rounded-full h-3">
+                                    <div id="barPrevisto" class="bg-cyan-600 h-3 rounded-full transition-all duration-500" style="width: 100%"></div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-xs font-bold">
+                                    <span class="text-emerald-800">Avanço Físico Realizado (Campo)</span>
+                                    <span id="pctRealTotal" class="text-emerald-800">85.00%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 rounded-full h-3">
+                                    <div id="barRealizado" class="bg-emerald-600 h-3 rounded-full transition-all duration-500" style="width: 85%"></div>
+                                </div>
+                            </div>
+
+                            <div id="statusCurvaS" class="p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-900 font-medium mt-2">
+                                Atenção: A obra encontra-se com desvio físico em relação à Curva S prevista.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CALCULADORA PERT -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                            <i class="fa-solid fa-stopwatch text-cyan-600"></i>
+                            <span>Estimativa Probabilística de Prazos (PERT)</span>
                         </h3>
 
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                             <div>
-                                <label class="font-bold text-slate-600">Cenário Otimista ($O$) - Dias</label>
+                                <label class="font-bold text-slate-600">Cenário Otimista - O (dias)</label>
                                 <input type="number" id="pertO" value="12" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                             <div>
-                                <label class="font-bold text-slate-600">Cenário Mais Provável ($M$) - Dias</label>
+                                <label class="font-bold text-slate-600">Cenário Mais Provável - M (dias)</label>
                                 <input type="number" id="pertM" value="20" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                             <div>
-                                <label class="font-bold text-slate-600">Cenário Pessimista ($P$) - Dias</label>
+                                <label class="font-bold text-slate-600">Cenário Pessimista - P (dias)</label>
                                 <input type="number" id="pertP" value="34" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                         </div>
 
-                        <button onclick="calcularPERT()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
-                            Calcular Duração Esperada ($TE$)
+                        <button onclick="calcularPERT()" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
+                            Calcular Duração Esperada (TE)
                         </button>
 
-                        <div id="resPERT" class="hidden bg-cyan-50 border border-cyan-200 p-4 rounded-xl space-y-2 text-xs">
+                        <div id="resPERT" class="hidden bg-cyan-50 border border-cyan-200 p-4 rounded-xl space-y-1 text-xs">
                             <p class="font-bold text-cyan-900 text-sm" id="valTE">-- dias</p>
                             <p id="descPERT" class="text-slate-700 leading-relaxed"></p>
                         </div>
                     </div>
                 </div>
 
-                <!-- MODULO 4: MEDIÇÃO & HISTÓRICO DE SALDO -->
+                <!-- MÓDULO 4: MEDIÇÕES, APROPRIAMENTO REAL & ADITIVOS -->
                 <div id="mod4" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-violet-100 text-violet-800 rounded-full text-[10px] font-bold uppercase">Módulo 4 • Acompanhamento de Campo</span>
-                        <h2 class="text-xl font-bold mt-2 text-slate-800">Boletim de Medição (BM) e Controle de Saldo</h2>
+                        <span class="px-3 py-1 bg-violet-100 text-violet-800 rounded-full text-[10px] font-bold uppercase">Módulo 4 · Controle Executivo e Apropriamento</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-800">Controle Executivo, BM e Termos Aditivos</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                            Informe a data da medição e a quantidade executada no período para cada item. A plataforma atualizará o acumulado e recalculará o saldo a executar do contrato[cite: 211, 214, 216].
+                            Gere Boletins de Medição (BM), concilie Notas Fiscais e Folha no Apropriamento Real e registre Termos Aditivos de escopo/preço.
                         </p>
                     </div>
 
+                    <!-- BOLETIM DE MEDIÇÃO -->
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2 border-b pb-2">
+                            <i class="fa-solid fa-file-invoice-dollar text-violet-600"></i>
+                            <span>Boletim de Medição (BM) & Saldo Contratual</span>
+                        </h3>
+
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                             <div>
-                                <label class="font-bold text-slate-600">Nº do Boletim de Medição (BM)</label>
+                                <label class="font-bold text-slate-600">Nº do Boletim de Medição</label>
                                 <input type="text" id="bmNumero" value="BM-001" class="w-full mt-1 p-2.5 border rounded-lg bg-slate-50">
                             </div>
                             <div>
-                                <label class="font-bold text-slate-600">Data de Apuração da Medição</label>
+                                <label class="font-bold text-slate-600">Data de Apuração</label>
                                 <input type="date" id="bmData" value="2026-10-15" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                             <div>
-                                <label class="font-bold text-slate-600">Responsável Técnico / Engenheiro</label>
-                                <input type="text" id="bmEngenheiro" value="Eng. Carlos Eduardo" class="w-full mt-1 p-2.5 border rounded-lg">
+                                <label class="font-bold text-slate-600">Engenheiro / Responsável</label>
+                                <input type="text" id="bmEngenheiro" value="Eng. Residente" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                         </div>
-
-                        <h3 class="text-sm font-bold text-slate-800 pt-2 border-t">Lançamento por Item da EAP</h3>
 
                         <div class="overflow-x-auto">
                             <table class="w-full text-left border-collapse text-xs">
@@ -608,210 +587,153 @@
                                     <tr class="bg-slate-100 border-b text-slate-600 font-bold">
                                         <th class="p-2">Item</th>
                                         <th class="p-2">Descrição</th>
-                                        <th class="p-2">Qtd. Total</th>
-                                        <th class="p-2">Qtd. Ant. Acumulada</th>
-                                        <th class="p-2 bg-violet-50 text-violet-900">Qtd. Medida do Período</th>
-                                        <th class="p-2">Qtd. Total Acumulada</th>
-                                        <th class="p-2">Saldo a Executar</th>
-                                        <th class="p-2">% Avanço</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tabelaLancamentoMedicao">
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- BARRA DE AÇÕES: SALVAR, GERAR RELATÓRIO, SAIR -->
-                        <div class="flex flex-col md:flex-row gap-3 pt-4 border-t">
-                            <button onclick="salvarMedicaoAtual()" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition text-xs shadow flex items-center justify-center space-x-2">
-                                <i class="fa-solid fa-floppy-disk"></i>
-                                <span>Salvar Medição</span>
-                            </button>
-
-                            <button onclick="gerarRelatorioBM()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition text-xs shadow flex items-center justify-center space-x-2">
-                                <i class="fa-solid fa-file-pdf"></i>
-                                <span>Gerar Relatório</span>
-                            </button>
-
-                            <button onclick="fazerLogout()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-6 py-3 rounded-xl transition text-xs flex items-center justify-center space-x-2">
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                                <span>Sair</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Histórico de Medições Salvas -->
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-3">
-                        <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2">
-                            <i class="fa-solid fa-clock-rotate-left text-violet-600"></i>
-                            <span>Histórico de Boletins Cadastrados</span>
-                        </h3>
-                        <div id="listaHistorico" class="space-y-2 text-xs">
-                            <p class="text-slate-400 italic">Nenhuma medição gravada ainda.</p>
-                        </div>
-                    </div>
-
-                    <!-- AREA DO RELATÓRIO IMPRESSO -->
-                    <div id="areaRelatorio" class="hidden bg-white p-8 rounded-2xl shadow-lg border border-slate-300 space-y-6">
-                        <div class="flex justify-between items-center border-b pb-4">
-                            <div>
-                                <h2 class="text-xl font-bold text-slate-900" id="relObraNome">BOLETIM DE MEDIÇÃO DE OBRA</h2>
-                                <p class="text-xs text-slate-500" id="relContratoInfo"></p>
-                            </div>
-                            <div class="text-right text-xs">
-                                <p class="font-bold text-blue-900" id="relBMNumero"></p>
-                                <p class="text-slate-500" id="relBMData"></p>
-                            </div>
-                        </div>
-
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse text-xs">
-                                <thead>
-                                    <tr class="bg-slate-800 text-white font-bold">
-                                        <th class="p-2">Item</th>
-                                        <th class="p-2">Descrição</th>
                                         <th class="p-2">Unid.</th>
-                                        <th class="p-2">Qtd. Contrato</th>
+                                        <th class="p-2">Qtd. Prevista</th>
+                                        <th class="p-2">Qtd. Anterior</th>
                                         <th class="p-2">Qtd. Período</th>
                                         <th class="p-2">Qtd. Acumulada</th>
                                         <th class="p-2">Saldo a Executar</th>
-                                        <th class="p-2">Valor Período (R$)</th>
-                                        <th class="p-2">% Executado</th>
+                                        <th class="p-2">Valor Medido (R$)</th>
                                     </tr>
                                 </thead>
-                                <tbody id="relCorpoTabela">
+                                <tbody id="tabelaMedicao">
+                                    <!-- Preenchido dinamicamente via JS -->
                                 </tbody>
                             </table>
                         </div>
 
-                        <div class="flex justify-between items-center pt-4 border-t text-xs">
+                        <div class="flex space-x-3">
+                            <button onclick="processarMedicao()" class="flex-1 bg-violet-600 hover:bg-violet-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
+                                Processar Boletim & Atualizar Saldos
+                            </button>
+                            <button onclick="window.print()" class="bg-slate-700 hover:bg-slate-800 text-white font-bold px-4 py-2.5 rounded-xl transition text-xs shadow">
+                                <i class="fa-solid fa-print mr-1"></i> Imprimir BM
+                            </button>
+                        </div>
+
+                        <div id="resMed" class="hidden bg-violet-50 border border-violet-200 p-4 rounded-xl space-y-1 text-xs">
+                            <p class="font-bold text-violet-900">Resumo do Boletim de Medição Processado</p>
+                            <p id="descMed" class="text-slate-700 leading-relaxed"></p>
+                        </div>
+                    </div>
+
+                    <!-- APROPRIAMENTO REAL DE CUSTOS -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2 border-b pb-2">
+                            <i class="fa-solid fa-receipt text-violet-600"></i>
+                            <span>Apropriamento Real de Custos (Desembolso Efetivo)</span>
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                             <div>
-                                <p class="text-slate-500">Engenheiro Responsável:</p>
-                                <p class="font-bold text-slate-800" id="relEngNome"></p>
+                                <label class="font-bold text-slate-600">NF / Documento Hábil</label>
+                                <input type="text" id="apropDoc" value="NF-45892 (Fornecedor Concreto)" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
-                            <div class="text-right">
-                                <p class="text-slate-500">Valor Total do Período:</p>
-                                <p class="text-lg font-bold text-emerald-600" id="relValorTotalBM">R$ 0,00</p>
+                            <div>
+                                <label class="font-bold text-slate-600">Conta Orçamentária EAP</label>
+                                <input type="text" id="apropEAP" value="2.1 - Concreto Usinado" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Valor Real Pago (R$)</label>
+                                <input type="number" id="apropValor" value="825000.00" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                         </div>
 
-                        <div class="no-print pt-4 flex justify-end space-x-3">
-                            <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold px-4 py-2 rounded-lg text-xs">
-                                <i class="fa-solid fa-print mr-1"></i> Imprimir / Salvar PDF
-                            </button>
-                            <button onclick="document.getElementById('areaRelatorio').classList.add('hidden')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-2 rounded-lg text-xs">
-                                Fechar Visualização
-                            </button>
+                        <button onclick="registrarApropriamento()" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
+                            Lançar Apropriamento Real na Conta Orçamentária
+                        </button>
+
+                        <div id="resApropriamento" class="hidden bg-slate-50 border border-slate-200 p-4 rounded-xl text-xs text-slate-800">
+                            <strong>Apropriamento Registrado:</strong> Custo real vinculado com sucesso à conta da EAP.
+                        </div>
+                    </div>
+
+                    <!-- GESTÃO DE ADITIVOS -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2 border-b pb-2">
+                            <i class="fa-solid fa-file-pen text-violet-600"></i>
+                            <span>Gestão de Termos Aditivos e Pleitos (Claims)</span>
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                            <div>
+                                <label class="font-bold text-slate-600">Justificativa do Aditivo</label>
+                                <input type="text" id="aditivoMotivo" value="Acréscimo de volume de fundação por revisão geotécnica" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Impacto Financeiro (R$)</label>
+                                <input type="number" id="aditivoValor" value="350000.00" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Impacto no Prazo (Dias)</label>
+                                <input type="number" id="aditivoPrazo" value="15" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                        </div>
+
+                        <button onclick="registrarAditivo()" class="w-full bg-violet-800 hover:bg-violet-900 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
+                            Registrar Termo Aditivo ao Contrato
+                        </button>
+
+                        <div id="resAditivo" class="hidden bg-violet-50 border border-violet-200 p-4 rounded-xl text-xs text-violet-900">
+                            <p id="descAditivo" class="font-medium"></p>
                         </div>
                     </div>
                 </div>
 
-                <!-- MODULO 5: SIMULADOR EVM -->
+                <!-- MÓDULO 5: SIMULADOR EVM & GESTÃO DE RISCOS -->
                 <div id="mod5" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-bold uppercase">Módulo 5 • Gestão do Valor Agregado</span>
-                        <h2 class="text-xl font-bold mt-2 text-slate-800">Simulador EVM & Diagnóstico de Desempenho</h2>
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-bold uppercase">Módulo 5 · Gestão do Valor Agregado & Riscos</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-800">Análise de EVM, KPIs e Gestão de Riscos (EMV)</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                            O Valor Agregado ($EV$) é atualizado dinamicamente pelo acumulo das medições de campo[cite: 211, 231].
+                            Avalie o desempenho com EVM (SPI, CPI, EAC) e calcule a exposição financeira de riscos do projeto (EMV).
                         </p>
                     </div>
 
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                             <div>
-                                <label class="font-bold text-slate-600">Orçamento no Término ($BAC$) - R$</label>
-                                <input type="number" id="evmBAC" value="1761875" class="w-full mt-1 p-2.5 border rounded-lg">
+                                <label class="font-bold text-slate-600">Valor Planejado - PV (R$)</label>
+                                <input type="number" id="evmPV" value="1000000" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                             <div>
-                                <label class="font-bold text-slate-600">Valor Planejado ($PV$) - R$</label>
-                                <input type="number" id="evmPV" value="1200000" class="w-full mt-1 p-2.5 border rounded-lg">
+                                <label class="font-bold text-slate-600">Valor Agregado - EV (R$)</label>
+                                <input type="number" id="evmEV" value="950000" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                             <div>
-                                <label class="font-bold text-slate-600">Valor Agregado Medido ($EV$) - R$</label>
-                                <input type="number" id="evmEV" value="967500" class="w-full mt-1 p-2.5 border rounded-lg">
-                            </div>
-                            <div>
-                                <label class="font-bold text-slate-600">Custo Real Incorrido ($AC$) - R$</label>
-                                <input type="number" id="evmAC" value="1050000" class="w-full mt-1 p-2.5 border rounded-lg">
+                                <label class="font-bold text-slate-600">Custo Real - AC (R$)</label>
+                                <input type="number" id="evmAC" value="980000" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                         </div>
 
                         <button onclick="calcularEVM()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
-                            Processar Diagnóstico EVM & Forecast
+                            Processar Indicadores EVM
                         </button>
 
-                        <div id="resEVM" class="hidden space-y-4">
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
-                                <div class="p-3 bg-slate-50 border rounded-xl">
-                                    <p class="text-[10px] text-slate-500 font-bold">CPI (Custo)</p>
-                                    <p class="text-base font-bold" id="valCPI">--</p>
+                        <div id="resEVM" class="hidden space-y-4 pt-2">
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center text-xs">
+                                <div class="bg-slate-50 p-3 rounded-xl border">
+                                    <p class="text-slate-500 font-bold">Variação Prazos (SV)</p>
+                                    <p id="valSV" class="text-sm font-bold mt-1">R$ 0,00</p>
                                 </div>
-                                <div class="p-3 bg-slate-50 border rounded-xl">
-                                    <p class="text-[10px] text-slate-500 font-bold">SPI (Prazo)</p>
-                                    <p class="text-base font-bold" id="valSPI">--</p>
+                                <div class="bg-slate-50 p-3 rounded-xl border">
+                                    <p class="text-slate-500 font-bold">Variação Custos (CV)</p>
+                                    <p id="valCV" class="text-sm font-bold mt-1">R$ 0,00</p>
                                 </div>
-                                <div class="p-3 bg-slate-50 border rounded-xl">
-                                    <p class="text-[10px] text-slate-500 font-bold">Projeção Final (EAC)</p>
-                                    <p class="text-xs font-bold text-slate-800" id="valEAC">--</p>
+                                <div class="bg-slate-50 p-3 rounded-xl border">
+                                    <p class="text-slate-500 font-bold">Índice Prazos (SPI)</p>
+                                    <p id="valSPI" class="text-sm font-bold mt-1">0.00</p>
                                 </div>
-                                <div class="p-3 bg-slate-50 border rounded-xl">
-                                    <p class="text-[10px] text-slate-500 font-bold">TCPI (Meta)</p>
-                                    <p class="text-base font-bold text-slate-700" id="valTCPI">--</p>
-                                </div>
-                            </div>
-                            <div id="diagEVM" class="p-4 rounded-xl text-xs leading-relaxed"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- MODULO 6: GESTÃO DE RISCOS -->
-                <div id="mod6" class="tab-content hidden space-y-6">
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-[10px] font-bold uppercase">Módulo 6 • Incertezas & Tomada de Decisão</span>
-                        <h2 class="text-xl font-bold mt-2 text-slate-800">Análise Monetária Esperada de Riscos ($EMV$)</h2>
-                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                            Avalie se a contratação de uma ação preventiva compensa financeiramente o risco de paralisação ou atraso[cite: 56].
-                        </p>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                            <div class="space-y-2 border p-3 rounded-xl bg-slate-50">
-                                <p class="font-bold text-slate-700">Cenário Sem Mitigação</p>
-                                <div>
-                                    <label class="text-slate-500">Probabilidade (%)</label>
-                                    <input type="number" id="probSem" value="25" class="w-full p-2 border rounded-lg">
-                                </div>
-                                <div>
-                                    <label class="text-slate-500">Impacto do Risco (R$)</label>
-                                    <input type="number" id="impSem" value="800000" class="w-full p-2 border rounded-lg">
+                                <div class="bg-slate-50 p-3 rounded-xl border">
+                                    <p class="text-slate-500 font-bold">Índice Custos (CPI)</p>
+                                    <p id="valCPI" class="text-sm font-bold mt-1">0.00</p>
                                 </div>
                             </div>
 
-                            <div class="space-y-2 border p-3 rounded-xl bg-slate-50">
-                                <p class="font-bold text-slate-700">Cenário Com Mitigação Proposta</p>
-                                <div>
-                                    <label class="text-slate-500">Custo da Ação Mitigatória (R$)</label>
-                                    <input type="number" id="custoAcao" value="50000" class="w-full p-2 border rounded-lg">
-                                </div>
-                                <div>
-                                    <label class="text-slate-500">Nova Probabilidade (%)</label>
-                                    <input type="number" id="probCom" value="5" class="w-full p-2 border rounded-lg">
-                                </div>
-                                <div>
-                                    <label class="text-slate-500">Novo Impacto Residual (R$)</label>
-                                    <input type="number" id="impCom" value="200000" class="w-full p-2 border rounded-lg">
-                                </div>
+                            <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-xs space-y-1 text-emerald-900">
+                                <p class="font-bold">Estimativa de Custo no Término (EAC): <span id="valEAC">R$ 0,00</span></p>
+                                <p id="descEVM" class="text-slate-700 leading-relaxed"></p>
                             </div>
-                        </div>
-
-                        <button onclick="calcularEMV()" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
-                            Analisar Viabilidade do Risco
-                        </button>
-
-                        <div id="resEMV" class="hidden bg-amber-50 border border-amber-200 p-4 rounded-xl space-y-2 text-xs">
-                            <p class="font-bold text-amber-900 text-sm" id="titEMV"></p>
-                            <p id="descEMV" class="text-slate-700 leading-relaxed"></p>
                         </div>
                     </div>
                 </div>
@@ -820,364 +742,290 @@
         </main>
     </div>
 
-    <!-- SCRIPT COMPLETO DE LÓGICA E CONEXÕES DA PLATAFORMA -->
+    <!-- LÓGICA EM JAVASCRIPT -->
     <script>
-        let eapContrato = [];
-        let historicoMedicoes = [];
-
-        function fazerLogin(event) {
-            event.preventDefault();
+        function fazerLogin(e) {
+            e.preventDefault();
             document.getElementById('login-screen').classList.add('hidden');
             document.getElementById('platform-screen').classList.remove('hidden');
-            window.scrollTo(0, 0);
-            calcularOrcamentoTotal();
+            carregarTabelaMedicao();
         }
 
         function fazerLogout() {
             document.getElementById('platform-screen').classList.add('hidden');
             document.getElementById('login-screen').classList.remove('hidden');
-            window.scrollTo(0, 0);
         }
 
         function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(c => c.classList.add('hidden'));
             document.getElementById(tabId).classList.remove('hidden');
 
-            document.querySelectorAll('aside button').forEach(btn => {
-                btn.classList.remove('border-blue-600', 'ring-2', 'ring-blue-100');
-                btn.classList.add('border-slate-200');
+            const buttons = document.querySelectorAll('aside button');
+            buttons.forEach(b => {
+                b.classList.remove('border-blue-600', 'ring-2', 'ring-blue-100');
+                b.classList.add('border-slate-200');
             });
-            document.getElementById('btn-' + tabId).classList.add('border-blue-600', 'ring-2', 'ring-blue-100');
 
-            if (tabId === 'mod4') {
-                carregarTabelaLancamento();
+            const currentBtn = document.getElementById('btn-' + tabId);
+            if(currentBtn) {
+                currentBtn.classList.remove('border-slate-200');
+                currentBtn.classList.add('border-blue-600', 'ring-2', 'ring-blue-100');
             }
         }
 
         function salvarCadastro() {
             const nome = document.getElementById('cadNome').value;
             const cliente = document.getElementById('cadCliente').value;
-            const contrato = document.getElementById('cadContrato').value;
-            const valorLicitacao = parseFloat(document.getElementById('cadValorLicitacao').value) || 0;
-            const prazo = document.getElementById('cadPrazo').value;
-
+            const valor = parseFloat(document.getElementById('cadValorLicitacao').value) || 0;
+            
             document.getElementById('resCad').classList.remove('hidden');
-            document.getElementById('descCad').innerHTML = `
-                Contrato <strong>${contrato}</strong> (${nome}) para o cliente <strong>${cliente}</strong> salvo.<br>
-                <strong>Valor da Licitação:</strong> R$ ${valorLicitacao.toLocaleString('pt-BR', {minimumFractionDigits: 2})} | <strong>Prazo:</strong> ${prazo} meses.
+            document.getElementById('descCad').innerHTML = `Empreendimento <b>${nome}</b> registrado para o cliente <b>${cliente}</b> com valor total de licitação contratado de <b>${valor.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</b>.`;
+        }
+
+        function recalcularMOP(element) {
+            const tr = element.closest('tr');
+            const qtd = parseFloat(tr.querySelector('.qtd-mop').value) || 0;
+            const sal = parseFloat(tr.querySelector('.sal-mop').value) || 0;
+            const mes = parseFloat(tr.querySelector('.mes-mop').value) || 0;
+            
+            const totalLinha = qtd * sal * mes;
+            tr.querySelector('.total-mop-linha').textContent = totalLinha.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+            atualizarTotalMOPGeral();
+        }
+
+        function atualizarTotalMOPGeral() {
+            let totalGeral = 0;
+            const linhas = document.querySelectorAll('#tabelaMOP tr');
+            linhas.forEach(tr => {
+                const qtd = parseFloat(tr.querySelector('.qtd-mop').value) || 0;
+                const sal = parseFloat(tr.querySelector('.sal-mop').value) || 0;
+                const mes = parseFloat(tr.querySelector('.mes-mop').value) || 0;
+                totalGeral += (qtd * sal * mes);
+            });
+            const el = document.getElementById('resumoTotalMOP');
+            if(el) el.textContent = totalGeral.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+        }
+
+        function adicionarLinhaMOP() {
+            const tbody = document.getElementById('tabelaMOP');
+            const tr = document.createElement('tr');
+            tr.className = "border-b hover:bg-slate-50";
+            tr.innerHTML = `
+                <td class="p-2">
+                    <select class="w-full p-1 border rounded text-[11px] funcao-mop">
+                        <option value="Engenheiro Residente">Engenheiro Residente</option>
+                        <option value="Encarregado Geral">Encarregado Geral</option>
+                        <option value="Mestre de Obras">Mestre de Obras</option>
+                        <option value="Pedreiro">Pedreiro</option>
+                        <option value="Servente">Servente</option>
+                    </select>
+                </td>
+                <td class="p-2"><input type="text" value="Mensalista" class="w-full p-1 border rounded text-[11px]"></td>
+                <td class="p-2"><input type="number" value="1" onchange="recalcularMOP(this)" class="w-full p-1 border rounded text-[11px] qtd-mop"></td>
+                <td class="p-2"><input type="number" value="3000.00" onchange="recalcularMOP(this)" class="w-full p-1 border rounded text-[11px] sal-mop"></td>
+                <td class="p-2"><input type="number" value="1" onchange="recalcularMOP(this)" class="w-full p-1 border rounded text-[11px] mes-mop"></td>
+                <td class="p-2 font-bold text-slate-700 total-mop-linha">R$ 3.000,00</td>
+                <td class="p-2 text-center"><button onclick="removerLinha(this)" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash-can"></i></button></td>
             `;
+            tbody.appendChild(tr);
+            atualizarTotalMOPGeral();
         }
 
         function adicionarLinhaOrcamento() {
             const tbody = document.getElementById('tabelaOrcamento');
             const tr = document.createElement('tr');
-            tr.className = 'border-b hover:bg-slate-50';
+            tr.className = "border-b hover:bg-slate-50";
             tr.innerHTML = `
-                <td class="p-2"><input type="text" placeholder="1.3" class="w-full p-1 border rounded text-[11px] codigo-eap"></td>
+                <td class="p-2"><input type="text" value="1.2" class="w-full p-1 border rounded text-[11px] codigo-eap"></td>
                 <td class="p-2">
                     <select class="border rounded p-1 text-[11px] tipo-insumo">
-                        <option value="MO">Mão de Obra</option>
                         <option value="MAT">Material</option>
                         <option value="EQP">Equipamento</option>
-                        <option value="SERV">Serviço Terceirizado</option>
+                        <option value="SERV" selected>Serviço Terceirizado</option>
                     </select>
                 </td>
-                <td class="p-2"><input type="text" placeholder="Novo Serviço / Insumo" class="w-full p-1 border rounded text-[11px] desc-eap"></td>
+                <td class="p-2"><input type="text" value="Novo Item de Serviço" class="w-full p-1 border rounded text-[11px] desc-eap"></td>
                 <td class="p-2"><input type="text" value="un" class="w-full p-1 border rounded text-[11px] unid-eap"></td>
                 <td class="p-2"><input type="number" value="100" onchange="recalcularLinha(this)" class="w-full p-1 border rounded text-[11px] qtd-item"></td>
-                <td class="p-2"><input type="number" value="50.00" onchange="recalcularLinha(this)" class="w-full p-1 border rounded text-[11px] val-item"></td>
-                <td class="p-2">
-                    <select class="w-full p-1 border rounded text-[11px] metodo-eap">
-                        <option value="Unidades Concluídas">Unidades Concluídas (Qtd)</option>
-                        <option value="Marcos Ponderados">Marcos Ponderados (%)</option>
-                        <option value="Regra 50/50">Regra Início/Término (50/50)</option>
-                        <option value="Nível de Esforço">Nível de Esforço (LOE)</option>
-                    </select>
-                </td>
-                <td class="p-2 font-bold text-slate-700 total-linha">R$ 5.000,00</td>
+                <td class="p-2"><input type="number" value="150.00" onchange="recalcularLinha(this)" class="w-full p-1 border rounded text-[11px] val-item"></td>
+                <td class="p-2 font-bold text-slate-700 total-linha">R$ 15.000,00</td>
                 <td class="p-2 text-center"><button onclick="removerLinha(this)" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash-can"></i></button></td>
             `;
             tbody.appendChild(tr);
-            recalcularLinha(tr.querySelector('.qtd-item'));
+            carregarTabelaMedicao();
         }
 
         function removerLinha(btn) {
             btn.closest('tr').remove();
-            calcularOrcamentoTotal();
+            carregarTabelaMedicao();
         }
 
-        function recalcularLinha(input) {
-            const tr = input.closest('tr');
+        function recalcularLinha(element) {
+            const tr = element.closest('tr');
             const qtd = parseFloat(tr.querySelector('.qtd-item').value) || 0;
             const val = parseFloat(tr.querySelector('.val-item').value) || 0;
-            const total = qtd * val;
-            tr.querySelector('.total-linha').innerText = 'R$ ' + total.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            tr.querySelector('.total-linha').textContent = (qtd * val).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+            carregarTabelaMedicao();
         }
 
-        function calcularOrcamentoTotal() {
-            let custoDiretoTotal = 0;
-            eapContrato = [];
+        function carregarTabelaMedicao() {
+            const tbodyMed = document.getElementById('tabelaMedicao');
+            if(!tbodyMed) return;
+            tbodyMed.innerHTML = '';
 
-            document.querySelectorAll('#tabelaOrcamento tr').forEach(tr => {
-                const item = {
-                    codigo: tr.querySelector('.codigo-eap').value,
-                    tipo: tr.querySelector('.tipo-insumo').value,
-                    descricao: tr.querySelector('.desc-eap').value,
-                    unidade: tr.querySelector('.unid-eap').value,
-                    qtdTotal: parseFloat(tr.querySelector('.qtd-item').value) || 0,
-                    precoUnit: parseFloat(tr.querySelector('.val-item').value) || 0,
-                    metodo: tr.querySelector('.metodo-eap').value
-                };
-                item.valorTotal = item.qtdTotal * item.precoUnit;
-                custoDiretoTotal += item.valorTotal;
-                eapContrato.push(item);
+            const linhas = document.querySelectorAll('#tabelaOrcamento tr');
+            linhas.forEach((tr) => {
+                const cod = tr.querySelector('.codigo-eap')?.value || '1.1';
+                const desc = tr.querySelector('.desc-eap')?.value || 'Serviço';
+                const unid = tr.querySelector('.unid-eap')?.value || 'un';
+                const qtd = parseFloat(tr.querySelector('.qtd-item')?.value) || 0;
+                const valUnit = parseFloat(tr.querySelector('.val-item')?.value) || 0;
+
+                const trMed = document.createElement('tr');
+                trMed.className = "border-b hover:bg-slate-50";
+                trMed.innerHTML = `
+                    <td class="p-2 font-bold">${cod}</td>
+                    <td class="p-2">${desc}</td>
+                    <td class="p-2">${unid}</td>
+                    <td class="p-2 qtd-prevista">${qtd}</td>
+                    <td class="p-2 qtd-anterior">0</td>
+                    <td class="p-2"><input type="number" value="${Math.round(qtd * 0.25)}" data-val="${valUnit}" class="w-20 p-1 border rounded text-[11px] qtd-periodo" onchange="processarMedicao()"></td>
+                    <td class="p-2 font-bold qtd-acumulada">0</td>
+                    <td class="p-2 font-bold text-amber-600 saldo-executar">0</td>
+                    <td class="p-2 font-bold text-emerald-600 val-medido">R$ 0,00</td>
+                `;
+                tbodyMed.appendChild(trMed);
+            });
+            processarMedicao();
+        }
+
+        function processarMedicao() {
+            const linhas = document.querySelectorAll('#tabelaMedicao tr');
+            let totalMedidoPeriodo = 0;
+
+            linhas.forEach(tr => {
+                const prevista = parseFloat(tr.querySelector('.qtd-prevista').textContent) || 0;
+                const anterior = parseFloat(tr.querySelector('.qtd-anterior').textContent) || 0;
+                const inputPeriodo = tr.querySelector('.qtd-periodo');
+                const periodo = parseFloat(inputPeriodo.value) || 0;
+                const unit = parseFloat(inputPeriodo.getAttribute('data-val')) || 0;
+
+                const acumulado = anterior + periodo;
+                const saldo = prevista - acumulado;
+                const valorMedido = periodo * unit;
+
+                tr.querySelector('.qtd-acumulada').textContent = acumulado;
+                tr.querySelector('.saldo-executar').textContent = saldo;
+                tr.querySelector('.val-medido').textContent = valorMedido.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+
+                totalMedidoPeriodo += valorMedido;
             });
 
-            const custoIndireto = parseFloat(document.getElementById('orcIndireto').value) || 0;
-            const bdiTaxa = (parseFloat(document.getElementById('orcBDI').value) || 0) / 100;
+            const res = document.getElementById('resMed');
+            if(res) {
+                res.classList.remove('hidden');
+                document.getElementById('descMed').innerHTML = `Boletim de Medição processado! Valor total apurado no período: <b>${totalMedidoPeriodo.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</b>.`;
+            }
+        }
 
-            const baseCalculo = custoDiretoTotal + custoIndireto;
-            const valorBDI = baseCalculo * bdiTaxa;
-            const bacFinal = baseCalculo + valorBDI;
+        function atualizarCurvaS() {
+            const linhas = document.querySelectorAll('#tabelaCronograma tr');
+            let totalBAC = 1000000;
+            let acumPrev = 0;
+            let acumReal = 0;
 
-            document.getElementById('resOrc').classList.remove('hidden');
-            document.getElementById('valCustoDireto').innerText = 'R$ ' + custoDiretoTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2});
-            document.getElementById('valCustoIndireto').innerText = 'R$ ' + custoIndireto.toLocaleString('pt-BR', {minimumFractionDigits: 2});
-            document.getElementById('valValorBDI').innerText = 'R$ ' + valorBDI.toLocaleString('pt-BR', {minimumFractionDigits: 2});
-            document.getElementById('valBACFinal').innerText = 'R$ ' + bacFinal.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            linhas.forEach(tr => {
+                const pPrev = parseFloat(tr.querySelector('.prev-pct').value) || 0;
+                const pReal = parseFloat(tr.querySelector('.real-pct').value) || 0;
 
-            if (document.getElementById('evmBAC')) {
-                document.getElementById('evmBAC').value = bacFinal.toFixed(0);
+                acumPrev += pPrev;
+                acumReal += pReal;
+
+                const valPrev = totalBAC * (pPrev / 100);
+                const valReal = totalBAC * (pReal / 100);
+
+                tr.querySelector('.prev-val').textContent = valPrev.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+                tr.querySelector('.real-val').textContent = valReal.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+
+                tr.querySelector('.prev-acum').textContent = acumPrev.toFixed(2) + '%';
+                tr.querySelector('.real-acum').textContent = acumReal.toFixed(2) + '%';
+            });
+
+            document.getElementById('pctPrevTotal').textContent = acumPrev.toFixed(2) + '%';
+            document.getElementById('pctRealTotal').textContent = acumReal.toFixed(2) + '%';
+
+            document.getElementById('barPrevisto').style.width = Math.min(acumPrev, 100) + '%';
+            document.getElementById('barRealizado').style.width = Math.min(acumReal, 100) + '%';
+
+            const diff = acumReal - acumPrev;
+            const divStatus = document.getElementById('statusCurvaS');
+            if(diff < 0) {
+                divStatus.className = "p-3 bg-rose-50 border border-rose-200 rounded-lg text-xs text-rose-900 font-medium mt-2";
+                divStatus.innerHTML = `<strong>Atenção:</strong> A obra encontra-se com atraso físico de <strong>${diff.toFixed(2)}%</strong> em relação à Curva S prevista.`;
+            } else {
+                divStatus.className = "p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-900 font-medium mt-2";
+                divStatus.innerHTML = `<strong>Excelente:</strong> A obra está adiantada em <strong>+${diff.toFixed(2)}%</strong> frente ao cronograma previsto.`;
             }
         }
 
         function calcularPERT() {
-            const O = parseFloat(document.getElementById('pertO').value);
-            const M = parseFloat(document.getElementById('pertM').value);
-            const P = parseFloat(document.getElementById('pertP').value);
-            const TE = (O + (4 * M) + P) / 6;
+            const o = parseFloat(document.getElementById('pertO').value) || 0;
+            const m = parseFloat(document.getElementById('pertM').value) || 0;
+            const p = parseFloat(document.getElementById('pertP').value) || 0;
+            const te = (o + (4 * m) + p) / 6;
 
-            document.getElementById('resPERT').classList.remove('hidden');
-            document.getElementById('valTE').innerText = TE.toFixed(1) + " dias úteis";
-            document.getElementById('descPERT').innerText = `Duração estimada ponderada considerando incertezas: ${TE.toFixed(1)} dias.`;
+            const res = document.getElementById('resPERT');
+            res.classList.remove('hidden');
+            document.getElementById('valTE').textContent = `Duração Esperada (TE): ${te.toFixed(2)} dias`;
+            document.getElementById('descPERT').innerHTML = `Calculado com sucesso via média ponderada PERT de três pontos.`;
         }
 
-        function carregarTabelaLancamento() {
-            const tbody = document.getElementById('tabelaLancamentoMedicao');
-            tbody.innerHTML = '';
+        function registrarApropriamento() {
+            const doc = document.getElementById('apropDoc').value;
+            const eap = document.getElementById('apropEAP').value;
+            const val = parseFloat(document.getElementById('apropValor').value) || 0;
 
-            eapContrato.forEach((item, index) => {
-                let qtdAnterior = 0;
-                historicoMedicoes.forEach(bm => {
-                    if (bm.itens[index]) {
-                        qtdAnterior += bm.itens[index].qtdPeriodo;
-                    }
-                });
-
-                const tr = document.createElement('tr');
-                tr.className = 'border-b hover:bg-slate-50';
-                tr.innerHTML = `
-                    <td class="p-2 font-bold text-slate-700">${item.codigo}</td>
-                    <td class="p-2 text-slate-700">${item.descricao} <br><span class="text-[10px] text-slate-400">Tipo: ${item.tipo} | Método: ${item.metodo}</span></td>
-                    <td class="p-2 text-slate-600">${item.qtdTotal.toLocaleString('pt-BR')} ${item.unidade}</td>
-                    <td class="p-2 text-slate-600 qtd-anterior">${qtdAnterior.toLocaleString('pt-BR')}</td>
-                    <td class="p-2 bg-violet-50">
-                        <input type="number" value="0" onchange="recalcularSaldoItem(${index}, this)" class="w-full p-1 border border-violet-300 rounded font-bold text-violet-900 qtd-periodo">
-                    </td>
-                    <td class="p-2 font-bold text-slate-800 qtd-acumulada">${qtdAnterior.toLocaleString('pt-BR')}</td>
-                    <td class="p-2 font-bold text-amber-700 saldo-executar">${(item.qtdTotal - qtdAnterior).toLocaleString('pt-BR')}</td>
-                    <td class="p-2 font-bold text-emerald-600 porc-avanco">${((qtdAnterior / item.qtdTotal) * 100).toFixed(1)} %</td>
-                `;
-                tbody.appendChild(tr);
-            });
+            const res = document.getElementById('resApropriamento');
+            res.classList.remove('hidden');
+            res.innerHTML = `<strong>Apropriamento Confirmado:</strong> Lançamento do documento <b>${doc}</b> na conta <b>${eap}</b> no valor de <b>${val.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</b> registrado com sucesso no diário de custos.`;
         }
 
-        function recalcularSaldoItem(index, input) {
-            const tr = input.closest('tr');
-            const item = eapContrato[index];
-            const qtdAnterior = parseFloat(tr.querySelector('.qtd-anterior').innerText.replace(/\./g, '').replace(',', '.')) || 0;
-            const qtdPeriodo = parseFloat(input.value) || 0;
+        function registrarAditivo() {
+            const motivo = document.getElementById('aditivoMotivo').value;
+            const valor = parseFloat(document.getElementById('aditivoValor').value) || 0;
+            const prazo = parseInt(document.getElementById('aditivoPrazo').value) || 0;
 
-            const qtdAcumulada = qtdAnterior + qtdPeriodo;
-            const saldo = item.qtdTotal - qtdAcumulada;
-            const porc = (qtdAcumulada / item.qtdTotal) * 100;
-
-            tr.querySelector('.qtd-acumulada').innerText = qtdAcumulada.toLocaleString('pt-BR');
-            tr.querySelector('.saldo-executar').innerText = saldo.toLocaleString('pt-BR');
-            tr.querySelector('.porc-avanco').innerText = porc.toFixed(1) + ' %';
-        }
-
-        function salvarMedicaoAtual() {
-            const numBM = document.getElementById('bmNumero').value;
-            const dataBM = document.getElementById('bmData').value;
-            const engBM = document.getElementById('bmEngenheiro').value;
-
-            const itensBM = [];
-            let valorAgregadoPeriodo = 0;
-
-            document.querySelectorAll('#tabelaLancamentoMedicao tr').forEach((tr, idx) => {
-                const qtdPeriodo = parseFloat(tr.querySelector('.qtd-periodo').value) || 0;
-                const itemOriginal = eapContrato[idx];
-                const valorItemPeriodo = qtdPeriodo * itemOriginal.precoUnit;
-                valorAgregadoPeriodo += valorItemPeriodo;
-
-                itensBM.push({
-                    codigo: itemOriginal.codigo,
-                    descricao: itemOriginal.descricao,
-                    unidade: itemOriginal.unidade,
-                    qtdTotal: itemOriginal.qtdTotal,
-                    precoUnit: itemOriginal.precoUnit,
-                    qtdPeriodo: qtdPeriodo,
-                    valorPeriodo: valorItemPeriodo
-                });
-            });
-
-            const registroBM = {
-                numero: numBM,
-                data: dataBM,
-                engenheiro: engBM,
-                valorTotal: valorAgregadoPeriodo,
-                itens: itensBM
-            };
-
-            historicoMedicoes.push(registroBM);
-            atualizarListaHistorico();
-
-            let totalEVAcumulado = 0;
-            historicoMedicoes.forEach(bm => totalEVAcumulado += bm.valorTotal);
-
-            if (document.getElementById('evmEV')) {
-                document.getElementById('evmEV').value = totalEVAcumulado.toFixed(0);
-            }
-
-            alert(`Boletim ${numBM} salvo! Valor Agregado no Período: R$ ${valorAgregadoPeriodo.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`);
-            carregarTabelaLancamento();
-        }
-
-        function atualizarListaHistorico() {
-            const div = document.getElementById('listaHistorico');
-            if (historicoMedicoes.length === 0) {
-                div.innerHTML = '<p class="text-slate-400 italic">Nenhuma medição gravada ainda.</p>';
-                return;
-            }
-
-            div.innerHTML = '';
-            historicoMedicoes.forEach(bm => {
-                div.innerHTML += `
-                    <div class="p-3 bg-slate-50 border rounded-lg flex justify-between items-center">
-                        <div>
-                            <span class="font-bold text-blue-900">${bm.numero}</span> - <span class="text-slate-500">${bm.data}</span> (Resp: ${bm.engenheiro})
-                        </div>
-                        <div class="font-bold text-emerald-600">
-                            + R$ ${bm.valorTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function gerarRelatorioBM() {
-            if (historicoMedicoes.length === 0) {
-                alert("Por favor, clique em 'Salvar Medição' antes de gerar o relatório.");
-                return;
-            }
-
-            const ultimoBM = historicoMedicoes[historicoMedicoes.length - 1];
-
-            document.getElementById('relObraNome').innerText = document.getElementById('cadNome').value || 'BOLETIM DE MEDIÇÃO';
-            document.getElementById('relContratoInfo').innerText = `Contrato: ${document.getElementById('cadContrato').value} | Cliente: ${document.getElementById('cadCliente').value} | Valor Licitação: R$ ${parseFloat(document.getElementById('cadValorLicitacao').value || 0).toLocaleString('pt-BR')}`;
-            document.getElementById('relBMNumero').innerText = ultimoBM.numero;
-            document.getElementById('relBMData').innerText = `Data: ${ultimoBM.data}`;
-            document.getElementById('relEngNome').innerText = ultimoBM.engenheiro;
-            document.getElementById('relValorTotalBM').innerText = 'R$ ' + ultimoBM.valorTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2});
-
-            const tbody = document.getElementById('relCorpoTabela');
-            tbody.innerHTML = '';
-
-            eapContrato.forEach((item, idx) => {
-                let qtdAcumulada = 0;
-                historicoMedicoes.forEach(bm => {
-                    if (bm.itens[idx]) qtdAcumulada += bm.itens[idx].qtdPeriodo;
-                });
-
-                const qtdPeriodo = ultimoBM.itens[idx] ? ultimoBM.itens[idx].qtdPeriodo : 0;
-                const saldo = item.qtdTotal - qtdAcumulada;
-                const valorPeriodo = qtdPeriodo * item.precoUnit;
-                const porc = (qtdAcumulada / item.qtdTotal) * 100;
-
-                tbody.innerHTML += `
-                    <tr class="border-b">
-                        <td class="p-2 font-bold">${item.codigo}</td>
-                        <td class="p-2">${item.descricao}</td>
-                        <td class="p-2">${item.unidade}</td>
-                        <td class="p-2">${item.qtdTotal.toLocaleString('pt-BR')}</td>
-                        <td class="p-2 font-bold text-blue-800">${qtdPeriodo.toLocaleString('pt-BR')}</td>
-                        <td class="p-2 font-bold">${qtdAcumulada.toLocaleString('pt-BR')}</td>
-                        <td class="p-2 text-amber-800">${saldo.toLocaleString('pt-BR')}</td>
-                        <td class="p-2 font-bold text-emerald-700">R$ ${valorPeriodo.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
-                        <td class="p-2 font-bold">${porc.toFixed(1)} %</td>
-                    </tr>
-                `;
-            });
-
-            document.getElementById('areaRelatorio').classList.remove('hidden');
-            window.scrollTo(0, document.body.scrollHeight);
+            const res = document.getElementById('resAditivo');
+            res.classList.remove('hidden');
+            document.getElementById('descAditivo').innerHTML = `Termo Aditivo registrado! Acréscimo financeiro: <b>${valor.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</b> | Aditivo de prazo: <b>${prazo} dias</b>. Motivo: <i>"${motivo}"</i>.`;
         }
 
         function calcularEVM() {
-            const BAC = parseFloat(document.getElementById('evmBAC').value);
-            const PV = parseFloat(document.getElementById('evmPV').value);
-            const EV = parseFloat(document.getElementById('evmEV').value);
-            const AC = parseFloat(document.getElementById('evmAC').value);
+            const pv = parseFloat(document.getElementById('evmPV').value) || 0;
+            const ev = parseFloat(document.getElementById('evmEV').value) || 0;
+            const ac = parseFloat(document.getElementById('evmAC').value) || 0;
 
-            const CPI = EV / AC;
-            const SPI = EV / PV;
-            const EAC = BAC / CPI;
-            const TCPI = (BAC - EV) / (BAC - AC);
+            const sv = ev - pv;
+            const cv = ev - ac;
+            const spi = pv > 0 ? ev / pv : 0;
+            const cpi = ac > 0 ? ev / ac : 0;
+            const bac = 12000000;
+            const eac = cpi > 0 ? bac / cpi : bac;
+
+            document.getElementById('valSV').textContent = sv.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+            document.getElementById('valCV').textContent = cv.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+            document.getElementById('valSPI').textContent = spi.toFixed(2);
+            document.getElementById('valCPI').textContent = cpi.toFixed(2);
+            document.getElementById('valEAC').textContent = eac.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
 
             document.getElementById('resEVM').classList.remove('hidden');
-
-            const cpiEl = document.getElementById('valCPI');
-            cpiEl.innerText = CPI.toFixed(2);
-            cpiEl.className = `text-base font-bold ${CPI >= 1 ? 'text-emerald-600' : 'text-rose-600'}`;
-
-            const spiEl = document.getElementById('valSPI');
-            spiEl.innerText = SPI.toFixed(2);
-            spiEl.className = `text-base font-bold ${SPI >= 1 ? 'text-emerald-600' : 'text-rose-600'}`;
-
-            document.getElementById('valEAC').innerText = 'R$ ' + EAC.toLocaleString('pt-BR', {maximumFractionDigits: 0});
-            document.getElementById('valTCPI').innerText = TCPI.toFixed(2);
-
-            const diag = document.getElementById('diagEVM');
-            if (CPI < 1 && SPI < 1) {
-                diag.className = "p-4 rounded-xl text-xs leading-relaxed bg-rose-50 border border-rose-200 text-rose-800";
-                diag.innerHTML = `<strong>Diagnóstico Crítico:</strong> Projeto atrasado (SPI = ${SPI.toFixed(2)}) e acima do orçamento (CPI = ${CPI.toFixed(2)}). O custo projetado ($EAC$) subiu para R$ ${EAC.toLocaleString('pt-BR')}[cite: 231, 235, 269].`;
-            } else {
-                diag.className = "p-4 rounded-xl text-xs leading-relaxed bg-emerald-50 border border-emerald-200 text-emerald-800";
-                diag.innerHTML = `<strong>Diagnóstico Favorável:</strong> Projeto dentro dos padrões planejados.`;
-            }
+            document.getElementById('descEVM').innerHTML = `Indicadores processados com sucesso! SPI: ${spi.toFixed(2)} | CPI: ${cpi.toFixed(2)}. Projeção EAC: ${eac.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}.`;
         }
 
-        function calcularEMV() {
-            const probSem = parseFloat(document.getElementById('probSem').value) / 100;
-            const impSem = parseFloat(document.getElementById('impSem').value);
-
-            const custoAcao = parseFloat(document.getElementById('custoAcao').value);
-            const probCom = parseFloat(document.getElementById('probCom').value) / 100;
-            const impCom = parseFloat(document.getElementById('impCom').value);
-
-            const emvSem = probSem * impSem;
-            const emvCom = custoAcao + (probCom * impCom);
-            const economia = emvSem - emvCom;
-
-            document.getElementById('resEMV').classList.remove('hidden');
-            document.getElementById('titEMV').innerText = economia > 0 ? "Recomendado: Ação Mitigatória Viável" : "Não Recomendado: Custo Elevado";
-            document.getElementById('descEMV').innerHTML = `
-                EMV sem mitigação: <strong>R$ ${emvSem.toLocaleString('pt-BR')}</strong>.<br>
-                EMV com mitigação: <strong>R$ ${emvCom.toLocaleString('pt-BR')}</strong>.<br>
-                <strong>Economia Líquida Estimada:</strong> R$ ${economia.toLocaleString('pt-BR')}[cite: 56].
-            `;
-        }
+        window.onload = function() {
+            carregarTabelaMedicao();
+        };
     </script>
 </body>
 </html>
