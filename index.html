@@ -24,7 +24,9 @@
 </head>
 <body class="bg-slate-100 font-sans text-slate-800">
 
-    <!-- TELA DE LOGIN / CAPA DO PRODUTO -->
+    <!-- ========================================== -->
+    <!-- TELA DE LOGIN / CAPA DO PRODUTO            -->
+    <!-- ========================================== -->
     <div id="login-screen" class="min-h-screen flex flex-col md:flex-row">
         <div class="md:w-3/5 bg-cover-custom text-white flex flex-col justify-center p-8 lg:p-16 shadow-2xl z-10">
             <div class="max-w-2xl">
@@ -36,16 +38,16 @@
                     Domine a Gestão de <span class="text-amber-400">Obras na Prática.</span>
                 </h1>
                 <p class="text-base lg:text-lg text-blue-100 mb-8 leading-relaxed">
-                    Cadastre projetos, crie EAPs personalizadas, controle saldos de medições com histórico e analise indicadores de EVM e riscos em tempo real.
+                    Cadastre licitações, elabore orçamentos analíticos com BDI, realize medições de campo com histórico de saldos e analise indicadores de EVM e riscos em tempo real.
                 </p>
                 <div class="space-y-3 text-sm text-blue-200">
                     <div class="flex items-center space-x-3">
                         <i class="fa-solid fa-circle-check text-emerald-400"></i>
-                        <span>Controle de Saldo de Medição por Histórico e Método de Cálculo</span>
+                        <span>Licitação $\rightarrow$ Orçamento & Insumos $\rightarrow$ PERT $\rightarrow$ Medição com Saldo $\rightarrow$ EVM & Riscos</span>
                     </div>
                     <div class="flex items-center space-x-3">
                         <i class="fa-solid fa-circle-check text-emerald-400"></i>
-                        <span>Emissão de Relatório do Boletim de Medição (BM) em PDF / Impressão</span>
+                        <span>Emissão de Relatório de Medição (BM) em Impressão/PDF</span>
                     </div>
                 </div>
             </div>
@@ -58,7 +60,7 @@
                         <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd.jpg" alt="Gestão de Obras" class="w-20 h-20 rounded-2xl object-cover shadow-lg border-2 border-blue-600">
                     </div>
                     <h2 class="text-2xl font-bold text-slate-900">Acesso do Aluno</h2>
-                    <p class="text-xs text-slate-500 mt-1">Insira suas credenciais para acessar a plataforma.</p>
+                    <p class="text-xs text-slate-500 mt-1">Insira suas credenciais para acessar os simuladores do curso.</p>
                 </div>
 
                 <form class="space-y-4" onsubmit="fazerLogin(event)">
@@ -78,7 +80,9 @@
         </div>
     </div>
 
-    <!-- ÁREA DA PLATAFORMA INTERATIVA -->
+    <!-- ========================================== -->
+    <!-- ÁREA DA PLATAFORMA INTERATIVA              -->
+    <!-- ========================================== -->
     <div id="platform-screen" class="hidden min-h-screen flex flex-col">
         <header class="bg-blue-900 text-white shadow-lg sticky top-0 z-50 no-print">
             <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
@@ -102,41 +106,49 @@
                 <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 px-1">Módulos do Curso</h2>
 
                 <button onclick="switchTab('mod1')" id="btn-mod1" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm transition flex items-center space-x-3 border-blue-600 ring-2 ring-blue-100">
-                    <div class="p-2 bg-blue-50 text-blue-600 rounded-lg"><i class="fa-solid fa-building"></i></div>
+                    <div class="p-2 bg-blue-50 text-blue-600 rounded-lg"><i class="fa-solid fa-file-contract"></i></div>
                     <div>
-                        <p class="font-bold text-xs text-slate-800">Módulo 1: Cadastro do Projeto</p>
-                        <p class="text-[10px] text-slate-500">Contrato & Licitação</p>
+                        <p class="font-bold text-xs text-slate-800">Módulo 1: Licitação & Contrato</p>
+                        <p class="text-[10px] text-slate-500">Premissas & Licitação</p>
                     </div>
                 </button>
 
                 <button onclick="switchTab('mod2')" id="btn-mod2" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm hover:border-blue-500 transition flex items-center space-x-3 border-slate-200">
-                    <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg"><i class="fa-solid fa-sitemap"></i></div>
+                    <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg"><i class="fa-solid fa-calculator"></i></div>
                     <div>
-                        <p class="font-bold text-xs text-slate-800">Módulo 2: Cadastro da EAP</p>
-                        <p class="text-[10px] text-slate-500">Escopo & Métodos de Medição</p>
+                        <p class="font-bold text-xs text-slate-800">Módulo 2: Orçamento & EAP</p>
+                        <p class="text-[10px] text-slate-500">Insumos, BDI & Quantitativos</p>
                     </div>
                 </button>
 
                 <button onclick="switchTab('mod3')" id="btn-mod3" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm hover:border-blue-500 transition flex items-center space-x-3 border-slate-200">
-                    <div class="p-2 bg-violet-50 text-violet-600 rounded-lg"><i class="fa-solid fa-calculator"></i></div>
+                    <div class="p-2 bg-cyan-50 text-cyan-600 rounded-lg"><i class="fa-solid fa-clock"></i></div>
                     <div>
-                        <p class="font-bold text-xs text-slate-800">Módulo 3: Lançamento de Medição</p>
-                        <p class="text-[10px] text-slate-500">Histórico & Controle de Saldo</p>
+                        <p class="font-bold text-xs text-slate-800">Módulo 3: Prazos & PERT</p>
+                        <p class="text-[10px] text-slate-500">Estimativas & Prazos</p>
                     </div>
                 </button>
 
                 <button onclick="switchTab('mod4')" id="btn-mod4" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm hover:border-blue-500 transition flex items-center space-x-3 border-slate-200">
-                    <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="p-2 bg-violet-50 text-violet-600 rounded-lg"><i class="fa-solid fa-list-check"></i></div>
                     <div>
-                        <p class="font-bold text-xs text-slate-800">Módulo 4: Simulador EVM</p>
-                        <p class="text-[10px] text-slate-500">Valor Agregado & Forecast</p>
+                        <p class="font-bold text-xs text-slate-800">Módulo 4: Medição de Campo</p>
+                        <p class="text-[10px] text-slate-500">Histórico & Controle de Saldo</p>
                     </div>
                 </button>
 
                 <button onclick="switchTab('mod5')" id="btn-mod5" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm hover:border-blue-500 transition flex items-center space-x-3 border-slate-200">
+                    <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg"><i class="fa-solid fa-chart-line"></i></div>
+                    <div>
+                        <p class="font-bold text-xs text-slate-800">Módulo 5: Simulador EVM</p>
+                        <p class="text-[10px] text-slate-500">Valor Agregado & Forecast</p>
+                    </div>
+                </button>
+
+                <button onclick="switchTab('mod6')" id="btn-mod6" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm hover:border-blue-500 transition flex items-center space-x-3 border-slate-200">
                     <div class="p-2 bg-amber-50 text-amber-600 rounded-lg"><i class="fa-solid fa-shield-halved"></i></div>
                     <div>
-                        <p class="font-bold text-xs text-slate-800">Módulo 5: Gestão de Riscos</p>
+                        <p class="font-bold text-xs text-slate-800">Módulo 6: Gestão de Riscos</p>
                         <p class="text-[10px] text-slate-500">EMV & Tomada de Decisão</p>
                     </div>
                 </button>
@@ -145,17 +157,22 @@
             <!-- Área Central de Conteúdo -->
             <section class="lg:col-span-3">
 
-                <!-- MODULO 1: CADASTRO DO CONTRATO -->
+                <!-- MODULO 1: LICITAÇÃO & DADOS DO CONTRATO -->
                 <div id="mod1" class="tab-content space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-[10px] font-bold uppercase">Módulo 1 · Dados Contratuais</span>
-                        <h2 class="text-xl font-bold mt-2 text-slate-800">Cadastro do Contrato & Empreendimento</h2>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-[10px] font-bold uppercase">Módulo 1 · Dados Contratuais & Engenharia</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-800">Cadastro do Contrato & Valor da Licitação</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                            Defina as premissas gerais do projeto. Estes dados farão parte do cabeçalho oficial dos boletins e relatórios de medição[cite: 350].
+                            Registe os parâmetros reais da licitação/contrato. Estes dados alimentam a rotina de relatórios, gestão visual de indicadores e requisitos de inspecção de serviços[cite: 350, 358, 438].
                         </p>
                     </div>
 
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                            <i class="fa-solid fa-file-contract text-blue-600"></i>
+                            <span>Premissas Contratuais & Valor da Licitação</span>
+                        </h3>
+
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                             <div>
                                 <label class="font-bold text-slate-600">Obra / Empreendimento</label>
@@ -166,34 +183,75 @@
                                 <input type="text" id="cadCliente" value="Incorporadora Alfa S/A" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                             <div>
-                                <label class="font-bold text-slate-600">Nº do Contrato</label>
+                                <label class="font-bold text-slate-600">Nº do Contrato / Licitação</label>
                                 <input type="text" id="cadContrato" value="CTR-2026/089-ENG" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Valor da Licitação / Venda (R$)</label>
+                                <input type="number" id="cadValorLicitacao" value="12000000" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Prazo Contratual (Meses)</label>
+                                <input type="number" id="cadPrazo" value="18" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Área Construída Total ($m^2$)</label>
+                                <input type="number" id="cadArea" value="8500" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
                         </div>
+
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2 pt-2 border-t">
+                            <i class="fa-solid fa-user-gear text-blue-600"></i>
+                            <span>Atribuições da Engenharia de Campo & Qualidade</span>
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs bg-slate-50 p-4 rounded-xl border">
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" checked class="rounded text-blue-600">
+                                <span class="text-slate-700">Gestão Visual de Indicadores no Canteiro</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" checked class="rounded text-blue-600">
+                                <span class="text-slate-700">Fichas de Inspecção de Serviços (FVS/FVK)</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" checked class="rounded text-blue-600">
+                                <span class="text-slate-700">Relatório Fotográfico Semanal de Avanço</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" checked class="rounded text-blue-600">
+                                <span class="text-slate-700">Levantamento Quantitativo Real vs. Projeto</span>
+                            </label>
+                        </div>
+
                         <button onclick="salvarCadastro()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
-                            Salvar Dados do Contrato
+                            Salvar Premissas Contratuais & Gerar Ficha da Obra
                         </button>
-                        <div id="resCad" class="hidden bg-blue-50 border border-blue-200 p-4 rounded-xl text-xs text-blue-900 font-medium"></div>
+
+                        <div id="resCad" class="hidden bg-blue-50 border border-blue-200 p-4 rounded-xl space-y-2 text-xs text-blue-900">
+                            <p class="font-bold">Parâmetros do Contrato Salvos com Sucesso!</p>
+                            <p id="descCad" class="text-slate-700 leading-relaxed"></p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- MODULO 2: CADASTRO DA EAP & MÉTODO DE MEDIÇÃO -->
+                <!-- MODULO 2: ORÇAMENTO & EAP COM INSUMOS E BDI -->
                 <div id="mod2" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-[10px] font-bold uppercase">Módulo 2 · Estruturação do Escopo</span>
-                        <h2 class="text-xl font-bold mt-2 text-slate-800">Cadastro de Itens da EAP & Métodos de Medição</h2>
+                        <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-[10px] font-bold uppercase">Módulo 2 · Engenharia de Custos & EAP</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-800">Orçamento Analítico, Insumos e BDI</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                            Defina a Estrutura Analítica do Projeto (EAP)[cite: 362]. Atribua para cada pacote o método técnico de medição que regerá a apuração do avanço físico e o saldo do contrato[cite: 214].
+                            Cadastre a EAP e discrimine os insumos (Mão de Obra, Material, Equipamentos, Serviços)[cite: 437]. Atribua os métodos de medição e aplique BDI para formar o preço final ($BAC$)[cite: 214, 362].
                         </p>
                     </div>
 
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
                         <div class="flex justify-between items-center">
                             <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2">
-                                <i class="fa-solid fa-list-ol text-indigo-600"></i>
-                                <span>Itens de Contrato (Linha de Base de Medição)</span>
+                                <i class="fa-solid fa-list-check text-indigo-600"></i>
+                                <span>Composição Analítica dos Itens da EAP e Insumos</span>
                             </h3>
-                            <button onclick="adicionarItemEAP()" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold px-3 py-1.5 rounded-lg text-xs transition border border-indigo-200">
+                            <button onclick="adicionarLinhaOrcamento()" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold px-3 py-1.5 rounded-lg text-xs transition border border-indigo-200">
                                 + Adicionar Item EAP
                             </button>
                         </div>
@@ -202,71 +260,166 @@
                             <table class="w-full text-left border-collapse text-xs">
                                 <thead>
                                     <tr class="bg-slate-100 border-b text-slate-600 font-bold">
-                                        <th class="p-2 w-20">Item EAP</th>
-                                        <th class="p-2">Descrição do Serviço / Pacote</th>
+                                        <th class="p-2 w-16">Item EAP</th>
+                                        <th class="p-2 w-28">Tipo Insumo</th>
+                                        <th class="p-2">Descrição do Serviço / Insumo</th>
                                         <th class="p-2 w-16">Unid.</th>
-                                        <th class="p-2 w-24">Qtd. Total</th>
-                                        <th class="p-2 w-28">Preço Unit. (R$)</th>
-                                        <th class="p-2 w-48">Método de Medição Atribuído</th>
+                                        <th class="p-2 w-20">Qtd. Total</th>
+                                        <th class="p-2 w-24">Custo Unit. (R$)</th>
+                                        <th class="p-2 w-40">Método Medição</th>
+                                        <th class="p-2 w-28">Total Direto</th>
                                         <th class="p-2 w-12 text-center">Ação</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tabelaEAP">
+                                <tbody id="tabelaOrcamento">
                                     <tr class="border-b hover:bg-slate-50">
                                         <td class="p-2"><input type="text" value="1.1" class="w-full p-1 border rounded text-[11px] codigo-eap"></td>
+                                        <td class="p-2">
+                                            <select class="border rounded p-1 text-[11px] tipo-insumo">
+                                                <option value="MO" selected>Mão de Obra</option>
+                                                <option value="MAT">Material</option>
+                                                <option value="EQP">Equipamento</option>
+                                                <option value="SERV">Serviço Terceirizado</option>
+                                            </select>
+                                        </td>
                                         <td class="p-2"><input type="text" value="Escavação e Movimentação de Terra" class="w-full p-1 border rounded text-[11px] desc-eap"></td>
                                         <td class="p-2"><input type="text" value="m³" class="w-full p-1 border rounded text-[11px] unid-eap"></td>
-                                        <td class="p-2"><input type="number" value="3500" class="w-full p-1 border rounded text-[11px] qtd-eap"></td>
-                                        <td class="p-2"><input type="number" value="45.00" class="w-full p-1 border rounded text-[11px] preco-eap"></td>
+                                        <td class="p-2"><input type="number" value="3500" onchange="recalcularLinha(this)" class="w-full p-1 border rounded text-[11px] qtd-item"></td>
+                                        <td class="p-2"><input type="number" value="45.00" onchange="recalcularLinha(this)" class="w-full p-1 border rounded text-[11px] val-item"></td>
                                         <td class="p-2">
                                             <select class="w-full p-1 border rounded text-[11px] metodo-eap">
                                                 <option value="Unidades Concluídas" selected>Unidades Concluídas (Qtd)</option>
                                                 <option value="Marcos Ponderados">Marcos Ponderados (%)</option>
                                                 <option value="Regra 50/50">Regra Início/Término (50/50)</option>
-                                                <option value="Nível de Esforço">Nível de Esforço (LOE - Tempo)</option>
+                                                <option value="Nível de Esforço">Nível de Esforço (LOE)</option>
                                             </select>
                                         </td>
+                                        <td class="p-2 font-bold text-slate-700 total-linha">R$ 157.500,00</td>
                                         <td class="p-2 text-center"><button onclick="removerLinha(this)" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash-can"></i></button></td>
                                     </tr>
                                     <tr class="border-b hover:bg-slate-50">
                                         <td class="p-2"><input type="text" value="2.1" class="w-full p-1 border rounded text-[11px] codigo-eap"></td>
-                                        <td class="p-2"><input type="text" value="Estrutura de Concreto Armado" class="w-full p-1 border rounded text-[11px] desc-eap"></td>
+                                        <td class="p-2">
+                                            <select class="border rounded p-1 text-[11px] tipo-insumo">
+                                                <option value="MAT" selected>Material</option>
+                                                <option value="MO">Mão de Obra</option>
+                                                <option value="EQP">Equipamento</option>
+                                                <option value="SERV">Serviço Terceirizado</option>
+                                            </select>
+                                        </td>
+                                        <td class="p-2"><input type="text" value="Concreto Usinado Fck=30MPa" class="w-full p-1 border rounded text-[11px] desc-eap"></td>
                                         <td class="p-2"><input type="text" value="m³" class="w-full p-1 border rounded text-[11px] unid-eap"></td>
-                                        <td class="p-2"><input type="number" value="1800" class="w-full p-1 border rounded text-[11px] qtd-eap"></td>
-                                        <td class="p-2"><input type="number" value="1250.00" class="w-full p-1 border rounded text-[11px] preco-eap"></td>
+                                        <td class="p-2"><input type="number" value="1800" onchange="recalcularLinha(this)" class="w-full p-1 border rounded text-[11px] qtd-item"></td>
+                                        <td class="p-2"><input type="number" value="450.00" onchange="recalcularLinha(this)" class="w-full p-1 border rounded text-[11px] val-item"></td>
                                         <td class="p-2">
                                             <select class="w-full p-1 border rounded text-[11px] metodo-eap">
                                                 <option value="Unidades Concluídas" selected>Unidades Concluídas (Qtd)</option>
                                                 <option value="Marcos Ponderados">Marcos Ponderados (%)</option>
                                                 <option value="Regra 50/50">Regra Início/Término (50/50)</option>
-                                                <option value="Nível de Esforço">Nível de Esforço (LOE - Tempo)</option>
+                                                <option value="Nível de Esforço">Nível de Esforço (LOE)</option>
                                             </select>
                                         </td>
+                                        <td class="p-2 font-bold text-slate-700 total-linha">R$ 810.000,00</td>
                                         <td class="p-2 text-center"><button onclick="removerLinha(this)" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash-can"></i></button></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
 
-                        <button onclick="salvarEAP()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
-                            Salvar EAP & Liberar Módulo de Medições
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs pt-4 border-t">
+                            <div>
+                                <label class="font-bold text-slate-600">Custo Indireto do Canteiro (R$)</label>
+                                <input type="number" id="orcIndireto" value="450000" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Taxa de BDI (%)</label>
+                                <input type="number" id="orcBDI" value="25.0" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Impostos sobre Fatura (%)</label>
+                                <input type="number" id="orcImpostos" value="8.65" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                        </div>
+
+                        <button onclick="calcularOrcamentoTotal()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
+                            Consolidar Orçamento (BAC) & Enviar para Medição
                         </button>
 
-                        <div id="resEAP" class="hidden bg-indigo-50 border border-indigo-200 p-4 rounded-xl text-xs text-indigo-900 font-medium"></div>
+                        <div id="resOrc" class="hidden bg-indigo-50 border border-indigo-200 p-4 rounded-xl space-y-2 text-xs">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-center">
+                                <div class="bg-white p-3 rounded-lg border">
+                                    <p class="text-slate-500 font-bold">Custo Direto Insumos</p>
+                                    <p id="valCustoDireto" class="text-sm font-bold text-indigo-900">R$ 0,00</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg border">
+                                    <p class="text-slate-500 font-bold">Custo Indireto</p>
+                                    <p id="valCustoIndireto" class="text-sm font-bold text-indigo-900">R$ 0,00</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg border">
+                                    <p class="text-slate-500 font-bold">Valor BDI</p>
+                                    <p id="valValorBDI" class="text-sm font-bold text-indigo-900">R$ 0,00</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg border">
+                                    <p class="text-slate-500 font-bold">Preço de Venda / BAC</p>
+                                    <p id="valBACFinal" class="text-sm font-bold text-emerald-600">R$ 0,00</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- MODULO 3: LANÇAMENTO DE MEDIÇÃO & HISTÓRICO DE SALDO -->
+                <!-- MODULO 3: PRAZOS & PERT -->
                 <div id="mod3" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-violet-100 text-violet-800 rounded-full text-[10px] font-bold uppercase">Módulo 3 · Acompanhamento de Campo</span>
+                        <span class="px-3 py-1 bg-cyan-100 text-cyan-800 rounded-full text-[10px] font-bold uppercase">Módulo 3 · Planejamento Executivo</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-800">Estimativa Probabilística PERT e Prazos</h2>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                            Calcule a duração de um pacote de trabalho com incerteza através da média ponderada PERT: $TE = \frac{O + 4M + P}{6}$[cite: 415, 416].
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                            <i class="fa-solid fa-calculator text-cyan-600"></i>
+                            <span>Calculadora de Prazos PERT</span>
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                            <div>
+                                <label class="font-bold text-slate-600">Cenário Otimista ($O$) - Dias</label>
+                                <input type="number" id="pertO" value="12" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Cenário Mais Provável ($M$) - Dias</label>
+                                <input type="number" id="pertM" value="20" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Cenário Pessimista ($P$) - Dias</label>
+                                <input type="number" id="pertP" value="34" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                        </div>
+
+                        <button onclick="calcularPERT()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
+                            Calcular Duração Esperada ($TE$)
+                        </button>
+
+                        <div id="resPERT" class="hidden bg-cyan-50 border border-cyan-200 p-4 rounded-xl space-y-2 text-xs">
+                            <p class="font-bold text-cyan-900 text-sm" id="valTE">-- dias</p>
+                            <p id="descPERT" class="text-slate-700 leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODULO 4: MEDIÇÃO & HISTÓRICO DE SALDO -->
+                <div id="mod4" class="tab-content hidden space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <span class="px-3 py-1 bg-violet-100 text-violet-800 rounded-full text-[10px] font-bold uppercase">Módulo 4 · Acompanhamento de Campo</span>
                         <h2 class="text-xl font-bold mt-2 text-slate-800">Boletim de Medição (BM) e Controle de Saldo</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
                             Informe a data da medição e a quantidade executada no período para cada item. A plataforma atualizará o acumulado e recalculará o saldo a executar do contrato[cite: 211, 214, 216].
                         </p>
                     </div>
 
-                    <!-- Formulário do Boletim de Medição -->
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                             <div>
@@ -300,12 +453,11 @@
                                     </tr>
                                 </thead>
                                 <tbody id="tabelaLancamentoMedicao">
-                                    <!-- Preenchido dinamicamente via JS -->
                                 </tbody>
                             </table>
                         </div>
 
-                        <!-- BARRA DE AÇÕES PEDIDA: SALVAR, GERAR RELATÓRIO, SAIR -->
+                        <!-- BARRA DE AÇÕES: SALVAR, GERAR RELATÓRIO, SAIR -->
                         <div class="flex flex-col md:flex-row gap-3 pt-4 border-t">
                             <button onclick="salvarMedicaoAtual()" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition text-xs shadow flex items-center justify-center space-x-2">
                                 <i class="fa-solid fa-floppy-disk"></i>
@@ -335,7 +487,7 @@
                         </div>
                     </div>
 
-                    <!-- AREA DO RELATÓRIO IMPRESSO / VISUALIZÁVEL -->
+                    <!-- AREA DO RELATÓRIO IMPRESSO -->
                     <div id="areaRelatorio" class="hidden bg-white p-8 rounded-2xl shadow-lg border border-slate-300 space-y-6">
                         <div class="flex justify-between items-center border-b pb-4">
                             <div>
@@ -390,13 +542,13 @@
                     </div>
                 </div>
 
-                <!-- MODULO 4: EVM (INTEGRADO AUTOMATICAMENTE) -->
-                <div id="mod4" class="tab-content hidden space-y-6">
+                <!-- MODULO 5: SIMULADOR EVM -->
+                <div id="mod5" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-bold uppercase">Módulo 4 · Gestão do Valor Agregado</span>
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-bold uppercase">Módulo 5 · Gestão do Valor Agregado</span>
                         <h2 class="text-xl font-bold mt-2 text-slate-800">Simulador EVM & Diagnóstico de Desempenho</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                            O Valor Agregado ($EV$) é obtido automaticamente através da medição acumulada de campo[cite: 211, 231].
+                            O Valor Agregado ($EV$) é atualizado dinamicamente pelo acumulo das medições de campo[cite: 211, 231].
                         </p>
                     </div>
 
@@ -404,15 +556,15 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                             <div>
                                 <label class="font-bold text-slate-600">Orçamento no Término ($BAC$) - R$</label>
-                                <input type="number" id="evmBAC" value="2407500" class="w-full mt-1 p-2.5 border rounded-lg">
+                                <input type="number" id="evmBAC" value="1761875" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                             <div>
                                 <label class="font-bold text-slate-600">Valor Planejado ($PV$) - R$</label>
                                 <input type="number" id="evmPV" value="1200000" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                             <div>
-                                <label class="font-bold text-slate-600">Valor Agregado Real Medido ($EV$) - R$</label>
-                                <input type="number" id="evmEV" value="950000" class="w-full mt-1 p-2.5 border rounded-lg">
+                                <label class="font-bold text-slate-600">Valor Agregado Medido ($EV$) - R$</label>
+                                <input type="number" id="evmEV" value="967500" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                             <div>
                                 <label class="font-bold text-slate-600">Custo Real Incorrido ($AC$) - R$</label>
@@ -448,10 +600,10 @@
                     </div>
                 </div>
 
-                <!-- MODULO 5: RISCOS -->
-                <div id="mod5" class="tab-content hidden space-y-6">
+                <!-- MODULO 6: GESTÃO DE RISCOS -->
+                <div id="mod6" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-[10px] font-bold uppercase">Módulo 5 · Incertezas & Tomada de Decisão</span>
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-[10px] font-bold uppercase">Módulo 6 · Incertezas & Tomada de Decisão</span>
                         <h2 class="text-xl font-bold mt-2 text-slate-800">Análise Monetária Esperada de Riscos ($EMV$)</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
                             Avalie se a contratação de uma ação preventiva compensa financeiramente o risco de paralisação ou atraso[cite: 56].
@@ -504,9 +656,8 @@
         </main>
     </div>
 
-    <!-- SCRIPT DE LÓGICA DE DADOS, SALDO HISTÓRICO E NAVEGAÇÃO -->
+    <!-- SCRIPT COMPLETO DE LÓGICA E CONEXÕES DA PLATAFORMA -->
     <script>
-        // Estrutura de dados em memória
         let eapContrato = [];
         let historicoMedicoes = [];
 
@@ -515,7 +666,7 @@
             document.getElementById('login-screen').classList.add('hidden');
             document.getElementById('platform-screen').classList.remove('hidden');
             window.scrollTo(0, 0);
-            carregarTabelaEAPPadrao();
+            calcularOrcamentoTotal();
         }
 
         function fazerLogout() {
@@ -534,74 +685,117 @@
             });
             document.getElementById('btn-' + tabId).classList.add('border-blue-600', 'ring-2', 'ring-blue-100');
 
-            if (tabId === 'mod3') {
+            if (tabId === 'mod4') {
                 carregarTabelaLancamento();
             }
         }
 
         function salvarCadastro() {
             const nome = document.getElementById('cadNome').value;
-            const res = document.getElementById('resCad');
-            res.classList.remove('hidden');
-            res.innerHTML = `Contrato para a obra <strong>${nome}</strong> salvo com sucesso.`;
+            const cliente = document.getElementById('cadCliente').value;
+            const contrato = document.getElementById('cadContrato').value;
+            const valorLicitacao = parseFloat(document.getElementById('cadValorLicitacao').value) || 0;
+            const prazo = document.getElementById('cadPrazo').value;
+
+            document.getElementById('resCad').classList.remove('hidden');
+            document.getElementById('descCad').innerHTML = `
+                Contrato <strong>${contrato}</strong> (${nome}) para o cliente <strong>${cliente}</strong> salvo.<br>
+                <strong>Valor da Licitação:</strong> R$ ${valorLicitacao.toLocaleString('pt-BR', {minimumFractionDigits: 2})} | <strong>Prazo:</strong> ${prazo} meses.
+            `;
         }
 
-        function adicionarItemEAP() {
-            const tbody = document.getElementById('tabelaEAP');
+        function adicionarLinhaOrcamento() {
+            const tbody = document.getElementById('tabelaOrcamento');
             const tr = document.createElement('tr');
             tr.className = 'border-b hover:bg-slate-50';
             tr.innerHTML = `
                 <td class="p-2"><input type="text" placeholder="1.3" class="w-full p-1 border rounded text-[11px] codigo-eap"></td>
-                <td class="p-2"><input type="text" placeholder="Novo Item de Serviço" class="w-full p-1 border rounded text-[11px] desc-eap"></td>
+                <td class="p-2">
+                    <select class="border rounded p-1 text-[11px] tipo-insumo">
+                        <option value="MO">Mão de Obra</option>
+                        <option value="MAT">Material</option>
+                        <option value="EQP">Equipamento</option>
+                        <option value="SERV">Serviço Terceirizado</option>
+                    </select>
+                </td>
+                <td class="p-2"><input type="text" placeholder="Novo Serviço / Insumo" class="w-full p-1 border rounded text-[11px] desc-eap"></td>
                 <td class="p-2"><input type="text" value="un" class="w-full p-1 border rounded text-[11px] unid-eap"></td>
-                <td class="p-2"><input type="number" value="100" class="w-full p-1 border rounded text-[11px] qtd-eap"></td>
-                <td class="p-2"><input type="number" value="100.00" class="w-full p-1 border rounded text-[11px] preco-eap"></td>
+                <td class="p-2"><input type="number" value="100" onchange="recalcularLinha(this)" class="w-full p-1 border rounded text-[11px] qtd-item"></td>
+                <td class="p-2"><input type="number" value="50.00" onchange="recalcularLinha(this)" class="w-full p-1 border rounded text-[11px] val-item"></td>
                 <td class="p-2">
                     <select class="w-full p-1 border rounded text-[11px] metodo-eap">
                         <option value="Unidades Concluídas">Unidades Concluídas (Qtd)</option>
                         <option value="Marcos Ponderados">Marcos Ponderados (%)</option>
                         <option value="Regra 50/50">Regra Início/Término (50/50)</option>
-                        <option value="Nível de Esforço">Nível de Esforço (LOE - Tempo)</option>
+                        <option value="Nível de Esforço">Nível de Esforço (LOE)</option>
                     </select>
                 </td>
+                <td class="p-2 font-bold text-slate-700 total-linha">R$ 5.000,00</td>
                 <td class="p-2 text-center"><button onclick="removerLinha(this)" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash-can"></i></button></td>
             `;
             tbody.appendChild(tr);
+            recalcularLinha(tr.querySelector('.qtd-item'));
         }
 
         function removerLinha(btn) {
             btn.closest('tr').remove();
+            calcularOrcamentoTotal();
         }
 
-        function carregarTabelaEAPPadrao() {
-            salvarEAP();
+        function recalcularLinha(input) {
+            const tr = input.closest('tr');
+            const qtd = parseFloat(tr.querySelector('.qtd-item').value) || 0;
+            const val = parseFloat(tr.querySelector('.val-item').value) || 0;
+            const total = qtd * val;
+            tr.querySelector('.total-linha').innerText = 'R$ ' + total.toLocaleString('pt-BR', {minimumFractionDigits: 2});
         }
 
-        function salvarEAP() {
+        function calcularOrcamentoTotal() {
+            let custoDiretoTotal = 0;
             eapContrato = [];
-            let bacTotal = 0;
 
-            document.querySelectorAll('#tabelaEAP tr').forEach(tr => {
+            document.querySelectorAll('#tabelaOrcamento tr').forEach(tr => {
                 const item = {
                     codigo: tr.querySelector('.codigo-eap').value,
+                    tipo: tr.querySelector('.tipo-insumo').value,
                     descricao: tr.querySelector('.desc-eap').value,
                     unidade: tr.querySelector('.unid-eap').value,
-                    qtdTotal: parseFloat(tr.querySelector('.qtd-eap').value) || 0,
-                    precoUnit: parseFloat(tr.querySelector('.preco-eap').value) || 0,
+                    qtdTotal: parseFloat(tr.querySelector('.qtd-item').value) || 0,
+                    precoUnit: parseFloat(tr.querySelector('.val-item').value) || 0,
                     metodo: tr.querySelector('.metodo-eap').value
                 };
                 item.valorTotal = item.qtdTotal * item.precoUnit;
-                bacTotal += item.valorTotal;
+                custoDiretoTotal += item.valorTotal;
                 eapContrato.push(item);
             });
 
-            document.getElementById('resEAP').classList.remove('hidden');
-            document.getElementById('resEAP').innerHTML = `EAP salva com ${eapContrato.length} itens. Orçamento Total Contratado (BAC): <strong>R$ ${bacTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</strong>.`;
+            const custoIndireto = parseFloat(document.getElementById('orcIndireto').value) || 0;
+            const bdiTaxa = (parseFloat(document.getElementById('orcBDI').value) || 0) / 100;
 
-            // Atualiza o BAC no EVM
+            const baseCalculo = custoDiretoTotal + custoIndireto;
+            const valorBDI = baseCalculo * bdiTaxa;
+            const bacFinal = baseCalculo + valorBDI;
+
+            document.getElementById('resOrc').classList.remove('hidden');
+            document.getElementById('valCustoDireto').innerText = 'R$ ' + custoDiretoTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            document.getElementById('valCustoIndireto').innerText = 'R$ ' + custoIndireto.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            document.getElementById('valValorBDI').innerText = 'R$ ' + valorBDI.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            document.getElementById('valBACFinal').innerText = 'R$ ' + bacFinal.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+
             if (document.getElementById('evmBAC')) {
-                document.getElementById('evmBAC').value = bacTotal.toFixed(0);
+                document.getElementById('evmBAC').value = bacFinal.toFixed(0);
             }
+        }
+
+        function calcularPERT() {
+            const O = parseFloat(document.getElementById('pertO').value);
+            const M = parseFloat(document.getElementById('pertM').value);
+            const P = parseFloat(document.getElementById('pertP').value);
+            const TE = (O + (4 * M) + P) / 6;
+
+            document.getElementById('resPERT').classList.remove('hidden');
+            document.getElementById('valTE').innerText = TE.toFixed(1) + " dias úteis";
+            document.getElementById('descPERT').innerText = `Duração estimada ponderada considerando incertezas: ${TE.toFixed(1)} dias.`;
         }
 
         function carregarTabelaLancamento() {
@@ -609,7 +803,6 @@
             tbody.innerHTML = '';
 
             eapContrato.forEach((item, index) => {
-                // Calcula acumulado anterior de historico
                 let qtdAnterior = 0;
                 historicoMedicoes.forEach(bm => {
                     if (bm.itens[index]) {
@@ -621,7 +814,7 @@
                 tr.className = 'border-b hover:bg-slate-50';
                 tr.innerHTML = `
                     <td class="p-2 font-bold text-slate-700">${item.codigo}</td>
-                    <td class="p-2 text-slate-700">${item.descricao} <br><span class="text-[10px] text-slate-400">Método: ${item.metodo}</span></td>
+                    <td class="p-2 text-slate-700">${item.descricao} <br><span class="text-[10px] text-slate-400">Tipo: ${item.tipo} | Método: ${item.metodo}</span></td>
                     <td class="p-2 text-slate-600">${item.qtdTotal.toLocaleString('pt-BR')} ${item.unidade}</td>
                     <td class="p-2 text-slate-600 qtd-anterior">${qtdAnterior.toLocaleString('pt-BR')}</td>
                     <td class="p-2 bg-violet-50">
@@ -638,7 +831,6 @@
         function recalcularSaldoItem(index, input) {
             const tr = input.closest('tr');
             const item = eapContrato[index];
-
             const qtdAnterior = parseFloat(tr.querySelector('.qtd-anterior').innerText.replace(/\./g, '').replace(',', '.')) || 0;
             const qtdPeriodo = parseFloat(input.value) || 0;
 
@@ -659,8 +851,7 @@
             const itensBM = [];
             let valorAgregadoPeriodo = 0;
 
-            const linhas = document.querySelectorAll('#tabelaLancamentoMedicao tr');
-            linhas.forEach((tr, idx) => {
+            document.querySelectorAll('#tabelaLancamentoMedicao tr').forEach((tr, idx) => {
                 const qtdPeriodo = parseFloat(tr.querySelector('.qtd-periodo').value) || 0;
                 const itemOriginal = eapContrato[idx];
                 const valorItemPeriodo = qtdPeriodo * itemOriginal.precoUnit;
@@ -688,7 +879,6 @@
             historicoMedicoes.push(registroBM);
             atualizarListaHistorico();
 
-            // Sincroniza com EVM (Soma total de todos os BMs acumulados)
             let totalEVAcumulado = 0;
             historicoMedicoes.forEach(bm => totalEVAcumulado += bm.valorTotal);
 
@@ -696,7 +886,7 @@
                 document.getElementById('evmEV').value = totalEVAcumulado.toFixed(0);
             }
 
-            alert(`Boletim ${numBM} salvo com sucesso! Valor Agregado no Período: R$ ${valorAgregadoPeriodo.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`);
+            alert(`Boletim ${numBM} salvo! Valor Agregado no Período: R$ ${valorAgregadoPeriodo.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`);
             carregarTabelaLancamento();
         }
 
@@ -731,9 +921,9 @@
             const ultimoBM = historicoMedicoes[historicoMedicoes.length - 1];
 
             document.getElementById('relObraNome').innerText = document.getElementById('cadNome').value || 'BOLETIM DE MEDIÇÃO';
-            document.getElementById('relContratoInfo').innerText = `Contrato: ${document.getElementById('cadContrato').value} | Cliente: ${document.getElementById('cadCliente').value}`;
+            document.getElementById('relContratoInfo').innerText = `Contrato: ${document.getElementById('cadContrato').value} | Cliente: ${document.getElementById('cadCliente').value} | Valor Licitação: R$ ${parseFloat(document.getElementById('cadValorLicitacao').value || 0).toLocaleString('pt-BR')}`;
             document.getElementById('relBMNumero').innerText = ultimoBM.numero;
-            document.getElementById('relBMData').innerText = `Data de Apuração: ${ultimoBM.data}`;
+            document.getElementById('relBMData').innerText = `Data: ${ultimoBM.data}`;
             document.getElementById('relEngNome').innerText = ultimoBM.engenheiro;
             document.getElementById('relValorTotalBM').innerText = 'R$ ' + ultimoBM.valorTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2});
 
