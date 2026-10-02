@@ -235,6 +235,70 @@
                     </div>
                 </div>
 
+                <!-- ========================================================= -->
+<!-- MÓDULO: MARGEM OPERACIONAL (MOP)                          -->
+<!-- ========================================================= -->
+<section id="modulo-mop" class="mop-container">
+  <div class="mop-header">
+    <h2>Margem Operacional (MOP)</h2>
+    <p>Análise de rentabilidade e viabilidade das operações</p>
+  </div>
+
+  <div class="mop-grid">
+    <!-- Indicadores de Resumo (Cards) -->
+    <div class="mop-card-group">
+      <div class="mop-card">
+        <span class="mop-card-label">Receita Operacional Bruta</span>
+        <span class="mop-card-value" id="mop-receita-bruta">R$ 0,00</span>
+      </div>
+      <div class="mop-card">
+        <span class="mop-card-label">Custos Operacionais</span>
+        <span class="mop-card-value" id="mop-custos-operacionais">R$ 0,00</span>
+      </div>
+      <div class="mop-card highlight">
+        <span class="mop-card-label">Margem Operacional (%)</span>
+        <span class="mop-card-value" id="mop-percentual">0,00%</span>
+      </div>
+    </div>
+
+    <!-- Tabela / Formulário de Detalhamento do MOP -->
+    <div class="mop-details-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Item / Descrição</th>
+            <th>Valor (R$)</th>
+            <th>% da Receita</th>
+          </tr>
+        </thead>
+        <tbody id="mop-table-body">
+          <tr>
+            <td>Receita Operacional Líquida</td>
+            <td><input type="number" name="mop_receita_liquida" placeholder="0.00" /></td>
+            <td class="mop-calc-pct">-</td>
+          </tr>
+          <tr>
+            <td>(-) Custos de Operação e Produção</td>
+            <td><input type="number" name="mop_custos_producao" placeholder="0.00" /></td>
+            <td class="mop-calc-pct">-</td>
+          </tr>
+          <tr>
+            <td>(-) Despesas Operacionais / Administrativas</td>
+            <td><input type="number" name="mop_despesas_admin" placeholder="0.00" /></td>
+            <td class="mop-calc-pct">-</td>
+          </tr>
+          <tr class="mop-row-total">
+            <td><strong>(=) Lucro Operacional (EBIT)</strong></td>
+            <td id="mop-lucro-operacional">R$ 0,00</td>
+            <td id="mop-lucro-pct">0.00%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<!-- ========================================================= -->
+                
                 <!-- MODULO 2: ORÇAMENTO & EAP COM INSUMOS E BDI -->
                 <div id="mod2" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
