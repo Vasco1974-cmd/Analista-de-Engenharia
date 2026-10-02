@@ -81,11 +81,32 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- ÁREA DA PLATAFORMA INTERATIVA              -->
+    <!-- ÁREA DA PLATAFORMA INTERATIVA             -->
     <!-- ========================================== -->
-    <!-- Sidebar Navigation -->
-            <aside class="lg:col-span-1 space-y-2 no-print">
-                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 px-1">Módulos do Curso</h2>
+    <div id="platform-screen" class="hidden min-h-screen flex flex-col bg-slate-100">
+        <!-- Topo da Aplicação -->
+        <header class="bg-blue-900 text-white shadow-lg sticky top-0 z-50 no-print">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-helmet-safety text-amber-400 text-2xl"></i>
+                    <div>
+                        <h1 class="font-bold text-base leading-tight">MasterClass Gestão Integrada de Obras</h1>
+                        <p class="text-[11px] text-blue-200">Ambiente Prático de Aprendizagem e Simulação</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="text-xs font-medium bg-blue-800 px-3 py-1.5 rounded-lg border border-blue-700">Aluno Conectado</span>
+                    <button onclick="fazerLogout()" class="text-xs bg-rose-600 hover:bg-rose-700 px-3 py-1.5 rounded-lg transition font-bold">Sair</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Corpo Principal em Grid (Sidebar Esquerda + Conteúdo Direita) -->
+        <main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-4 gap-8 flex-1 w-full items-start">
+            
+            <!-- Sidebar Navigation (Fixa na Esquerda) -->
+            <aside class="lg:col-span-1 space-y-2 no-print bg-white p-4 rounded-2xl shadow-sm border border-slate-200 sticky top-24">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 px-1">Módulos do Curso</h2>
 
                 <!-- MÓDULO 1 -->
                 <button onclick="switchTab('mod1')" id="btn-mod1" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm transition flex items-center space-x-3 border-blue-600 ring-2 ring-blue-100">
@@ -132,36 +153,9 @@
                     </div>
                 </button>
             </aside>
-                    </div>
-                </button>
 
-                <button onclick="switchTab('mod4')" id="btn-mod4" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm hover:border-blue-500 transition flex items-center space-x-3 border-slate-200">
-                    <div class="p-2 bg-violet-50 text-violet-600 rounded-lg"><i class="fa-solid fa-list-check"></i></div>
-                    <div>
-                        <p class="font-bold text-xs text-slate-800">Módulo 4: Medição de Campo</p>
-                        <p class="text-[10px] text-slate-500">Histórico & Controle de Saldo</p>
-                    </div>
-                </button>
-
-                <button onclick="switchTab('mod5')" id="btn-mod5" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm hover:border-blue-500 transition flex items-center space-x-3 border-slate-200">
-                    <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg"><i class="fa-solid fa-chart-line"></i></div>
-                    <div>
-                        <p class="font-bold text-xs text-slate-800">Módulo 5: Simulador EVM</p>
-                        <p class="text-[10px] text-slate-500">Valor Agregado & Forecast</p>
-                    </div>
-                </button>
-
-                <button onclick="switchTab('mod6')" id="btn-mod6" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm hover:border-blue-500 transition flex items-center space-x-3 border-slate-200">
-                    <div class="p-2 bg-amber-50 text-amber-600 rounded-lg"><i class="fa-solid fa-shield-halved"></i></div>
-                    <div>
-                        <p class="font-bold text-xs text-slate-800">Módulo 6: Gestão de Riscos</p>
-                        <p class="text-[10px] text-slate-500">EMV & Tomada de Decisão</p>
-                    </div>
-                </button>
-            </aside>
-
-            <!-- Área Central de Conteúdo -->
-            <section class="lg:col-span-3">
+            <!-- Área Central de Conteúdo Dinâmico (Direita) -->
+            <section class="lg:col-span-3 space-y-6">
 
                 <!-- MODULO 1: LICITAÇÃO & DADOS DO CONTRATO -->
                 <div id="mod1" class="tab-content space-y-6">
@@ -169,7 +163,7 @@
                         <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-[10px] font-bold uppercase">Módulo 1 • Dados Contratuais & Engenharia</span>
                         <h2 class="text-xl font-bold mt-2 text-slate-800">Cadastro do Contrato & Valor da Licitação</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                            Registe os parâmetros reais da licitação/contrato. Estes dados alimentam a rotina de relatórios, gestão visual de indicadores e requisitos de inspecção de serviços[cite: 350, 358, 438].
+                            Registe os parâmetros reais da licitação/contrato. Estes dados alimentam a rotina de relatórios, gestão visual de indicadores e requisitos de inspecção de serviços.
                         </p>
                     </div>
 
@@ -201,7 +195,7 @@
                                 <input type="number" id="cadPrazo" value="18" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                             <div>
-                                <label class="font-bold text-slate-600">Área Construída Total ($m^2$)</label>
+                                <label class="font-bold text-slate-600">Área Construída Total (m²)</label>
                                 <input type="number" id="cadArea" value="8500" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                         </div>
@@ -241,7 +235,7 @@
                     </div>
                 </div>
 
-<!-- MODULO 2: ORÇAMENTO BASE & EAP + MOP -->
+                <!-- MODULO 2: ORÇAMENTO BASE & EAP + MOP -->
                 <div id="mod2" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                         <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-bold uppercase">Módulo 2 · Estruturação de Custos</span>
@@ -251,12 +245,12 @@
                         </p>
                     </div>
 
-                    <!-- SEÇÃO: MOP - MÃO DE OBRA PRÓPRIA -->
+                    <!-- MOP - MÃO DE OBRA PRÓPRIA -->
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
                         <div class="flex justify-between items-center border-b pb-3">
                             <div>
                                 <h3 class="font-bold text-slate-800 text-sm">MOP — Mão de Obra Própria (Pessoal)</h3>
-                                <p class="text-[11px] text-slate-500">Cadastre a equipe própria alocada na obra (Engenheiro, Pedreiro, Servente, Encarregado, etc.)</p>
+                                <p class="text-[11px] text-slate-500">Cadastre a equipe própria alocada na obra</p>
                             </div>
                             <span class="px-2.5 py-1 bg-blue-100 text-blue-800 rounded-md text-[10px] font-bold">Quadro de Pessoal</span>
                         </div>
@@ -267,10 +261,10 @@
                                     <tr class="bg-slate-100 border-b text-slate-600 font-bold">
                                         <th class="p-2">Função / Cargo</th>
                                         <th class="p-2">Turno / Tipo</th>
-                                        <th class="p-2">Qtd (Pessoas)</th>
-                                        <th class="p-2">Salário Mensal + Encargos (R$)</th>
-                                        <th class="p-2">Período (Meses)</th>
-                                        <th class="p-2">Custo Total MOP (R$)</th>
+                                        <th class="p-2">Qtd</th>
+                                        <th class="p-2">Salário + Encargos (R$)</th>
+                                        <th class="p-2">Meses</th>
+                                        <th class="p-2">Total MOP (R$)</th>
                                         <th class="p-2 text-center">Ação</th>
                                     </tr>
                                 </thead>
@@ -279,87 +273,37 @@
                                         <td class="p-2">
                                             <select class="w-full p-1 border rounded text-[11px] funcao-mop">
                                                 <option value="Engenheiro Residente">Engenheiro Residente</option>
-                                                <option value="Encarregado Geral">Encarregado Geral</option>
-                                                <option value="Mestre de Obras">Mestre de Obras</option>
-                                                <option value="Pedreiro">Pedreiro</option>
-                                                <option value="Servente">Servente</option>
-                                                <option value="Armador">Armador</option>
-                                                <option value="Carpinteiro">Carpinteiro</option>
-                                                <option value="Eletricista">Eletricista</option>
-                                                <option value="Encanador">Encanador</option>
-                                                <option value="Outro">Outro</option>
-                                            </select>
-                                        </td>
-                                        <td class="p-2"><input type="text" value="Mensalista" class="w-full p-1 border rounded text-[11px]"></td>
-                                        <td class="p-2"><input type="number" value="1" onchange="recalcularMOP(this)" class="w-full p-1 border rounded text-[11px] qtd-mop"></td>
-                                        <td class="p-2"><input type="number" value="12000.00" onchange="recalcularMOP(this)" class="w-full p-1 border rounded text-[11px] sal-mop"></td>
-                                        <td class="p-2"><input type="number" value="12" onchange="recalcularMOP(this)" class="w-full p-1 border rounded text-[11px] mes-mop"></td>
-                                        <td class="p-2 font-bold text-slate-700 total-mop-linha">R$ 144.000,00</td>
-                                        <td class="p-2 text-center"><button onclick="removerLinha(this)" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash-can"></i></button></td>
-                                    </tr>
-                                    <tr class="border-b hover:bg-slate-50">
-                                        <td class="p-2">
-                                            <select class="w-full p-1 border rounded text-[11px] funcao-mop">
-                                                <option value="Engenheiro Residente">Engenheiro Residente</option>
-                                                <option value="Encarregado Geral">Encarregado Geral</option>
                                                 <option value="Mestre de Obras">Mestre de Obras</option>
                                                 <option value="Pedreiro" selected>Pedreiro</option>
                                                 <option value="Servente">Servente</option>
-                                                <option value="Armador">Armador</option>
-                                                <option value="Carpinteiro">Carpinteiro</option>
-                                                <option value="Eletricista">Eletricista</option>
-                                                <option value="Encanador">Encanador</option>
-                                                <option value="Outro">Outro</option>
                                             </select>
                                         </td>
-                                        <td class="p-2"><input type="text" value="Horista / Produção" class="w-full p-1 border rounded text-[11px]"></td>
+                                        <td class="p-2"><input type="text" value="Horista" class="w-full p-1 border rounded text-[11px]"></td>
                                         <td class="p-2"><input type="number" value="4" onchange="recalcularMOP(this)" class="w-full p-1 border rounded text-[11px] qtd-mop"></td>
                                         <td class="p-2"><input type="number" value="3500.00" onchange="recalcularMOP(this)" class="w-full p-1 border rounded text-[11px] sal-mop"></td>
                                         <td class="p-2"><input type="number" value="6" onchange="recalcularMOP(this)" class="w-full p-1 border rounded text-[11px] mes-mop"></td>
                                         <td class="p-2 font-bold text-slate-700 total-mop-linha">R$ 84.000,00</td>
                                         <td class="p-2 text-center"><button onclick="removerLinha(this)" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash-can"></i></button></td>
                                     </tr>
-                                    <tr class="border-b hover:bg-slate-50">
-                                        <td class="p-2">
-                                            <select class="w-full p-1 border rounded text-[11px] funcao-mop">
-                                                <option value="Engenheiro Residente">Engenheiro Residente</option>
-                                                <option value="Encarregado Geral">Encarregado Geral</option>
-                                                <option value="Mestre de Obras">Mestre de Obras</option>
-                                                <option value="Pedreiro">Pedreiro</option>
-                                                <option value="Servente" selected>Servente</option>
-                                                <option value="Armador">Armador</option>
-                                                <option value="Carpinteiro">Carpinteiro</option>
-                                                <option value="Eletricista">Eletricista</option>
-                                                <option value="Encanador">Encanador</option>
-                                                <option value="Outro">Outro</option>
-                                            </select>
-                                        </td>
-                                        <td class="p-2"><input type="text" value="Horista / Apoio" class="w-full p-1 border rounded text-[11px]"></td>
-                                        <td class="p-2"><input type="number" value="6" onchange="recalcularMOP(this)" class="w-full p-1 border rounded text-[11px] qtd-mop"></td>
-                                        <td class="p-2"><input type="number" value="2200.00" onchange="recalcularMOP(this)" class="w-full p-1 border rounded text-[11px] sal-mop"></td>
-                                        <td class="p-2"><input type="number" value="6" onchange="recalcularMOP(this)" class="w-full p-1 border rounded text-[11px] mes-mop"></td>
-                                        <td class="p-2 font-bold text-slate-700 total-mop-linha">R$ 79.200,00</td>
-                                        <td class="p-2 text-center"><button onclick="removerLinha(this)" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash-can"></i></button></td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
 
-                        <div class="flex justify-between items-center">
+                        <div class="flex justify-between items-center pt-2">
                             <button onclick="adicionarLinhaMOP()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-4 py-2 rounded-xl transition text-xs border border-slate-300">
                                 + Adicionar Cargo (MOP)
                             </button>
                             <div class="text-xs font-bold text-slate-700">
-                                Total MOP: <span id="resumoTotalMOP" class="text-blue-700 font-extrabold">R$ 307.200,00</span>
+                                Total MOP: <span id="resumoTotalMOP" class="text-blue-700 font-extrabold">R$ 84.000,00</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- SEÇÃO: COMPOSIÇÃO ANALÍTICA / ITENS DA EAP -->
+                    <!-- COMPOSIÇÃO ANALÍTICA / ITENS DA EAP -->
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
                         <div class="border-b pb-3">
                             <h3 class="font-bold text-slate-800 text-sm">Composição Analítica dos Itens da EAP</h3>
-                            <p class="text-[11px] text-slate-500">Mapeamento dos insumos diretos da obra (Materiais, Serviços Terceirizados e Equipamentos)</p>
+                            <p class="text-[11px] text-slate-500">Mapeamento dos insumos diretos da obra</p>
                         </div>
 
                         <div class="overflow-x-auto">
@@ -367,8 +311,8 @@
                                 <thead>
                                     <tr class="bg-slate-100 border-b text-slate-600 font-bold">
                                         <th class="p-2">Item EAP</th>
-                                        <th class="p-2">Tipo Insumo</th>
-                                        <th class="p-2">Descrição do Item</th>
+                                        <th class="p-2">Tipo</th>
+                                        <th class="p-2">Descrição</th>
                                         <th class="p-2">Unid.</th>
                                         <th class="p-2">Qtd.</th>
                                         <th class="p-2">Custo Unit. (R$)</th>
@@ -382,8 +326,7 @@
                                         <td class="p-2">
                                             <select class="border rounded p-1 text-[11px] tipo-insumo">
                                                 <option value="MAT">Material</option>
-                                                <option value="EQP">Equipamento</option>
-                                                <option value="SERV" selected>Serviço Terceirizado</option>
+                                                <option value="SERV" selected>Serviço</option>
                                             </select>
                                         </td>
                                         <td class="p-2"><input type="text" value="Mobilização de Canteiro" class="w-full p-1 border rounded text-[11px] desc-eap"></td>
@@ -397,15 +340,12 @@
                             </table>
                         </div>
 
-                        <div class="flex space-x-3">
-                            <button onclick="adicionarLinhaOrcamento()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-4 py-2 rounded-xl transition text-xs border border-slate-300">
-                                + Adicionar Item na EAP
-                            </button>
-                        </div>
+                        <button onclick="adicionarLinhaOrcamento()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-4 py-2 rounded-xl transition text-xs border border-slate-300">
+                            + Adicionar Item na EAP
+                        </button>
                     </div>
                 </div>
-                
-               
+
                 <!-- MODULO 3: CRONOGRAMA FÍSICO-FINANCEIRO, CURVA S & PERT -->
                 <div id="mod3" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
@@ -549,7 +489,7 @@
                     </div>
                 </div>
 
-                <!-- MÓDULO 4: MEDIÇÕES, APROPRIAMENTO REAL & ADITIVOS -->
+                <!-- MODULO 4: MEDIÇÕES, APROPRIAMENTO REAL & ADITIVOS -->
                 <div id="mod4" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                         <span class="px-3 py-1 bg-violet-100 text-violet-800 rounded-full text-[10px] font-bold uppercase">Módulo 4 · Controle Executivo e Apropriamento</span>
@@ -680,13 +620,13 @@
                     </div>
                 </div>
 
-                <!-- MÓDULO 5: SIMULADOR EVM & GESTÃO DE RISCOS -->
+                <!-- MODULO 5: SIMULADOR EVM & GESTÃO DE RISCOS -->
                 <div id="mod5" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                         <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-bold uppercase">Módulo 5 · Gestão do Valor Agregado & Riscos</span>
-                        <h2 class="text-xl font-bold mt-2 text-slate-800">Análise de EVM, KPIs e Gestão de Riscos (EMV)</h2>
+                        <h2 class="text-xl font-bold mt-2 text-slate-800">Análise de EVM, KPIs e Gestão de Riscos</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                            Avalie o desempenho com EVM (SPI, CPI, EAC) e calcule a exposição financeira de riscos do projeto (EMV).
+                            Avalie o desempenho com EVM (SPI, CPI, EAC) e acompanhe os indicadores gerenciais em tempo real.
                         </p>
                     </div>
 
@@ -741,7 +681,6 @@
             </section>
         </main>
     </div>
-
     <!-- LÓGICA EM JAVASCRIPT -->
     <script>
         function fazerLogin(e) {
