@@ -12,6 +12,7 @@
             background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(30, 58, 138, 0.9)), url('https://images.unsplash.com/photo-1541888081622-4a00445a498b.jpg');
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
         }
     </style>
 </head>
@@ -31,16 +32,20 @@
                     Domine a Gestão de <span class="text-amber-400">Obras na Prática.</span>
                 </h1>
                 <p class="text-base lg:text-lg text-blue-100 mb-8 leading-relaxed">
-                    Cadastre projetos, elabore orçamentos completos, lance medições reais de campo e analise prazos, EVM e riscos em simuladores dinâmicos.
+                    Cadastre projetos, elabore orçamentos analíticos por insumos, lance medições reais de campo e analise prazos, EVM e riscos em simuladores dinâmicos.
                 </p>
                 <div class="space-y-3 text-sm text-blue-200">
                     <div class="flex items-center space-x-3">
                         <i class="fa-solid fa-circle-check text-emerald-400"></i>
-                        <span>Ciclo completo: Cadastro $\rightarrow$ Orçamento $\rightarrow$ Medição $\rightarrow$ EVM & Riscos</span>
+                        <span>Ciclo completo: Licitação $\rightarrow$ Orçamento $\rightarrow$ Medição $\rightarrow$ EVM & Riscos</span>
                     </div>
                     <div class="flex items-center space-x-3">
                         <i class="fa-solid fa-circle-check text-emerald-400"></i>
                         <span>Campos digitáveis com recálculo automatizado de indicadores</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                        <span>Gestão de rotina para Engenheiros e Analistas de Campo</span>
                     </div>
                 </div>
             </div>
@@ -59,11 +64,18 @@
                 <form class="space-y-4" onsubmit="fazerLogin(event)">
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">E-mail do Aluno</label>
-                        <input type="email" required placeholder="aluno@eng.com.br" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 outline-none text-sm">
+                        <input type="email" required placeholder="aluno@eng.com.br" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 outline-none text-sm bg-slate-50 focus:bg-white">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Senha</label>
-                        <input type="password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 outline-none text-sm">
+                        <input type="password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 outline-none text-sm bg-slate-50 focus:bg-white">
+                    </div>
+                    <div class="flex items-center justify-between text-xs">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" class="rounded text-blue-600 border-slate-300">
+                            <span class="text-slate-600">Lembrar-me</span>
+                        </label>
+                        <a href="#" class="text-blue-600 font-semibold hover:underline">Esqueceu a senha?</a>
                     </div>
                     <button type="submit" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-3.5 rounded-xl transition shadow-lg shadow-blue-700/30 text-sm">
                         Entrar na Plataforma <i class="fa-solid fa-arrow-right ml-2"></i>
@@ -102,14 +114,14 @@
                     <div class="p-2 bg-blue-50 text-blue-600 rounded-lg"><i class="fa-solid fa-building"></i></div>
                     <div>
                         <p class="font-bold text-xs text-slate-800">Módulo 1: Cadastro do Projeto</p>
-                        <p class="text-[10px] text-slate-500">Premissas & Escopo</p>
+                        <p class="text-[10px] text-slate-500">Contrato & Licitação</p>
                     </div>
                 </button>
 
                 <button onclick="switchTab('mod2')" id="btn-mod2" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm hover:border-blue-500 transition flex items-center space-x-3 border-slate-200">
                     <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg"><i class="fa-solid fa-calculator"></i></div>
                     <div>
-                        <p class="font-bold text-xs text-slate-800">Módulo 2: Orçamento de Obra</p>
+                        <p class="font-bold text-xs text-slate-800">Módulo 2: Orçamento Analítico</p>
                         <p class="text-[10px] text-slate-500">Insumos, Serviços & BDI</p>
                     </div>
                 </button>
@@ -153,44 +165,76 @@
                 <!-- MODULO 1: CADASTRO -->
                 <div id="mod1" class="tab-content space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-[10px] font-bold uppercase">Módulo 1 · Conceituação & Parâmetros</span>
-                        <h2 class="text-xl font-bold mt-2 text-slate-800">Cadastro de Premissas do Empreendimento</h2>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-[10px] font-bold uppercase">Módulo 1 · Dados Contratuais & Engenharia</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-800">Cadastro do Contrato & Premissas de Engenharia</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                            Defina as características fundamentais do projeto. Essas premissas servirão de base para a estruturação da EAP e o controle de metas de prazos e custos contratados[cite: 350, 358].
+                            Registe os parâmetros reais da licitação/contrato. Estes dados alimentam a rotina de relatórios, gestão visual de indicadores e requisitos de inspecção de serviços[cite: 350, 358].
                         </p>
                     </div>
 
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
                         <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2">
-                            <i class="fa-solid fa-pen-to-square text-blue-600"></i>
-                            <span>Premissas do Empreendimento</span>
+                            <i class="fa-solid fa-file-contract text-blue-600"></i>
+                            <span>Premissas Contratuais & Administrativas</span>
                         </h3>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                             <div>
-                                <label class="font-bold text-slate-600">Nome do Empreendimento</label>
-                                <input type="text" id="cadNome" value="Residencial Jardins das Torres" class="w-full mt-1 p-2.5 border rounded-lg">
+                                <label class="font-bold text-slate-600">Obra / Empreendimento</label>
+                                <input type="text" id="cadNome" value="Construção do Edifício Residencial Jardins" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                             <div>
-                                <label class="font-bold text-slate-600">Cliente / Contratante</label>
+                                <label class="font-bold text-slate-600">Cliente / Órgão Contratante</label>
                                 <input type="text" id="cadCliente" value="Incorporadora Alfa S/A" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                             <div>
-                                <label class="font-bold text-slate-600">Área Construída ($m^2$)</label>
-                                <input type="number" id="cadArea" value="8500" class="w-full mt-1 p-2.5 border rounded-lg">
+                                <label class="font-bold text-slate-600">Nº do Contrato / Licitação</label>
+                                <input type="text" id="cadContrato" value="CTR-2026/089-ENG" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Valor da Licitação / Venda (R$)</label>
+                                <input type="number" id="cadValorLicitacao" value="12000000" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                             <div>
                                 <label class="font-bold text-slate-600">Prazo Contratual (Meses)</label>
                                 <input type="number" id="cadPrazo" value="18" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Área Construída Total ($m^2$)</label>
+                                <input type="number" id="cadArea" value="8500" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                        </div>
+
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2 pt-2">
+                            <i class="fa-solid fa-user-gear text-blue-600"></i>
+                            <span>Atribuições da Engenharia de Campo & Qualidade</span>
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs bg-slate-50 p-4 rounded-xl border">
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" checked class="rounded text-blue-600">
+                                <span class="text-slate-700">Gestão Visual de Indicadores no Canteiro</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" checked class="rounded text-blue-600">
+                                <span class="text-slate-700">Fichas de Inspecção de Serviços (FVS/FVK)</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" checked class="rounded text-blue-600">
+                                <span class="text-slate-700">Relatório Fotográfico Semanal de Avanço</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" checked class="rounded text-blue-600">
+                                <span class="text-slate-700">Levantamento Quantitativo Real vs. Projecto</span>
+                            </label>
                         </div>
 
                         <button onclick="salvarCadastro()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
-                            Salvar & Gerar Premissas do Projeto
+                            Salvar Premissas Contratuais & Gerar Ficha da Obra
                         </button>
 
                         <div id="resCad" class="hidden bg-blue-50 border border-blue-200 p-4 rounded-xl space-y-2 text-xs">
-                            <p class="font-bold text-blue-900">Projeto Parametrizado com Sucesso!</p>
+                            <p class="font-bold text-blue-900">Parâmetros do Contrato Salvos com Sucesso!</p>
                             <p id="descCad" class="text-slate-700 leading-relaxed"></p>
                         </div>
                     </div>
@@ -199,54 +243,109 @@
                 <!-- MODULO 2: ORÇAMENTO -->
                 <div id="mod2" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-[10px] font-bold uppercase">Módulo 2 · Engenharia de Custos</span>
-                        <h2 class="text-xl font-bold mt-2 text-slate-800">Elaboração do Orçamento e Formação do BDI</h2>
+                        <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-[10px] font-bold uppercase">Módulo 2 · Engenharia de Custos & Levantamento</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-800">Orçamento Analítico por Insumos e BDI</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                            Insira os custos diretos segregados por Mão de Obra, Materiais e Serviços Terceirizados. Aplique a taxa de BDI para obter a Linha de Base Financeira ($BAC$).
+                            Monte o orçamento de apoio da engenharia discriminando os custos por grupo de recursos. Adicione itens analíticos e aplique o BDI para fechar o preço de venda ($BAC$).
                         </p>
                     </div>
 
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
-                        <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2">
-                            <i class="fa-solid fa-table-cells text-indigo-600"></i>
-                            <span>Planilha de Custos Diretos & BDI</span>
-                        </h3>
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                                <i class="fa-solid fa-list-check text-indigo-600"></i>
+                                <span>Composição Analítica dos Insumos</span>
+                            </h3>
+                            <button onclick="adicionarLinhaOrcamento()" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold px-3 py-1.5 rounded-lg text-xs transition border border-indigo-200">
+                                + Adicionar Item
+                            </button>
+                        </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-xs">
+                                <thead>
+                                    <tr class="bg-slate-100 border-b text-slate-600 font-bold">
+                                        <th class="p-2">Tipo</th>
+                                        <th class="p-2">Descrição do Serviço / Insumo</th>
+                                        <th class="p-2">Unid.</th>
+                                        <th class="p-2">Qtd.</th>
+                                        <th class="p-2">Custo Unit. (R$)</th>
+                                        <th class="p-2">Total Direto (R$)</th>
+                                        <th class="p-2 text-center">Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabelaOrcamento">
+                                    <tr class="border-b hover:bg-slate-50">
+                                        <td class="p-2">
+                                            <select class="border rounded p-1 text-[11px] tipo-insumo">
+                                                <option value="MO">Mão de Obra</option>
+                                                <option value="MAT">Material</option>
+                                                <option value="EQP">Equipamento</option>
+                                                <option value="SERV">Serviço Terceirizado</option>
+                                            </select>
+                                        </td>
+                                        <td class="p-2"><input type="text" value="Encarregado + Equipe de Pedreiros (Estrutura)" class="w-full p-1 border rounded text-[11px]"></td>
+                                        <td class="p-2"><input type="text" value="h" class="w-20 p-1 border rounded text-[11px]"></td>
+                                        <td class="p-2"><input type="number" value="12000" onchange="recalcularLinha(this)" class="w-20 p-1 border rounded text-[11px] qtd-item"></td>
+                                        <td class="p-2"><input type="number" value="25.00" onchange="recalcularLinha(this)" class="w-24 p-1 border rounded text-[11px] val-item"></td>
+                                        <td class="p-2 font-bold text-slate-700 total-linha">R$ 300.000,00</td>
+                                        <td class="p-2 text-center"><button onclick="removerLinha(this)" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash-can"></i></button></td>
+                                    </tr>
+                                    <tr class="border-b hover:bg-slate-50">
+                                        <td class="p-2">
+                                            <select class="border rounded p-1 text-[11px] tipo-insumo">
+                                                <option value="MAT" selected>Material</option>
+                                                <option value="MO">Mão de Obra</option>
+                                                <option value="EQP">Equipamento</option>
+                                                <option value="SERV">Serviço Terceirizado</option>
+                                            </select>
+                                        </td>
+                                        <td class="p-2"><input type="text" value="Concreto Usinado Fck=30MPa" class="w-full p-1 border rounded text-[11px]"></td>
+                                        <td class="p-2"><input type="text" value="m³" class="w-20 p-1 border rounded text-[11px]"></td>
+                                        <td class="p-2"><input type="number" value="1800" onchange="recalcularLinha(this)" class="w-20 p-1 border rounded text-[11px] qtd-item"></td>
+                                        <td class="p-2"><input type="number" value="450.00" onchange="recalcularLinha(this)" class="w-24 p-1 border rounded text-[11px] val-item"></td>
+                                        <td class="p-2 font-bold text-slate-700 total-linha">R$ 810.000,00</td>
+                                        <td class="p-2 text-center"><button onclick="removerLinha(this)" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash-can"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs pt-4 border-t">
                             <div>
-                                <label class="font-bold text-slate-600">Custo Total de Pessoal / Mão de Obra (R$)</label>
-                                <input type="number" id="orcMaoObra" value="3500000" class="w-full mt-1 p-2.5 border rounded-lg">
+                                <label class="font-bold text-slate-600">Custo Indireto do Canteiro (R$)</label>
+                                <input type="number" id="orcIndireto" value="450000" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                             <div>
-                                <label class="font-bold text-slate-600">Custo Total de Materiais (R$)</label>
-                                <input type="number" id="orcMateriais" value="4200000" class="w-full mt-1 p-2.5 border rounded-lg">
+                                <label class="font-bold text-slate-600">Taxa de BDI (%)</label>
+                                <input type="number" id="orcBDI" value="25.0" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                             <div>
-                                <label class="font-bold text-slate-600">Custo de Serviços & Equipamentos (R$)</label>
-                                <input type="number" id="orcServicos" value="1800000" class="w-full mt-1 p-2.5 border rounded-lg">
-                            </div>
-                            <div>
-                                <label class="font-bold text-slate-600">Taxa de BDI Aplicada (%)</label>
-                                <input type="number" id="orcBDI" value="26.3" class="w-full mt-1 p-2.5 border rounded-lg">
+                                <label class="font-bold text-slate-600">Impostos sobre Fatura (%)</label>
+                                <input type="number" id="orcImpostos" value="8.65" class="w-full mt-1 p-2.5 border rounded-lg">
                             </div>
                         </div>
 
-                        <button onclick="calcularOrcamento()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
-                            Calcular Orçamento Total da Obra (BAC)
+                        <button onclick="calcularOrcamentoTotal()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
+                            Calcular Orçamento Consolidado (BAC)
                         </button>
 
                         <div id="resOrc" class="hidden bg-indigo-50 border border-indigo-200 p-4 rounded-xl space-y-2 text-xs">
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-center">
                                 <div class="bg-white p-3 rounded-lg border">
-                                    <p class="text-slate-500 font-bold">Custo Direto Total</p>
+                                    <p class="text-slate-500 font-bold">Custo Direto Insumos</p>
                                     <p id="valCustoDireto" class="text-sm font-bold text-indigo-900">R$ 0,00</p>
                                 </div>
                                 <div class="bg-white p-3 rounded-lg border">
-                                    <p class="text-slate-500 font-bold">Valor do BDI</p>
+                                    <p class="text-slate-500 font-bold">Custo Indireto</p>
+                                    <p id="valCustoIndireto" class="text-sm font-bold text-indigo-900">R$ 0,00</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg border">
+                                    <p class="text-slate-500 font-bold">Valor BDI</p>
                                     <p id="valValorBDI" class="text-sm font-bold text-indigo-900">R$ 0,00</p>
                                 </div>
                                 <div class="bg-white p-3 rounded-lg border">
-                                    <p class="text-slate-500 font-bold">Orçamento Final (BAC)</p>
+                                    <p class="text-slate-500 font-bold">Preço de Venda / BAC</p>
                                     <p id="valBACFinal" class="text-sm font-bold text-emerald-600">R$ 0,00</p>
                                 </div>
                             </div>
@@ -257,7 +356,7 @@
                 <!-- MODULO 3: PERT -->
                 <div id="mod3" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-cyan-100 text-cyan-800 rounded-full text-[10px] font-bold uppercase">Módulo 3 · Planejamento executivo</span>
+                        <span class="px-3 py-1 bg-cyan-100 text-cyan-800 rounded-full text-[10px] font-bold uppercase">Módulo 3 · Planejamento Executivo</span>
                         <h2 class="text-xl font-bold mt-2 text-slate-800">Estimativa Probabilística PERT e Prazos</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
                             Calcule a duração de um pacote de trabalho com incerteza através da média ponderada PERT: $TE = \frac{O + 4M + P}{6}$[cite: 415, 416].
@@ -492,30 +591,76 @@
         function salvarCadastro() {
             const nome = document.getElementById('cadNome').value;
             const cliente = document.getElementById('cadCliente').value;
-            const area = document.getElementById('cadArea').value;
+            const contrato = document.getElementById('cadContrato').value;
+            const valorLicitacao = parseFloat(document.getElementById('cadValorLicitacao').value);
             const prazo = document.getElementById('cadPrazo').value;
 
             document.getElementById('resCad').classList.remove('hidden');
-            document.getElementById('descCad').innerHTML = `O empreendimento <strong>${nome}</strong> (${area} m²) para o cliente <strong>${cliente}</strong> foi registrado. Meta de prazo: <strong>${prazo} meses</strong>.`;
+            document.getElementById('descCad').innerHTML = `
+                Contrato <strong>${contrato}</strong> (${nome}) para o cliente <strong>${cliente}</strong> registrado.<br>
+                <strong>Valor da Licitação:</strong> R$ ${valorLicitacao.toLocaleString('pt-BR', {minimumFractionDigits: 2})} | <strong>Prazo:</strong> ${prazo} meses.
+            `;
         }
 
-        function calcularOrcamento() {
-            const mo = parseFloat(document.getElementById('orcMaoObra').value);
-            const mat = parseFloat(document.getElementById('orcMateriais').value);
-            const serv = parseFloat(document.getElementById('orcServicos').value);
-            const bdiTaxa = parseFloat(document.getElementById('orcBDI').value) / 100;
+        function adicionarLinhaOrcamento() {
+            const tbody = document.getElementById('tabelaOrcamento');
+            const tr = document.createElement('tr');
+            tr.className = 'border-b hover:bg-slate-50';
+            tr.innerHTML = `
+                <td class="p-2">
+                    <select class="border rounded p-1 text-[11px] tipo-insumo">
+                        <option value="MO">Mão de Obra</option>
+                        <option value="MAT">Material</option>
+                        <option value="EQP">Equipamento</option>
+                        <option value="SERV">Serviço Terceirizado</option>
+                    </select>
+                </td>
+                <td class="p-2"><input type="text" placeholder="Descrição do insumo/serviço" class="w-full p-1 border rounded text-[11px]"></td>
+                <td class="p-2"><input type="text" value="un" class="w-20 p-1 border rounded text-[11px]"></td>
+                <td class="p-2"><input type="number" value="1" onchange="recalcularLinha(this)" class="w-20 p-1 border rounded text-[11px] qtd-item"></td>
+                <td class="p-2"><input type="number" value="0.00" onchange="recalcularLinha(this)" class="w-24 p-1 border rounded text-[11px] val-item"></td>
+                <td class="p-2 font-bold text-slate-700 total-linha">R$ 0,00</td>
+                <td class="p-2 text-center"><button onclick="removerLinha(this)" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash-can"></i></button></td>
+            `;
+            tbody.appendChild(tr);
+        }
 
-            const custoDireto = mo + mat + serv;
-            const valorBDI = custoDireto * bdiTaxa;
-            const bacFinal = custoDireto + valorBDI;
+        function removerLinha(btn) {
+            btn.closest('tr').remove();
+        }
+
+        function recalcularLinha(input) {
+            const tr = input.closest('tr');
+            const qtd = parseFloat(tr.querySelector('.qtd-item').value) || 0;
+            const val = parseFloat(tr.querySelector('.val-item').value) || 0;
+            const total = qtd * val;
+            tr.querySelector('.total-linha').innerText = 'R$ ' + total.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+        }
+
+        function calcularOrcamentoTotal() {
+            let custoDiretoTotal = 0;
+            document.querySelectorAll('#tabelaOrcamento tr').forEach(tr => {
+                const qtd = parseFloat(tr.querySelector('.qtd-item').value) || 0;
+                const val = parseFloat(tr.querySelector('.val-item').value) || 0;
+                custoDiretoTotal += (qtd * val);
+            });
+
+            const custoIndireto = parseFloat(document.getElementById('orcIndireto').value) || 0;
+            const bdiTaxa = (parseFloat(document.getElementById('orcBDI').value) || 0) / 100;
+
+            const baseCalculo = custoDiretoTotal + custoIndireto;
+            const valorBDI = baseCalculo * bdiTaxa;
+            const bacFinal = baseCalculo + valorBDI;
 
             document.getElementById('resOrc').classList.remove('hidden');
-            document.getElementById('valCustoDireto').innerText = 'R$ ' + custoDireto.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            document.getElementById('valCustoDireto').innerText = 'R$ ' + custoDiretoTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            document.getElementById('valCustoIndireto').innerText = 'R$ ' + custoIndireto.toLocaleString('pt-BR', {minimumFractionDigits: 2});
             document.getElementById('valValorBDI').innerText = 'R$ ' + valorBDI.toLocaleString('pt-BR', {minimumFractionDigits: 2});
             document.getElementById('valBACFinal').innerText = 'R$ ' + bacFinal.toLocaleString('pt-BR', {minimumFractionDigits: 2});
 
-            // Atualiza automaticamente o BAC no modulo EVM
-            document.getElementById('evmBAC').value = bacFinal.toFixed(0);
+            if(document.getElementById('evmBAC')) {
+                document.getElementById('evmBAC').value = bacFinal.toFixed(0);
+            }
         }
 
         function calcularPERT() {
@@ -538,7 +683,6 @@
             document.getElementById('resMed').classList.remove('hidden');
             document.getElementById('descMed').innerHTML = `Medição processada: PV = R$ ${pv.toLocaleString('pt-BR')}, EV = R$ ${ev.toLocaleString('pt-BR')}, AC = R$ ${ac.toLocaleString('pt-BR')}. Os dados foram replicados no Módulo 5 (EVM).`;
 
-            // Sincroniza dados com o EVM
             document.getElementById('evmPV').value = pv;
             document.getElementById('evmEV').value = ev;
             document.getElementById('evmAC').value = ac;
