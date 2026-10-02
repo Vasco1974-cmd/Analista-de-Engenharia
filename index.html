@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MasterClass Gestão Integrada de Obras | Plataforma do Aluno</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .bg-cover-custom {
+            background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(30, 58, 138, 0.9)), url('https://images.unsplash.com/photo-1541888081622-4a00445a498b.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 font-sans text-slate-800">
+
+    <!-- ========================================== -->
+    <!-- TELA DE LOGIN / CAPA DO PRODUTO            -->
+    <!-- ========================================== -->
+    <div id="login-screen" class="min-h-screen flex flex-col md:flex-row">
+        <div class="md:w-3/5 bg-cover-custom text-white flex flex-col justify-center p-8 lg:p-16 shadow-2xl z-10">
+            <div class="max-w-2xl">
+                <div class="inline-flex items-center space-x-2 bg-blue-900/50 backdrop-blur-sm px-4 py-2 rounded-full border border-blue-500/30 mb-6">
+                    <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                    <span class="text-xs font-semibold tracking-wider uppercase text-blue-100">Treinamento Executivo & Prático</span>
+                </div>
+                <h1 class="text-3xl lg:text-5xl font-extrabold leading-tight mb-6">
+                    Domine a Gestão de <span class="text-amber-400">Obras na Prática.</span>
+                </h1>
+                <p class="text-base lg:text-lg text-blue-100 mb-8 leading-relaxed">
+                    Cadastre projetos, elabore orçamentos completos, lance medições reais de campo e analise prazos, EVM e riscos em simuladores dinâmicos.
+                </p>
+                <div class="space-y-3 text-sm text-blue-200">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                        <span>Ciclo completo: Cadastro $\rightarrow$ Orçamento $\rightarrow$ Medição $\rightarrow$ EVM & Riscos</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                        <span>Campos digitáveis com recálculo automatizado de indicadores</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="md:w-2/5 flex items-center justify-center p-8 bg-white">
+            <div class="w-full max-w-md space-y-6">
+                <div class="text-center">
+                    <div class="flex justify-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd.jpg" alt="Gestão de Obras" class="w-20 h-20 rounded-2xl object-cover shadow-lg border-2 border-blue-600">
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-900">Acesso do Aluno</h2>
+                    <p class="text-xs text-slate-500 mt-1">Insira suas credenciais para acessar os simuladores do curso.</p>
+                </div>
+
+                <form class="space-y-4" onsubmit="fazerLogin(event)">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">E-mail do Aluno</label>
+                        <input type="email" required placeholder="aluno@eng.com.br" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 outline-none text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Senha</label>
+                        <input type="password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 outline-none text-sm">
+                    </div>
+                    <button type="submit" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-3.5 rounded-xl transition shadow-lg shadow-blue-700/30 text-sm">
+                        Entrar na Plataforma <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- ÁREA DA PLATAFORMA INTERATIVA              -->
+    <!-- ========================================== -->
+    <div id="platform-screen" class="hidden min-h-screen flex flex-col">
+        <header class="bg-blue-900 text-white shadow-lg sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-helmet-safety text-amber-400 text-3xl"></i>
+                    <div>
+                        <h1 class="font-bold text-lg leading-tight">MasterClass Gestão Integrada de Obras</h1>
+                        <p class="text-xs text-blue-200">Ambiente Prático de Aprendizagem e Simulação</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-xs font-medium bg-blue-800 px-3 py-1.5 rounded-lg border border-blue-700">Aluno Conectado</span>
+                    <button onclick="fazerLogout()" class="text-xs bg-rose-600 hover:bg-rose-700 px-3 py-1.5 rounded-lg transition font-bold">Sair</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-4 gap-8 flex-1 w-full">
+            <!-- Sidebar Navigation -->
+            <aside class="lg:col-span-1 space-y-2">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 px-1">Módulos do Curso</h2>
+
+                <button onclick="switchTab('mod1')" id="btn-mod1" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm transition flex items-center space-x-3 border-blue-600 ring-2 ring-blue-100">
+                    <div class="p-2 bg-blue-50 text-blue-600 rounded-lg"><i class="fa-solid fa-building"></i></div>
+                    <div>
+                        <p class="font-bold text-xs text-slate-800">Módulo 1: Cadastro do Projeto</p>
+                        <p class="text-[10px] text-slate-500">Premissas & Escopo</p>
+                    </div>
+                </button>
+
+                <button onclick="switchTab('mod2')" id="btn-mod2" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm hover:border-blue-500 transition flex items-center space-x-3 border-slate-200">
+                    <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg"><i class="fa-solid fa-calculator"></i></div>
+                    <div>
+                        <p class="font-bold text-xs text-slate-800">Módulo 2: Orçamento de Obra</p>
+                        <p class="text-[10px] text-slate-500">Insumos, Serviços & BDI</p>
+                    </div>
+                </button>
+
+                <button onclick="switchTab('mod3')" id="btn-mod3" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm hover:border-blue-500 transition flex items-center space-x-3 border-slate-200">
+                    <div class="p-2 bg-cyan-50 text-cyan-600 rounded-lg"><i class="fa-solid fa-clock"></i></div>
+                    <div>
+                        <p class="font-bold text-xs text-slate-800">Módulo 3: Prazos & PERT</p>
+                        <p class="text-[10px] text-slate-500">Produtividade & Redes</p>
+                    </div>
+                </button>
+
+                <button onclick="switchTab('mod4')" id="btn-mod4" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm hover:border-blue-500 transition flex items-center space-x-3 border-slate-200">
+                    <div class="p-2 bg-violet-50 text-violet-600 rounded-lg"><i class="fa-solid fa-list-check"></i></div>
+                    <div>
+                        <p class="font-bold text-xs text-slate-800">Módulo 4: Medição de Campo</p>
+                        <p class="text-[10px] text-slate-500">Boletim de Medição (BM)</p>
+                    </div>
+                </button>
+
+                <button onclick="switchTab('mod5')" id="btn-mod5" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm hover:border-blue-500 transition flex items-center space-x-3 border-slate-200">
+                    <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg"><i class="fa-solid fa-chart-line"></i></div>
+                    <div>
+                        <p class="font-bold text-xs text-slate-800">Módulo 5: Simulador EVM</p>
+                        <p class="text-[10px] text-slate-500">Valor Agregado & Forecast</p>
+                    </div>
+                </button>
+
+                <button onclick="switchTab('mod6')" id="btn-mod6" class="w-full text-left p-3 rounded-xl border bg-white shadow-sm hover:border-blue-500 transition flex items-center space-x-3 border-slate-200">
+                    <div class="p-2 bg-amber-50 text-amber-600 rounded-lg"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div>
+                        <p class="font-bold text-xs text-slate-800">Módulo 6: Gestão de Riscos</p>
+                        <p class="text-[10px] text-slate-500">EMV & Tomada de Decisão</p>
+                    </div>
+                </button>
+            </aside>
+
+            <!-- Área Central de Conteúdo -->
+            <section class="lg:col-span-3">
+
+                <!-- MODULO 1: CADASTRO -->
+                <div id="mod1" class="tab-content space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-[10px] font-bold uppercase">Módulo 1 · Conceituação & Parâmetros</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-800">Cadastro de Premissas do Empreendimento</h2>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                            Defina as características fundamentais do projeto. Essas premissas servirão de base para a estruturação da EAP e o controle de metas de prazos e custos contratados[cite: 350, 358].
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                            <i class="fa-solid fa-pen-to-square text-blue-600"></i>
+                            <span>Premissas do Empreendimento</span>
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div>
+                                <label class="font-bold text-slate-600">Nome do Empreendimento</label>
+                                <input type="text" id="cadNome" value="Residencial Jardins das Torres" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Cliente / Contratante</label>
+                                <input type="text" id="cadCliente" value="Incorporadora Alfa S/A" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Área Construída ($m^2$)</label>
+                                <input type="number" id="cadArea" value="8500" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Prazo Contratual (Meses)</label>
+                                <input type="number" id="cadPrazo" value="18" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                        </div>
+
+                        <button onclick="salvarCadastro()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
+                            Salvar & Gerar Premissas do Projeto
+                        </button>
+
+                        <div id="resCad" class="hidden bg-blue-50 border border-blue-200 p-4 rounded-xl space-y-2 text-xs">
+                            <p class="font-bold text-blue-900">Projeto Parametrizado com Sucesso!</p>
+                            <p id="descCad" class="text-slate-700 leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODULO 2: ORÇAMENTO -->
+                <div id="mod2" class="tab-content hidden space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-[10px] font-bold uppercase">Módulo 2 · Engenharia de Custos</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-800">Elaboração do Orçamento e Formação do BDI</h2>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                            Insira os custos diretos segregados por Mão de Obra, Materiais e Serviços Terceirizados. Aplique a taxa de BDI para obter a Linha de Base Financeira ($BAC$).
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                            <i class="fa-solid fa-table-cells text-indigo-600"></i>
+                            <span>Planilha de Custos Diretos & BDI</span>
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div>
+                                <label class="font-bold text-slate-600">Custo Total de Pessoal / Mão de Obra (R$)</label>
+                                <input type="number" id="orcMaoObra" value="3500000" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Custo Total de Materiais (R$)</label>
+                                <input type="number" id="orcMateriais" value="4200000" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Custo de Serviços & Equipamentos (R$)</label>
+                                <input type="number" id="orcServicos" value="1800000" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Taxa de BDI Aplicada (%)</label>
+                                <input type="number" id="orcBDI" value="26.3" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                        </div>
+
+                        <button onclick="calcularOrcamento()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
+                            Calcular Orçamento Total da Obra (BAC)
+                        </button>
+
+                        <div id="resOrc" class="hidden bg-indigo-50 border border-indigo-200 p-4 rounded-xl space-y-2 text-xs">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
+                                <div class="bg-white p-3 rounded-lg border">
+                                    <p class="text-slate-500 font-bold">Custo Direto Total</p>
+                                    <p id="valCustoDireto" class="text-sm font-bold text-indigo-900">R$ 0,00</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg border">
+                                    <p class="text-slate-500 font-bold">Valor do BDI</p>
+                                    <p id="valValorBDI" class="text-sm font-bold text-indigo-900">R$ 0,00</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg border">
+                                    <p class="text-slate-500 font-bold">Orçamento Final (BAC)</p>
+                                    <p id="valBACFinal" class="text-sm font-bold text-emerald-600">R$ 0,00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODULO 3: PERT -->
+                <div id="mod3" class="tab-content hidden space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <span class="px-3 py-1 bg-cyan-100 text-cyan-800 rounded-full text-[10px] font-bold uppercase">Módulo 3 · Planejamento executivo</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-800">Estimativa Probabilística PERT e Prazos</h2>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                            Calcule a duração de um pacote de trabalho com incerteza através da média ponderada PERT: $TE = \frac{O + 4M + P}{6}$[cite: 415, 416].
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                            <i class="fa-solid fa-calculator text-cyan-600"></i>
+                            <span>Calculadora de Prazos PERT</span>
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                            <div>
+                                <label class="font-bold text-slate-600">Cenário Otimista ($O$) - Dias</label>
+                                <input type="number" id="pertO" value="12" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Cenário Mais Provável ($M$) - Dias</label>
+                                <input type="number" id="pertM" value="20" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Cenário Pessimista ($P$) - Dias</label>
+                                <input type="number" id="pertP" value="34" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                        </div>
+
+                        <button onclick="calcularPERT()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
+                            Calcular Duração Esperada ($TE$)
+                        </button>
+
+                        <div id="resPERT" class="hidden bg-cyan-50 border border-cyan-200 p-4 rounded-xl space-y-2 text-xs">
+                            <p class="font-bold text-cyan-900 text-sm" id="valTE">-- dias</p>
+                            <p id="descPERT" class="text-slate-700 leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODULO 4: MEDIÇÃO -->
+                <div id="mod4" class="tab-content hidden space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <span class="px-3 py-1 bg-violet-100 text-violet-800 rounded-full text-[10px] font-bold uppercase">Módulo 4 · Acompanhamento de Campo</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-800">Boletim de Medição de Acompanhamento (BM)</h2>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                            Registre o avanço físico acumulado da obra e informe os custos reais incorridos no período para alimentar o controle integrado de valor agregado[cite: 211, 214, 216].
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                            <i class="fa-solid fa-clipboard-check text-violet-600"></i>
+                            <span>Lançamento do Boletim do Período</span>
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                            <div>
+                                <label class="font-bold text-slate-600">Planejado do Período ($PV$) - R$</label>
+                                <input type="number" id="medPV" value="6000000" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Avanço Físico Real Medido ($EV$) - R$</label>
+                                <input type="number" id="medEV" value="4800000" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Custo Efetivo Incorrido ($AC$) - R$</label>
+                                <input type="number" id="medAC" value="5400000" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                        </div>
+
+                        <button onclick="salvarMedicao()" class="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
+                            Consolidar Boletim & Enviar ao EVM
+                        </button>
+
+                        <div id="resMed" class="hidden bg-violet-50 border border-violet-200 p-4 rounded-xl space-y-2 text-xs">
+                            <p class="font-bold text-violet-900">Medição Consolidada e Transmitida ao Módulo EVM!</p>
+                            <p id="descMed" class="text-slate-700 leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODULO 5: EVM -->
+                <div id="mod5" class="tab-content hidden space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-bold uppercase">Módulo 5 · Gestão do Valor Agregado</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-800">Simulador Executivo EVM e Projeções</h2>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                            Analise os índices $CPI$, $SPI$ e o custo final projetado da obra ($EAC$) com base nas medições e no orçamento aprovado[cite: 231, 235, 269].
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                            <i class="fa-solid fa-chart-pie text-emerald-600"></i>
+                            <span>Painel de Controle EVM</span>
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div>
+                                <label class="font-bold text-slate-600">Orçamento no Término ($BAC$) - R$</label>
+                                <input type="number" id="evmBAC" value="12000000" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Valor Planejado ($PV$) - R$</label>
+                                <input type="number" id="evmPV" value="6000000" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Valor Agregado Medido ($EV$) - R$</label>
+                                <input type="number" id="evmEV" value="4800000" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="font-bold text-slate-600">Custo Real Incorrido ($AC$) - R$</label>
+                                <input type="number" id="evmAC" value="5400000" class="w-full mt-1 p-2.5 border rounded-lg">
+                            </div>
+                        </div>
+
+                        <button onclick="calcularEVM()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
+                            Gerar Diagnóstico EVM & Forecast
+                        </button>
+
+                        <div id="resEVM" class="hidden space-y-4">
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+                                <div class="p-3 bg-slate-50 border rounded-xl">
+                                    <p class="text-[10px] text-slate-500 font-bold">CPI (Custo)</p>
+                                    <p class="text-base font-bold" id="valCPI">--</p>
+                                </div>
+                                <div class="p-3 bg-slate-50 border rounded-xl">
+                                    <p class="text-[10px] text-slate-500 font-bold">SPI (Prazo)</p>
+                                    <p class="text-base font-bold" id="valSPI">--</p>
+                                </div>
+                                <div class="p-3 bg-slate-50 border rounded-xl">
+                                    <p class="text-[10px] text-slate-500 font-bold">Projeção Final (EAC)</p>
+                                    <p class="text-xs font-bold text-slate-800" id="valEAC">--</p>
+                                </div>
+                                <div class="p-3 bg-slate-50 border rounded-xl">
+                                    <p class="text-[10px] text-slate-500 font-bold">TCPI (Meta)</p>
+                                    <p class="text-base font-bold text-slate-700" id="valTCPI">--</p>
+                                </div>
+                            </div>
+
+                            <div id="diagEVM" class="p-4 rounded-xl text-xs leading-relaxed"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODULO 6: RISCOS -->
+                <div id="mod6" class="tab-content hidden space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-[10px] font-bold uppercase">Módulo 6 · Incertezas & Tomada de Decisão</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-800">Análise Monetária Esperada de Riscos ($EMV$)</h2>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                            Calcule a relação custo-benefício de implementar ações mitigatórias em eventos de risco[cite: 56].
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                            <i class="fa-solid fa-shield-cat text-amber-600"></i>
+                            <span>Calculadora de Árvore de Decisão ($EMV$)</span>
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="space-y-2 border p-3 rounded-xl bg-slate-50">
+                                <p class="font-bold text-slate-700">Cenário Sem Mitigação</p>
+                                <div>
+                                    <label class="text-slate-500">Probabilidade (%)</label>
+                                    <input type="number" id="probSem" value="25" class="w-full p-2 border rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="text-slate-500">Impacto do Risco (R$)</label>
+                                    <input type="number" id="impSem" value="800000" class="w-full p-2 border rounded-lg">
+                                </div>
+                            </div>
+
+                            <div class="space-y-2 border p-3 rounded-xl bg-slate-50">
+                                <p class="font-bold text-slate-700">Cenário Com Mitigação Proposta</p>
+                                <div>
+                                    <label class="text-slate-500">Custo da Ação Mitigatória (R$)</label>
+                                    <input type="number" id="custoAcao" value="50000" class="w-full p-2 border rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="text-slate-500">Nova Probabilidade (%)</label>
+                                    <input type="number" id="probCom" value="5" class="w-full p-2 border rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="text-slate-500">Novo Impacto Residual (R$)</label>
+                                    <input type="number" id="impCom" value="200000" class="w-full p-2 border rounded-lg">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="calcularEMV()" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
+                            Analisar Viabilidade do Risco
+                        </button>
+
+                        <div id="resEMV" class="hidden bg-amber-50 border border-amber-200 p-4 rounded-xl space-y-2 text-xs">
+                            <p class="font-bold text-amber-900 text-sm" id="titEMV"></p>
+                            <p id="descEMV" class="text-slate-700 leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <!-- Script de Lógica e Cálculos Interativos -->
+    <script>
+        function fazerLogin(event) {
+            event.preventDefault();
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('platform-screen').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function fazerLogout() {
+            document.getElementById('platform-screen').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+
+            document.querySelectorAll('aside button').forEach(btn => {
+                btn.classList.remove('border-blue-600', 'ring-2', 'ring-blue-100');
+                btn.classList.add('border-slate-200');
+            });
+            document.getElementById('btn-' + tabId).classList.add('border-blue-600', 'ring-2', 'ring-blue-100');
+        }
+
+        function salvarCadastro() {
+            const nome = document.getElementById('cadNome').value;
+            const cliente = document.getElementById('cadCliente').value;
+            const area = document.getElementById('cadArea').value;
+            const prazo = document.getElementById('cadPrazo').value;
+
+            document.getElementById('resCad').classList.remove('hidden');
+            document.getElementById('descCad').innerHTML = `O empreendimento <strong>${nome}</strong> (${area} m²) para o cliente <strong>${cliente}</strong> foi registrado. Meta de prazo: <strong>${prazo} meses</strong>.`;
+        }
+
+        function calcularOrcamento() {
+            const mo = parseFloat(document.getElementById('orcMaoObra').value);
+            const mat = parseFloat(document.getElementById('orcMateriais').value);
+            const serv = parseFloat(document.getElementById('orcServicos').value);
+            const bdiTaxa = parseFloat(document.getElementById('orcBDI').value) / 100;
+
+            const custoDireto = mo + mat + serv;
+            const valorBDI = custoDireto * bdiTaxa;
+            const bacFinal = custoDireto + valorBDI;
+
+            document.getElementById('resOrc').classList.remove('hidden');
+            document.getElementById('valCustoDireto').innerText = 'R$ ' + custoDireto.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            document.getElementById('valValorBDI').innerText = 'R$ ' + valorBDI.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            document.getElementById('valBACFinal').innerText = 'R$ ' + bacFinal.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+
+            // Atualiza automaticamente o BAC no modulo EVM
+            document.getElementById('evmBAC').value = bacFinal.toFixed(0);
+        }
+
+        function calcularPERT() {
+            const O = parseFloat(document.getElementById('pertO').value);
+            const M = parseFloat(document.getElementById('pertM').value);
+            const P = parseFloat(document.getElementById('pertP').value);
+
+            const TE = (O + (4 * M) + P) / 6;
+
+            document.getElementById('resPERT').classList.remove('hidden');
+            document.getElementById('valTE').innerText = TE.toFixed(1) + " dias úteis";
+            document.getElementById('descPERT').innerText = `Duração estimada ponderada considerando incertezas: ${TE.toFixed(1)} dias.`;
+        }
+
+        function salvarMedicao() {
+            const pv = parseFloat(document.getElementById('medPV').value);
+            const ev = parseFloat(document.getElementById('medEV').value);
+            const ac = parseFloat(document.getElementById('medAC').value);
+
+            document.getElementById('resMed').classList.remove('hidden');
+            document.getElementById('descMed').innerHTML = `Medição processada: PV = R$ ${pv.toLocaleString('pt-BR')}, EV = R$ ${ev.toLocaleString('pt-BR')}, AC = R$ ${ac.toLocaleString('pt-BR')}. Os dados foram replicados no Módulo 5 (EVM).`;
+
+            // Sincroniza dados com o EVM
+            document.getElementById('evmPV').value = pv;
+            document.getElementById('evmEV').value = ev;
+            document.getElementById('evmAC').value = ac;
+        }
+
+        function calcularEVM() {
+            const BAC = parseFloat(document.getElementById('evmBAC').value);
+            const PV = parseFloat(document.getElementById('evmPV').value);
+            const EV = parseFloat(document.getElementById('evmEV').value);
+            const AC = parseFloat(document.getElementById('evmAC').value);
+
+            const CPI = EV / AC;
+            const SPI = EV / PV;
+            const EAC = BAC / CPI;
+            const TCPI = (BAC - EV) / (BAC - AC);
+
+            document.getElementById('resEVM').classList.remove('hidden');
+
+            const cpiEl = document.getElementById('valCPI');
+            cpiEl.innerText = CPI.toFixed(2);
+            cpiEl.className = `text-base font-bold ${CPI >= 1 ? 'text-emerald-600' : 'text-rose-600'}`;
+
+            const spiEl = document.getElementById('valSPI');
+            spiEl.innerText = SPI.toFixed(2);
+            spiEl.className = `text-base font-bold ${SPI >= 1 ? 'text-emerald-600' : 'text-rose-600'}`;
+
+            document.getElementById('valEAC').innerText = 'R$ ' + EAC.toLocaleString('pt-BR', {maximumFractionDigits: 0});
+            document.getElementById('valTCPI').innerText = TCPI.toFixed(2);
+
+            const diag = document.getElementById('diagEVM');
+            if (CPI < 1 && SPI < 1) {
+                diag.className = "p-4 rounded-xl text-xs leading-relaxed bg-rose-50 border border-rose-200 text-rose-800";
+                diag.innerHTML = `<strong>Diagnóstico Crítico:</strong> Projeto atrasado (SPI = ${SPI.toFixed(2)}) e acima do orçamento (CPI = ${CPI.toFixed(2)}). O custo projetado ($EAC$) subiu para R$ ${EAC.toLocaleString('pt-BR')}[cite: 231, 235, 269].`;
+            } else {
+                diag.className = "p-4 rounded-xl text-xs leading-relaxed bg-emerald-50 border border-emerald-200 text-emerald-800";
+                diag.innerHTML = `<strong>Diagnóstico Favorável:</strong> Projeto dentro dos padrões planejados de prazo e custo.`;
+            }
+        }
+
+        function calcularEMV() {
+            const probSem = parseFloat(document.getElementById('probSem').value) / 100;
+            const impSem = parseFloat(document.getElementById('impSem').value);
+
+            const custoAcao = parseFloat(document.getElementById('custoAcao').value);
+            const probCom = parseFloat(document.getElementById('probCom').value) / 100;
+            const impCom = parseFloat(document.getElementById('impCom').value);
+
+            const emvSem = probSem * impSem;
+            const emvCom = custoAcao + (probCom * impCom);
+            const economia = emvSem - emvCom;
+
+            document.getElementById('resEMV').classList.remove('hidden');
+            document.getElementById('titEMV').innerText = economia > 0 ? "Recomendado: Ação Mitigatória Viável" : "Não Recomendado: Custo Elevado";
+            document.getElementById('descEMV').innerHTML = `
+                EMV sem mitigação: <strong>R$ ${emvSem.toLocaleString('pt-BR')}</strong>.<br>
+                EMV com mitigação: <strong>R$ ${emvCom.toLocaleString('pt-BR')}</strong>.<br>
+                <strong>Economia Líquida Estimada:</strong> R$ ${economia.toLocaleString('pt-BR')}[cite: 56].
+            `;
+        }
+    </script>
+</body>
+</html>
