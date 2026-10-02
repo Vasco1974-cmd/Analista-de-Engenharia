@@ -160,7 +160,7 @@
                 <!-- MODULO 1: LICITAÇÃO & DADOS DO CONTRATO -->
                 <div id="mod1" class="tab-content space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-[10px] font-bold uppercase">Módulo 1 · Dados Contratuais & Engenharia</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-[10px] font-bold uppercase">Módulo 1 • Dados Contratuais & Engenharia</span>
                         <h2 class="text-xl font-bold mt-2 text-slate-800">Cadastro do Contrato & Valor da Licitação</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
                             Registe os parâmetros reais da licitação/contrato. Estes dados alimentam a rotina de relatórios, gestão visual de indicadores e requisitos de inspecção de serviços[cite: 350, 358, 438].
@@ -235,122 +235,10 @@
                     </div>
                 </div>
 
-                function recalcularMOP(element) {
-    const tr = element.closest('tr');
-    const qtd = parseFloat(tr.querySelector('.qtd-mop').value) || 0;
-    const sal = parseFloat(tr.querySelector('.sal-mop').value) || 0;
-    const mes = parseFloat(tr.querySelector('.mes-mop').value) || 0;
-    
-    const totalLinha = qtd * sal * mes;
-    tr.querySelector('.total-mop-linha').textContent = totalLinha.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
-    
-    atualizarTotalMOPGeral();
-}
-
-function atualizarTotalMOPGeral() {
-    let totalGeral = 0;
-    const linhas = document.querySelectorAll('#tabelaMOP tr');
-    linhas.forEach(tr => {
-        const qtd = parseFloat(tr.querySelector('.qtd-mop').value) || 0;
-        const sal = parseFloat(tr.querySelector('.sal-mop').value) || 0;
-        const mes = parseFloat(tr.querySelector('.mes-mop').value) || 0;
-        totalGeral += (qtd * sal * mes);
-    });
-    document.getElementById('resumoTotalMOP').textContent = totalGeral.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
-}
-
-function adicionarLinhaMOP() {
-    const tbody = document.getElementById('tabelaMOP');
-    const tr = document.createElement('tr');
-    tr.className = "border-b hover:bg-slate-50";
-    tr.innerHTML = `
-        <td class="p-2">
-            <select class="w-full p-1 border rounded text-[11px] funcao-mop">
-                <option value="Engenheiro Residente">Engenheiro Residente</option>
-                <option value="Encarregado Geral">Encarregado Geral</option>
-                <option value="Mestre de Obras">Mestre de Obras</option>
-                <option value="Pedreiro">Pedreiro</option>
-                <option value="Servente">Servente</option>
-                <option value="Armador">Armador</option>
-                <option value="Carpinteiro">Carpinteiro</option>
-                <option value="Eletricista">Eletricista</option>
-                <option value="Encanador">Encanador</option>
-                <option value="Outro">Outro</option>
-            </select>
-        </td>
-        <td class="p-2"><input type="text" value="Mensalista" class="w-full p-1 border rounded text-[11px]"></td>
-        <td class="p-2"><input type="number" value="1" onchange="recalcularMOP(this)" class="w-full p-1 border rounded text-[11px] qtd-mop"></td>
-        <td class="p-2"><input type="number" value="3000.00" onchange="recalcularMOP(this)" class="w-full p-1 border rounded text-[11px] sal-mop"></td>
-        <td class="p-2"><input type="number" value="1" onchange="recalcularMOP(this)" class="w-full p-1 border rounded text-[11px] mes-mop"></td>
-        <td class="p-2 font-bold text-slate-700 total-mop-linha">R$ 3.000,00</td>
-        <td class="p-2 text-center"><button onclick="removerLinha(this)" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash-can"></i></button></td>
-    `;
-    tbody.appendChild(tr);
-    atualizarTotalMOPGeral();
-}
-                        <div class="flex justify-between items-center">
-                            <button onclick="adicionarLinhaMOP()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-4 py-2 rounded-xl transition text-xs border border-slate-300">
-                                + Adicionar Cargo (MOP)
-                            </button>
-                            <div class="text-xs font-bold text-slate-700">
-                                Total MOP: <span id="resumoTotalMOP" class="text-blue-700 font-extrabold">R$ 307.200,00</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- SEÇÃO: COMPOSIÇÃO ANALÍTICA / ITENS DA EAP -->
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
-                        <div class="border-b pb-3">
-                            <h3 class="font-bold text-slate-800 text-sm">Composição Analítica dos Itens da EAP</h3>
-                            <p class="text-[11px] text-slate-500">Mapeamento dos insumos diretos da obra (Materiais, Serviços Terceirizados e Equipamentos)</p>
-                        </div>
-
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse text-xs">
-                                <thead>
-                                    <tr class="bg-slate-100 border-b text-slate-600 font-bold">
-                                        <th class="p-2">Item EAP</th>
-                                        <th class="p-2">Tipo Insumo</th>
-                                        <th class="p-2">Descrição do Item</th>
-                                        <th class="p-2">Unid.</th>
-                                        <th class="p-2">Qtd.</th>
-                                        <th class="p-2">Custo Unit. (R$)</th>
-                                        <th class="p-2">Total (R$)</th>
-                                        <th class="p-2 text-center">Ação</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tabelaOrcamento">
-                                    <tr class="border-b hover:bg-slate-50">
-                                        <td class="p-2"><input type="text" value="1.1" class="w-full p-1 border rounded text-[11px] codigo-eap"></td>
-                                        <td class="p-2">
-                                            <select class="border rounded p-1 text-[11px] tipo-insumo">
-                                                <option value="MAT">Material</option>
-                                                <option value="EQP">Equipamento</option>
-                                                <option value="SERV" selected>Serviço Terceirizado</option>
-                                            </select>
-                                        </td>
-                                        <td class="p-2"><input type="text" value="Mobilização de Canteiro" class="w-full p-1 border rounded text-[11px] desc-eap"></td>
-                                        <td class="p-2"><input type="text" value="un" class="w-full p-1 border rounded text-[11px] unid-eap"></td>
-                                        <td class="p-2"><input type="number" value="1" onchange="recalcularLinha(this)" class="w-full p-1 border rounded text-[11px] qtd-item"></td>
-                                        <td class="p-2"><input type="number" value="50000.00" onchange="recalcularLinha(this)" class="w-full p-1 border rounded text-[11px] val-item"></td>
-                                        <td class="p-2 font-bold text-slate-700 total-linha">R$ 50.000,00</td>
-                                        <td class="p-2 text-center"><button onclick="removerLinha(this)" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash-can"></i></button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="flex space-x-3">
-                            <button onclick="adicionarLinhaOrcamento()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-4 py-2 rounded-xl transition text-xs border border-slate-300">
-                                + Adicionar Item na EAP
-                            </button>
-                        </div>
-                    </div>
-                </div>                
                 <!-- MODULO 2: ORÇAMENTO & EAP COM INSUMOS E BDI -->
                 <div id="mod2" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-[10px] font-bold uppercase">Módulo 2 · Engenharia de Custos & EAP</span>
+                        <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-[10px] font-bold uppercase">Módulo 2 • Engenharia de Custos & EAP</span>
                         <h2 class="text-xl font-bold mt-2 text-slate-800">Orçamento Analítico, Insumos e BDI</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
                             Cadastre a EAP e discrimine os insumos (Mão de Obra, Material, Equipamentos, Serviços)[cite: 437]. Atribua os métodos de medição e aplique BDI para formar o preço final ($BAC$)[cite: 214, 362].
@@ -483,7 +371,7 @@ function adicionarLinhaMOP() {
                 <!-- MODULO 3: PRAZOS & PERT -->
                 <div id="mod3" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-cyan-100 text-cyan-800 rounded-full text-[10px] font-bold uppercase">Módulo 3 · Planejamento Executivo</span>
+                        <span class="px-3 py-1 bg-cyan-100 text-cyan-800 rounded-full text-[10px] font-bold uppercase">Módulo 3 • Planejamento Executivo</span>
                         <h2 class="text-xl font-bold mt-2 text-slate-800">Estimativa Probabilística PERT e Prazos</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
                             Calcule a duração de um pacote de trabalho com incerteza através da média ponderada PERT: $TE = \frac{O + 4M + P}{6}$[cite: 415, 416].
@@ -525,7 +413,7 @@ function adicionarLinhaMOP() {
                 <!-- MODULO 4: MEDIÇÃO & HISTÓRICO DE SALDO -->
                 <div id="mod4" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-violet-100 text-violet-800 rounded-full text-[10px] font-bold uppercase">Módulo 4 · Acompanhamento de Campo</span>
+                        <span class="px-3 py-1 bg-violet-100 text-violet-800 rounded-full text-[10px] font-bold uppercase">Módulo 4 • Acompanhamento de Campo</span>
                         <h2 class="text-xl font-bold mt-2 text-slate-800">Boletim de Medição (BM) e Controle de Saldo</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
                             Informe a data da medição e a quantidade executada no período para cada item. A plataforma atualizará o acumulado e recalculará o saldo a executar do contrato[cite: 211, 214, 216].
@@ -657,7 +545,7 @@ function adicionarLinhaMOP() {
                 <!-- MODULO 5: SIMULADOR EVM -->
                 <div id="mod5" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-bold uppercase">Módulo 5 · Gestão do Valor Agregado</span>
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-bold uppercase">Módulo 5 • Gestão do Valor Agregado</span>
                         <h2 class="text-xl font-bold mt-2 text-slate-800">Simulador EVM & Diagnóstico de Desempenho</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
                             O Valor Agregado ($EV$) é atualizado dinamicamente pelo acumulo das medições de campo[cite: 211, 231].
@@ -715,7 +603,7 @@ function adicionarLinhaMOP() {
                 <!-- MODULO 6: GESTÃO DE RISCOS -->
                 <div id="mod6" class="tab-content hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-[10px] font-bold uppercase">Módulo 6 · Incertezas & Tomada de Decisão</span>
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-[10px] font-bold uppercase">Módulo 6 • Incertezas & Tomada de Decisão</span>
                         <h2 class="text-xl font-bold mt-2 text-slate-800">Análise Monetária Esperada de Riscos ($EMV$)</h2>
                         <p class="text-xs text-slate-600 mt-1 leading-relaxed">
                             Avalie se a contratação de uma ação preventiva compensa financeiramente o risco de paralisação ou atraso[cite: 56].
