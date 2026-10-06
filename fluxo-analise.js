@@ -22,7 +22,8 @@
   const RAD = { 2: ['cls'], 3: ['mrgok'], 4: ['pres'] };
   const FICHA = [['Valor do contrato', 'valor'], ['Área', 'area'], ['Prazo', 'prazo'], ['Venda/m²', 'pm2'], ['Margem inicial', 'mrgIni'], ['Produção média', 'prodMed'], ['Produção últimos 3 meses', 'prodConc'], ['Custo projetado', 'cust'], ['Margem projetada', 'mproj'], ['Risco principal', 'risco']];
 
-  const A = { max: 1, cur: 1, dec: '', built: false };
+  const A = { max: 1, cur: 1, dec: '', built: false, pid: '' };
+  const CAD = ['cadNome', 'cadCliente', 'cadContrato', 'cadValorLicitacao', 'cadPrazo', 'cadArea'];
   const Z = { cust: 0, des: 0 };
   let D = {};
 
@@ -151,6 +152,8 @@
   function bar() {
     g('anBar').innerHTML =
       `<button onclick="an.novo()" class="px-3 py-2 rounded-xl border border-slate-300 bg-white font-bold text-slate-700 hover:bg-slate-100"><i class="fa-solid fa-plus mr-1"></i>Novo Projeto</button>` +
+      `<button onclick="an.salvar()" class="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold"><i class="fa-solid fa-floppy-disk mr-1"></i>Salvar projeto</button>` +
+      `<button onclick="an.excluir()" class="px-3 py-2 rounded-xl border border-rose-300 bg-white text-rose-700 hover:bg-rose-50 font-bold"><i class="fa-solid fa-trash-can mr-1"></i>Excluir projeto</button>` +
       STEPS.map((s, i) => {
         const n = i + 1, lock = n > A.max;
         const cls = lock ? 'bg-slate-100 text-slate-400 cursor-not-allowed border-slate-200'
@@ -235,7 +238,7 @@
   /* ---------- montagem ---------- */
   function build() {
     Object.assign(A, { max: 1, cur: 1, dec: '', built: true });
-    g('fluxoAn').innerHTML = '<div id="anBar" class="flex flex-wrap gap-2"></div>' + panels();
+    g('fluxoAn').innerHTML = '<div id="anBar" class="flex flex-wrap gap-2"></div><p id="anMsg" class="font-bold text-emerald-700"></p>' + panels();
     go(1, false);
   }
 
@@ -245,16 +248,104 @@
     calc();
   }
 
-  function novo() {
-    if (!confirm('Iniciar um novo projeto? O cadastro, o orçamento e a análise atuais serão limpos.')) return;
-    ['cadNome', 'cadCliente', 'cadContrato', 'cadValorLicitacao', 'cadPrazo', 'cadArea'].forEach(i => { const e = g(i); if (e) e.value = ''; });
+  function limpar() {
+    CAD.forEach(i => { const e = g(i); if (e) e.value = ''; });
     ['tabelaMOP', 'tabelaOrcamento'].forEach(i => { const e = g(i); if (e) e.innerHTML = ''; });
     if (typeof atualizarTotalMOPGeral === 'function') atualizarTotalMOPGeral();
     if (typeof carregarTabelaMedicao === 'function') carregarTabelaMedicao();
     g('resCad').classList.add('hidden');
     g('fluxoAn').classList.add('hidden');
+    A.pid = '';
     build();
     const e = g('cadNome'); e.focus(); e.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function novo() {
+    if (!confirm('Iniciar um novo projeto? O cadastro, o orçamento e a análise atuais serão limpos (o que não foi salvo será perdido).')) return;
+    limpar();
+  }
+
+  /* ---------- salvar / abrir / excluir (neste navegador) ---------- */
+  const KEY = 'analistaProjetos';
+  const lerTodos = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } };
+  const gravar = o => { try { localStorage.setItem(KEY, JSON.stringify(o)); return true; } catch (e) { return false; } };
+  const aviso = t => { const m = g('anMsg'); if (m) { m.textContent = t; setTimeout(() => { if (m.textContent === t) m.textContent = ''; }, 5000); } };
+
+  function lista(sel) {
+    const all = lerTodos(), ids = Object.keys(all), el = g('anLista');
+    if (!el) return;
+    el.innerHTML = `<option value="">${ids.length ? 'Selecione um projeto' : 'Nenhum projeto salvo'}</option>` +
+      ids.map(id => `<option value="${esc(id)}">${esc(all[id].nome)} (${new Date(all[id].data).toLocaleDateString('pt-BR')})</option>`).join('');
+    if (sel) el.value = sel;
+  }
+
+  function snap() {
+    const f = {}, r = {};
+    document.querySelectorAll('#fluxoAn input[id],#fluxoAn select[id],#fluxoAn textarea[id]').forEach(e => { f[e.id] = e.value; });
+    document.querySelectorAll('#fluxoAn input[type=radio]:checked').forEach(e => { r[e.name] = e.value; });
+    const cad = {}; CAD.forEach(i => { cad[i] = g(i).value; });
+    const rows = id => [...g(id).querySelectorAll('tr')].map(tr => [...tr.querySelectorAll('input,select')].map(e => e.value));
+    return { cad, f, r, m: [...document.querySelectorAll('.med:checked')].map(e => e.value), dec: A.dec, max: A.max, cur: A.cur, mop: rows('tabelaMOP'), eap: rows('tabelaOrcamento') };
+  }
+
+  function refill(tb, rows, add, recalc, sel) {
+    g(tb).innerHTML = '';
+    if (typeof add !== 'function') return;
+    rows.forEach(vals => {
+      add();
+      const tr = g(tb).lastElementChild;
+      [...tr.querySelectorAll('input,select')].forEach((e, i) => { if (vals[i] !== undefined) e.value = vals[i]; });
+      if (typeof recalc === 'function') recalc(tr.querySelector(sel));
+    });
+  }
+
+  function restore(d) {
+    CAD.forEach(i => { g(i).value = d.cad[i] || ''; });
+    refill('tabelaMOP', d.mop || [], window.adicionarLinhaMOP, window.recalcularMOP, '.qtd-mop');
+    refill('tabelaOrcamento', d.eap || [], window.adicionarLinhaOrcamento, window.recalcularLinha, '.qtd-item');
+    if (typeof atualizarTotalMOPGeral === 'function') atualizarTotalMOPGeral();
+    if (typeof carregarTabelaMedicao === 'function') carregarTabelaMedicao();
+    salvarOriginal();
+    build();
+    Object.keys(d.f).forEach(id => { const e = g(id); if (e) e.value = d.f[id]; });
+    Object.keys(d.r).forEach(nm => { document.querySelectorAll(`input[name="${nm}"]`).forEach(e => { e.checked = e.value === d.r[nm]; }); });
+    document.querySelectorAll('.med').forEach(e => { e.checked = d.m.includes(e.value); });
+    const di = DEC.indexOf(d.dec);
+    if (di >= 0) dec(di);
+    A.max = d.max;
+    if (A.max >= 7) rel();
+    show();
+    go(Math.min(d.cur, A.max), false);
+  }
+
+  function salvar() {
+    const id = (g('cadContrato').value || g('cadNome').value).trim();
+    if (!id) { alert('Informe o nº do contrato ou o nome da obra para salvar o projeto.'); return; }
+    const all = lerTodos(), existia = !!all[id];
+    all[id] = { nome: [g('cadContrato').value.trim(), g('cadNome').value.trim()].filter(Boolean).join(' · '), data: new Date().toISOString(), s: snap() };
+    if (!gravar(all)) { alert('Não foi possível salvar neste navegador.'); return; }
+    A.pid = id;
+    lista(id);
+    aviso((existia ? 'Projeto atualizado' : 'Projeto salvo') + ' às ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) + '.');
+  }
+
+  function abrir() {
+    const id = g('anLista').value, all = lerTodos();
+    if (!id || !all[id]) { alert('Selecione um projeto salvo na lista.'); return; }
+    if (!g('fluxoAn').classList.contains('hidden') && !confirm('Abrir outro projeto? O que não foi salvo no projeto atual será perdido.')) return;
+    restore(all[id].s);
+    A.pid = id;
+    aviso('Projeto aberto: ' + all[id].nome);
+  }
+
+  function excluir() {
+    const id = A.pid || (g('cadContrato').value || g('cadNome').value).trim(), all = lerTodos();
+    if (!id || !all[id]) { alert('Este projeto ainda não foi salvo, então não há o que excluir. Use "Novo Projeto" para limpar a tela.'); return; }
+    if (!confirm(`Excluir o projeto "${all[id].nome}"? Esta ação não pode ser desfeita.`)) return;
+    delete all[id];
+    gravar(all);
+    limpar();
+    lista();
   }
 
   /* ---------- liga ao botão "Salvar Premissas" ---------- */
@@ -273,6 +364,13 @@
     if (nx) nx.focus();
   });
 
+  const card = g('cadNome').closest('.space-y-4');
+  const tb = document.createElement('div');
+  tb.className = 'flex flex-wrap items-center gap-2 text-xs bg-slate-50 border border-slate-200 rounded-xl p-3';
+  tb.innerHTML = '<span class="font-bold text-slate-600"><i class="fa-solid fa-folder-open mr-1"></i>Projetos salvos:</span><select id="anLista" class="p-2 border rounded-lg bg-white min-w-[220px]"></select><button onclick="an.abrir()" class="px-3 py-2 rounded-lg bg-slate-700 hover:bg-slate-800 text-white font-bold">Abrir</button>';
+  card.insertAdjacentElement('afterbegin', tb);
+  lista();
+
   const salvarOriginal = window.salvarCadastro;
   window.salvarCadastro = function () {
     if (v('cadValorLicitacao') <= 0 || v('cadArea') <= 0 || v('cadPrazo') <= 0) {
@@ -283,5 +381,5 @@
     show();
   };
 
-  window.an = { calc, go, next, dec, emit, novo };
+  window.an = { calc, go, next, dec, emit, novo, salvar, excluir, abrir };
 })();
