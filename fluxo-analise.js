@@ -24,15 +24,16 @@
 
   const A = { max: 1, cur: 1, dec: '', built: false, pid: '' };
   const CAD = ['cadNome', 'cadCliente', 'cadContrato', 'cadValorLicitacao', 'cadPrazo', 'cadArea'];
-  const Z = { cust: 0, des: 0 };
+  const Z = { cust: 0, des: 0, ok: {} };
   let D = {};
 
   /* ---------- pedaços de HTML ---------- */
   const IN = 'w-full mt-1 p-2 border rounded-lg bg-white', LB = 'font-bold text-slate-600';
   const grid = (c, a) => `<div class="grid grid-cols-1 md:grid-cols-${c} gap-3">${a.join('')}</div>`;
-  const sys = (k, l) => `<div class="bg-blue-50 border border-blue-200 rounded-lg p-3"><p class="text-[10px] font-bold uppercase text-blue-700">${l}</p><p data-k="${k}" class="text-sm font-extrabold text-blue-900">—</p></div>`;
-  const lock = (k, l, fk) => `<div><label class="${LB}">${l}</label><div class="mt-1 p-2 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-between"><span data-k="${k}" class="font-extrabold text-slate-800">—</span><i class="fa-solid fa-lock text-slate-400 text-[10px]"></i></div><p data-k="${fk}" class="text-[11px] text-slate-500"></p></div>`;
-  const num = (id, l, chk) => `<div><label class="${LB}">${l}</label><input type="number" step="any" id="${id}" oninput="an.calc()" class="${IN}">${chk ? `<p data-k="${id}_chk" class="text-[11px]"></p>` : ''}</div>`;
+  const sys = (k, l, cap) => `<div class="bg-blue-50 border border-blue-200 rounded-lg p-3"><p class="text-[10px] font-bold uppercase text-blue-700">${l}</p><p data-k="${k}" class="text-sm font-extrabold text-blue-900">—</p>${cap ? `<p class="text-[11px] text-blue-800 mt-1">${cap}</p>` : ''}</div>`;
+  const lock = (k, l, cap) => `<div><label class="${LB}">${l}</label>${kpi(cap)}<div class="mt-1 p-2 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-between"><span data-k="${k}" class="font-extrabold text-slate-800">—</span><i class="fa-solid fa-lock text-slate-400 text-[10px]"></i></div></div>`;
+  const kpi = f => `<p class="mt-1 px-2 py-1 rounded bg-indigo-50 border border-indigo-200 text-indigo-800 font-semibold text-[11px]">${f}</p>`;
+  const num = (id, l, f) => `<div><label class="${LB}">${l}</label>${f ? kpi(f) : ''}<input type="number" step="any" id="${id}" oninput="an.calc()" class="${IN}">${f ? `<p data-k="${id}_chk" class="text-xs font-bold"></p>` : ''}</div>`;
   const txt = (id, l, ro) => `<div><label class="${LB}">${l}</label><input type="text" id="${id}" ${ro ? 'readonly' : ''} class="${IN} ${ro ? 'bg-slate-100 font-bold' : ''}"></div>`;
   const ta = (id, l) => `<div><label class="${LB}">${l}</label><textarea id="${id}" rows="3" class="${IN}"></textarea></div>`;
   const rad = (nm, l, o) => `<div><p class="${LB} mb-1">${l}</p><div class="flex flex-wrap gap-4">${o.map(x => `<label class="flex items-center gap-1.5"><input type="radio" name="${nm}" value="${x}"> ${x}</label>`).join('')}</div></div>`;
@@ -43,26 +44,27 @@
 
   function panels() {
     const p1 = P(1, '1. Análise Econômica do Contrato',
-      '<p class="text-slate-500">Dados trazidos automaticamente do cadastro acima.</p>' +
+      '<p class="text-slate-500">Dados trazidos automaticamente do cadastro acima. Use a fórmula de cada KPI, calcule e digite o resultado.</p>' +
       grid(3, [sys('valor', 'Valor do contrato'), sys('area', 'Área construída'), sys('prazo', 'Prazo')]) +
-      `<div class="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-xl">${num('preco', '1. Preço de venda por m² (R$/m²)', 1)}${num('mrg', '2. Margem bruta estimada (%)')}${lock('mrgV', 'Margem bruta estimada (R$)', 'mrgF')}${lock('cmaxV', '3. Custo máximo compatível com a margem', 'cmaxF')}</div>` +
+      `<div class="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-xl">${num('preco', '1. Preço de venda por m² (R$/m²)', 'KPI "Preço de venda por m²" = [Valor do contrato] ÷ [Área construída]')}${num('mrg', '2. Margem bruta estimada (%)')}${lock('mrgV', 'Margem bruta estimada (R$)', 'KPI "Margem bruta" = [Valor do contrato] × [Margem bruta %]')}${lock('cmaxV', '3. Custo máximo compatível com a margem', 'KPI "Custo máximo" = [Valor do contrato] − [Margem bruta (R$)]')}</div>` +
       ta('t1', '4. Interpretação: o que esses números indicam sobre o contrato?') + res('res1'),
       bt('AVANÇAR PARA PRODUTIVIDADE →', 'an.next(1)'));
 
     const p2 = P(2, '2. Análise de Prazo e Produtividade',
       grid(2, [sys('area', 'Área'), sys('prazo', 'Prazo')]) +
-      num('pm', 'Pergunta 1. Qual é a produção física média necessária por mês? (m²/mês)', 1) +
-      num('ac', 'Pergunta 2. O caso informa que 20% da área poderá ficar concentrada nos últimos 3 meses. Qual área ficará concentrada nesse período? (m²)', 1) +
-      num('pc', 'Pergunta 3. Qual será a produção média necessária nos últimos 3 meses? (m²/mês)', 1) +
+      '<p class="text-slate-500">Use a fórmula de cada KPI, calcule e digite o resultado.</p>' +
+      num('pm', 'Pergunta 1. Qual é a produção física média necessária por mês? (m²/mês)', 'KPI "Produção física média mensal" = [Área construída] ÷ [Prazo]') +
+      num('ac', 'Pergunta 2. O caso informa que 20% da área poderá ficar concentrada nos últimos 3 meses. Qual área ficará concentrada nesse período? (m²)', 'KPI "Área concentrada nos últimos 3 meses" = [Área construída] × 20%') +
+      num('pc', 'Pergunta 3. Qual será a produção média necessária nos últimos 3 meses? (m²/mês)', 'KPI "Produção média dos últimos 3 meses" = [Área concentrada] ÷ 3 meses') +
       rad('cls', 'Pergunta 4. Como você classifica esse cenário?', ['Confortável', 'Exige atenção', 'Alto risco de produtividade']) +
       ta('an2', 'Pergunta 5. Por que a concentração de serviços no final da obra pode ser problemática?') + res('res2'),
       bt('AVANÇAR PARA CUSTOS E MARGEM →', 'an.next(2)'));
 
     const p3 = P(3, '3. Análise de Custos e Margem',
       '<p class="text-slate-600">Tenho a receita do contrato. Quanto posso gastar e ainda manter a margem?</p>' +
-      grid(3, [sys('valor', 'Receita contratual'), sys('mrgIni', 'Margem desejada'), sys('cmaxV', 'Custo máximo admissível')]) +
+      grid(3, [sys('valor', 'Receita contratual'), sys('mrgIni', 'Margem desejada'), sys('cmaxV', 'Custo máximo admissível', 'KPI "Custo máximo" = [Receita] × (1 − [Margem desejada])')]) +
       grid(2, CUSTOS.map(c => num(c[0], c[1] + ' (R$)'))) +
-      grid(2, [sys('cust', 'Custo total projetado'), sys('mproj', 'Margem projetada')]) +
+      grid(2, [sys('cust', 'Custo total projetado', 'KPI "Custo total" = soma dos 7 componentes'), sys('mproj', 'Margem projetada', 'KPI "Margem projetada" = ([Receita] − [Custo total]) ÷ [Receita]')]) +
       '<p data-k="dif" class="text-[11px] text-slate-600"></p>' +
       rad('mrgok', 'A margem projetada permanece próxima dos <span data-k="mrgIni">—</span> inicialmente estimados?', ['Sim', 'Não', 'Está em situação de alerta']) +
       ta('an3', 'Justifique sua avaliação:'),
@@ -71,7 +73,7 @@
     const p4 = P(4, '4. Capital de Giro e Mobilização',
       '<p class="text-slate-600">O cronograma de mobilização inicial exige um desembolso pesado nos primeiros 60 dias. <b>Período crítico: primeiros 60 dias.</b></p>' +
       grid(2, DESEMB.map(c => num(c[0], c[1] + ' (R$)'))) +
-      grid(2, [sys('desemb', 'Desembolso inicial estimado'), sys('pdes', 'Peso sobre a receita')]) +
+      grid(2, [sys('desemb', 'Desembolso inicial estimado', 'KPI "Desembolso inicial" = soma dos 5 desembolsos'), sys('pdes', 'Peso sobre a receita', 'KPI "Peso do desembolso" = [Desembolso inicial] ÷ [Receita]')]) +
       rad('pres', 'Como você classifica a pressão sobre o capital de giro?', ['🟢 Baixa', '🟡 Moderada', '🟠 Alta', '🔴 Crítica']) +
       ta('an4', 'Por que o desembolso inicial pode representar um risco mesmo que o contrato seja lucrativo?'),
       bt('AVANÇAR PARA MATRIZ DE RISCOS →', 'an.next(4)'));
@@ -79,7 +81,7 @@
     const p5 = P(5, '5. Matriz de Riscos',
       `<div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="bg-slate-100 text-slate-600 font-bold"><th class="p-2">Risco</th><th class="p-2">Probabilidade</th><th class="p-2">Impacto</th><th class="p-2 text-center">Nível (P × I)</th></tr></thead><tbody>` +
       RISC.map((r, i) => `<tr class="border-b"><td class="p-2 font-bold">${r}</td><td class="p-2">${sel('p' + i)}</td><td class="p-2">${sel('i' + i)}</td><td class="p-2 text-center" id="nv${i}">—</td></tr>`).join('') +
-      '</tbody></table></div>' +
+      '</tbody></table></div>' + kpi('KPI "Nível de risco" = [Probabilidade] × [Impacto]') +
       '<p class="text-slate-600">Maior nível calculado: <b data-k="topRisk">—</b></p>' +
       `<div><label class="${LB}">Qual é o principal risco do contrato?</label><select id="rp" onchange="an.calc()" class="${IN}"><option value="">Selecionar</option>${[...RISC, 'Outro'].map(r => `<option>${r}</option>`).join('')}</select></div>` +
       `<div><p class="${LB} mb-1">Qual medida você recomenda?</p>${grid(2, MEDS.map(m => `<label class="flex items-center gap-2"><input type="checkbox" class="med rounded text-blue-600" value="${m}"> ${m}</label>`))}</div>` +
@@ -102,7 +104,8 @@
   }
 
   /* ---------- cálculos ---------- */
-  const ck = (id, e, t) => g(id).value === '' ? '' : (Math.abs(v(id) - e) <= Math.max(.01, Math.abs(e) * .005) ? '✔ Confere. ' : '✖ Revise. ') + t;
+  const okv = (id, e) => g(id).value !== '' && Math.abs(v(id) - e) <= Math.max(.01, Math.abs(e) * .005);
+  const msg = (id, o) => g(id).value === '' ? '' : (o ? '✔ Ok! Parabéns!' : '✖ No! Refaça o cálculo.');
   const nivel = s => s >= 9 ? ['Crítico', 'bg-rose-100 text-rose-800'] : s >= 6 ? ['Alto', 'bg-orange-100 text-orange-800'] : s >= 3 ? ['Médio', 'bg-amber-100 text-amber-800'] : s >= 1 ? ['Baixo', 'bg-emerald-100 text-emerald-800'] : ['—', ''];
 
   function calc() {
@@ -119,22 +122,21 @@
       el.className = 'p-2 text-center font-bold ' + n[1];
       if (s && (!top || s > top.s)) top = { r, s, t: n[0] };
     });
-    Z.cust = cust; Z.des = des;
+    const okp = okv('preco', pm2), okm = okv('pm', pmed), oka = okv('ac', ac), okc = okv('pc', pc);
+    Z.cust = cust; Z.des = des; Z.ok = { preco: okp, pm: okm, ac: oka, pc: okc };
     D = {
       valor: val ? fm(val) : '—', area: ar ? n0(ar) + ' m²' : '—', prazo: pz ? n0(pz) + ' meses' : '—',
       pm2: pm2 ? fm(pm2) + '/m²' : '—', mrgIni: mp ? np(mp) + '%' : '—',
       mrgV: mp ? fm(mR) : '—',
       mrgF: mp ? `${fm(val)} × ${np(mp)}% = ${fm(mR)}` : '—',
       cmaxF: mp ? `${fm(val)} − ${fm(mR)} = ${fm(cmax)}` : '—', cmaxV: mp ? fm(cmax) : '—',
-      preco_chk: ck('preco', pm2, `${fm(val)} ÷ ${n0(ar)} m² = ${fm(pm2)}/m²`),
-      res1: g('preco').value !== '' && mp > 0
+      preco_chk: msg('preco', okp),
+      res1: okp && mp > 0
         ? `O contrato apresenta preço médio de ${fm(pm2)}/m² e margem bruta estimada de ${np(mp)}%, correspondente a aproximadamente ${mi(mR)}.`
-        : 'Informe o preço de venda e a margem para ver o resultado.',
+        : 'Calcule corretamente o preço por m² e informe a margem para ver o resultado.',
       prodMed: pmed ? n2(pmed) + ' m²/mês' : '—', prodConc: pc ? n2(pc) + ' m²/mês' : '—',
-      pm_chk: ck('pm', pmed, `${n0(ar)} m² ÷ ${n0(pz)} meses = ${n2(pmed)} m²/mês`),
-      ac_chk: ck('ac', ac, `20% × ${n0(ar)} m² = ${n0(ac)} m²`),
-      pc_chk: ck('pc', pc, `${n0(ac)} m² ÷ 3 meses = ${n2(pc)} m²/mês`),
-      res2: `A produção média planejada é de ${n2(pmed)} m²/mês. Caso 20% da área seja concentrada nos últimos três meses, a produtividade necessária nesse período sobe para ${n2(pc)} m²/mês, aumentando a pressão sobre equipes, equipamentos, suprimentos e prazo.`,
+      pm_chk: msg('pm', okm), ac_chk: msg('ac', oka), pc_chk: msg('pc', okc),
+      res2: !(okm && oka && okc) ? 'O resultado da etapa aparece quando os três cálculos estiverem corretos.' : `A produção média planejada é de ${n2(pmed)} m²/mês. Caso 20% da área seja concentrada nos últimos três meses, a produtividade necessária nesse período sobe para ${n2(pc)} m²/mês, aumentando a pressão sobre equipes, equipamentos, suprimentos e prazo.`,
       cust: cust ? fm(cust) : '—', mproj: cust ? np(mproj) + '%' : '—',
       dif: cust && mp ? `Diferença para a meta: ${np(mproj - mp)} ponto(s) percentual(is).` : '',
       desemb: des ? fm(des) : '—', pdes: des && val ? `${np(des / val * 100)}% da receita contratual` : '—',
@@ -144,7 +146,7 @@
       const k = e.dataset.k;
       if (!(k in D)) return;
       e.textContent = D[k];
-      if (k.endsWith('_chk')) e.className = 'text-[11px] font-bold ' + (D[k][0] === '✔' ? 'text-emerald-700' : 'text-rose-700');
+      if (k.endsWith('_chk')) e.className = 'text-xs font-bold ' + (D[k][0] === '✔' ? 'text-emerald-700' : 'text-rose-700');
     });
   }
 
@@ -176,6 +178,8 @@
     if (n === 6 && !A.dec) return 'Escolha uma decisão antes de emitir o parecer.';
     const falta = (REQ[n] || []).some(id => !g(id).value.trim()) || (RAD[n] || []).some(r => !document.querySelector(`input[name="${r}"]:checked`));
     if (falta) return 'Preencha todos os campos desta etapa para avançar.';
+    if (n === 1 && !Z.ok.preco) return 'Refaça o cálculo do preço de venda por m² para avançar.';
+    if (n === 2 && !(Z.ok.pm && Z.ok.ac && Z.ok.pc)) return 'Refaça os cálculos marcados com "No!" para avançar.';
     if (n === 3 && Z.cust <= 0) return 'Informe os valores da estimativa de custos.';
     if (n === 4 && Z.des <= 0) return 'Informe os valores dos desembolsos iniciais.';
     if (n === 5) {
@@ -382,4 +386,122 @@
   };
 
   window.an = { calc, go, next, dec, emit, novo, salvar, excluir, abrir };
+})();
+
+/* ===== Módulos 2 a 5: o aluno calcula o KPI (fórmula + Ok/No) ===== */
+(function () {
+  const g = id => document.getElementById(id), q = s => document.querySelector(s);
+  const v = el => parseFloat(el && el.value) || 0;
+  const fm = n => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  const IN = 'w-full mt-1 p-2 border rounded-lg bg-white', LB = 'font-bold text-slate-600';
+  const kpi = f => `<p class="mt-1 px-2 py-1 rounded bg-indigo-50 border border-indigo-200 text-indigo-800 font-semibold text-[11px]">${f}</p>`;
+  const sum = (sel, fn) => [...document.querySelectorAll(sel)].reduce((s, e) => s + fn(e), 0);
+  const DES = [], hooks = [];
+
+  function desafio(ref, pos, o) {
+    const d = document.createElement('div');
+    d.className = 'no-print p-3 rounded-xl border border-indigo-200 bg-indigo-50 space-y-1 text-xs';
+    d.innerHTML = `${o.tit ? `<p class="font-bold text-indigo-900">${o.tit}</p>` : ''}${kpi(o.f)}<label class="${LB}">${o.lab}</label><input type="number" step="any" id="${o.id}" class="${IN}"><p id="${o.id}_m" class="text-xs font-bold"></p>`;
+    ref.insertAdjacentElement(pos, d);
+    DES.push(o);
+  }
+
+  function avalia() {
+    DES.forEach(o => {
+      const i = g(o.id), m = g(o.id + '_m');
+      let ok = false;
+      if (i.value === '') m.textContent = '';
+      else {
+        const e = o.exp();
+        ok = Math.abs(parseFloat(i.value) - e) <= Math.max(.01, Math.abs(e) * .005);
+        m.textContent = ok ? '✔ Ok! Parabéns!' : '✖ No! Refaça o cálculo.';
+        m.className = 'text-xs font-bold ' + (ok ? 'text-emerald-700' : 'text-rose-700');
+      }
+      o.done = ok;
+      if (o.rev) o.rev(ok);
+    });
+    hooks.forEach(h => h());
+  }
+
+  const cap = (id, f) => { const t = g(id); if (t) t.closest('.overflow-x-auto').insertAdjacentHTML('beforebegin', kpi(f)); };
+
+  /* Módulo 2: orçamento */
+  cap('tabelaMOP', 'KPI "Total da linha" = [Qtd] × [Salário + Encargos] × [Meses]');
+  cap('tabelaOrcamento', 'KPI "Total do item" = [Qtd] × [Custo unit.]');
+  const totMop = g('resumoTotalMOP');
+  if (totMop) desafio(totMop.closest('.pt-2'), 'afterend', {
+    id: 'k_mop', tit: 'Desafio KPI: Total da Mão de Obra Própria',
+    f: 'KPI "Total MOP" = Σ ([Qtd] × [Salário + Encargos] × [Meses])', lab: 'Qual é o Total MOP? (R$)',
+    exp: () => sum('#tabelaMOP tr', tr => v(tr.querySelector('.qtd-mop')) * v(tr.querySelector('.sal-mop')) * v(tr.querySelector('.mes-mop'))),
+    rev: ok => { totMop.parentElement.style.display = ok ? '' : 'none'; }
+  });
+  const addEap = q('button[onclick="adicionarLinhaOrcamento()"]');
+  if (addEap) desafio(addEap, 'afterend', {
+    id: 'k_eap', tit: 'Desafio KPI: Custo total da EAP',
+    f: 'KPI "Custo total da EAP" = Σ ([Qtd] × [Custo unit.])', lab: 'Qual é o custo total da EAP? (R$)',
+    exp: () => sum('#tabelaOrcamento tr', tr => v(tr.querySelector('.qtd-item')) * v(tr.querySelector('.val-item')))
+  });
+
+  /* Módulo 3: Curva S e PERT */
+  cap('tabelaCronograma', 'KPI "Acumulado" = Σ [% mensal] · KPI "Valor do período" = [BAC] × [% mensal]');
+  const st = g('statusCurvaS');
+  if (st) desafio(st, 'beforebegin', {
+    id: 'k_curva', tit: 'Desafio KPI: Desvio físico da obra',
+    f: 'KPI "Desvio físico" = [Acumulado realizado %] − [Acumulado previsto %]', lab: 'Qual é o desvio físico? (pontos percentuais)',
+    exp: () => sum('.real-pct', v) - sum('.prev-pct', v),
+    rev: ok => { st.style.display = ok ? '' : 'none'; }
+  });
+  const bP = q('button[onclick="calcularPERT()"]');
+  if (bP) {
+    bP.style.display = 'none';
+    desafio(bP, 'beforebegin', {
+      id: 'k_pert', tit: 'Desafio KPI: Duração esperada (PERT)',
+      f: 'KPI "Duração esperada (TE)" = ([O] + 4 × [M] + [P]) ÷ 6', lab: 'Qual é a duração esperada TE? (dias)',
+      exp: () => (v(g('pertO')) + 4 * v(g('pertM')) + v(g('pertP'))) / 6,
+      rev: ok => { if (ok) calcularPERT(); else g('resPERT').classList.add('hidden'); }
+    });
+  }
+
+  /* Módulo 4: medição */
+  cap('tabelaMedicao', 'KPI "Qtd acumulada" = [Qtd anterior] + [Qtd período] · KPI "Saldo a executar" = [Qtd prevista] − [Qtd acumulada]');
+  const rm = g('resMed');
+  if (rm) desafio(rm, 'beforebegin', {
+    id: 'k_med', tit: 'Desafio KPI: Valor total medido no período',
+    f: 'KPI "Valor medido" = [Qtd do período] × [Custo unit.] (some todos os itens)', lab: 'Qual é o valor total medido? (R$)',
+    exp: () => sum('#tabelaMedicao .qtd-periodo', e => v(e) * (parseFloat(e.getAttribute('data-val')) || 0)),
+    rev: ok => { rm.style.display = ok ? '' : 'none'; }
+  });
+
+  /* Módulo 5: EVM */
+  const bE = q('button[onclick="calcularEVM()"]');
+  if (bE) {
+    bE.style.display = 'none';
+    const c = document.createElement('div');
+    c.className = 'space-y-3';
+    c.innerHTML = '<p class="font-bold text-slate-800">Calcule os indicadores com o PV, EV e AC acima. BAC = valor do contrato.</p>';
+    bE.insertAdjacentElement('beforebegin', c);
+    const pv = () => v(g('evmPV')), ev = () => v(g('evmEV')), ac = () => v(g('evmAC')), bac = () => v(g('cadValorLicitacao')) || 12000000;
+    const spi = () => pv() ? ev() / pv() : 0, cpi = () => ac() ? ev() / ac() : 0, eac = () => cpi() ? bac() / cpi() : bac();
+    const E = [
+      ['k_sv', 'Variação de prazos (SV)', '[EV] − [PV]', 'SV (R$)', () => ev() - pv()],
+      ['k_cv', 'Variação de custos (CV)', '[EV] − [AC]', 'CV (R$)', () => ev() - ac()],
+      ['k_spi', 'Índice de desempenho de prazos (SPI)', '[EV] ÷ [PV]', 'SPI', spi],
+      ['k_cpi', 'Índice de desempenho de custos (CPI)', '[EV] ÷ [AC]', 'CPI', cpi],
+      ['k_eac', 'Estimativa de custo no término (EAC)', '[BAC] ÷ [CPI]', 'EAC (R$)', eac]
+    ];
+    E.forEach(x => desafio(c, 'beforeend', { id: x[0], f: `KPI "${x[1]}" = ${x[2]}`, lab: x[3], exp: x[4] }));
+    hooks.push(() => {
+      const all = E.every(x => DES.find(o => o.id === x[0]).done);
+      g('resEVM').classList.toggle('hidden', !all);
+      if (!all) return;
+      g('valSV').textContent = fm(ev() - pv()); g('valCV').textContent = fm(ev() - ac());
+      g('valSPI').textContent = spi().toFixed(2); g('valCPI').textContent = cpi().toFixed(2);
+      g('valEAC').textContent = fm(eac());
+      g('descEVM').textContent = `SPI ${spi().toFixed(2)}: ${spi() < 1 ? 'obra atrasada em relação ao planejado' : spi() > 1 ? 'obra adiantada' : 'obra no prazo'}. CPI ${cpi().toFixed(2)}: ${cpi() < 1 ? 'custo acima do previsto' : cpi() > 1 ? 'custo abaixo do previsto' : 'custo conforme o previsto'}. Projeção EAC: ${fm(eac())}.`;
+    });
+  }
+
+  ['input', 'change'].forEach(t => document.addEventListener(t, () => setTimeout(avalia, 0)));
+  document.addEventListener('click', () => setTimeout(avalia, 60));
+  avalia();
 })();
