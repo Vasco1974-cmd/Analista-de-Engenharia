@@ -1,8 +1,33 @@
+/* Campos de moeda: digita 9600000 e aparece "R$ 9.600.000,00" (decimais com vírgula) */
+const anNum = e => {
+  if (!e) return 0;
+  if (e.dataset && e.dataset.money) { const n = parseFloat(e.value.replace(/[^0-9,]/g, '').replace(',', '.')) || 0; return e.dataset.neg && e.value.includes('-') ? -n : n; }
+  return parseFloat(e.value) || 0;
+};
+function anMask(el) {
+  const sig = el.value.slice(0, el.selectionStart).replace(/[^0-9,]/g, '').length;
+  const t = el.value.replace(/[^0-9,]/g, ''), i = t.indexOf(',');
+  const ip = (i < 0 ? t : t.slice(0, i)).replace(/^0+(?=\d)/, '');
+  const dp = i < 0 ? null : t.slice(i + 1).replace(/,/g, '').slice(0, 2);
+  const ng = el.dataset.neg && el.value.indexOf('-') >= 0 ? '-' : '';
+  const out = t === '' ? ng : ng + 'R$ ' + (ip.replace(/\B(?=(\d{3})+(?!\d))/g, '.') || '0') + (dp !== null ? ',' + dp : '');
+  el.value = out;
+  let n = 0, pos = out.length;
+  if (sig === 0) pos = out === '-' ? 1 : out ? 3 + ng.length : 0;
+  else for (let k = 0; k < out.length; k++) if (/[0-9,]/.test(out[k]) && ++n === sig) { pos = k + 1; break; }
+  try { el.setSelectionRange(pos, pos); } catch (x) {}
+}
+document.addEventListener('input', e => { if (e.target.dataset && e.target.dataset.money) anMask(e.target); });
+document.addEventListener('focusout', e => {
+  const el = e.target;
+  if (el.dataset && el.dataset.money && el.value.trim() !== '') el.value = !/\d/.test(el.value) ? '' : anNum(el).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+});
+
 /* Analista de Engenharia: fluxo de análise do contrato (Novo Projeto + 7 etapas).
    Aparece abaixo de "Parâmetros do Contrato Salvos com Sucesso!". */
 (function () {
   const g = id => document.getElementById(id);
-  const v = id => { const e = g(id); return e ? parseFloat(e.value) || 0 : 0; };
+  const v = id => anNum(g(id));
   const n2 = n => n.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const n0 = n => n.toLocaleString('pt-BR', { maximumFractionDigits: 0 });
   const np = n => n.toLocaleString('pt-BR', { maximumFractionDigits: 2 });
@@ -28,12 +53,13 @@
   let D = {};
 
   /* ---------- pedaços de HTML ---------- */
-  const IN = 'w-full mt-1 p-2 border rounded-lg bg-white', LB = 'font-bold text-slate-600';
+  const IN = 'w-full mt-1 p-1.5 border rounded-lg bg-white text-xs', LB = 'font-bold text-slate-600';
   const grid = (c, a) => `<div class="grid grid-cols-1 md:grid-cols-${c} gap-3">${a.join('')}</div>`;
   const sys = (k, l, cap) => `<div class="bg-blue-50 border border-blue-200 rounded-lg p-3"><p class="text-[10px] font-bold uppercase text-blue-700">${l}</p><p data-k="${k}" class="text-sm font-extrabold text-blue-900">—</p>${cap ? `<p class="text-[11px] text-blue-800 mt-1">${cap}</p>` : ''}</div>`;
   const lock = (k, l, cap) => `<div><label class="${LB}">${l}</label>${kpi(cap)}<div class="mt-1 p-2 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-between"><span data-k="${k}" class="font-extrabold text-slate-800">—</span><i class="fa-solid fa-lock text-slate-400 text-[10px]"></i></div></div>`;
   const kpi = f => `<p class="mt-1 px-2 py-1 rounded bg-indigo-50 border border-indigo-200 text-indigo-800 font-semibold text-[11px]">${f}</p>`;
-  const num = (id, l, f) => `<div><label class="${LB}">${l}</label>${f ? kpi(f) : ''}<input type="number" step="any" id="${id}" oninput="an.calc()" class="${IN}">${f ? `<p data-k="${id}_chk" class="text-xs font-bold"></p>` : ''}</div>`;
+  const num = (id, l, f, m) => `<div><label class="${LB}">${l}</label>${f ? kpi(f) : ''}<input ${m ? 'type="text" inputmode="decimal" data-money="1" placeholder="R$ 0,00"' : 'type="number" step="any"'} id="${id}" oninput="an.calc()" class="${IN}">${f ? `<p data-k="${id}_chk" class="text-xs font-bold"></p>` : ''}</div>`;
+  const cols = (l, rt) => `<div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl"><div class="space-y-2">${l}</div><div class="space-y-3">${rt}</div></div>`;
   const txt = (id, l, ro) => `<div><label class="${LB}">${l}</label><input type="text" id="${id}" ${ro ? 'readonly' : ''} class="${IN} ${ro ? 'bg-slate-100 font-bold' : ''}"></div>`;
   const ta = (id, l) => `<div><label class="${LB}">${l}</label><textarea id="${id}" rows="3" class="${IN}"></textarea></div>`;
   const rad = (nm, l, o) => `<div><p class="${LB} mb-1">${l}</p><div class="flex flex-wrap gap-4">${o.map(x => `<label class="flex items-center gap-1.5"><input type="radio" name="${nm}" value="${x}"> ${x}</label>`).join('')}</div></div>`;
@@ -46,7 +72,7 @@
     const p1 = P(1, '1. Análise Econômica do Contrato',
       '<p class="text-slate-500">Dados trazidos automaticamente do cadastro acima. Use a fórmula de cada KPI, calcule e digite o resultado.</p>' +
       grid(3, [sys('valor', 'Valor do contrato'), sys('area', 'Área construída'), sys('prazo', 'Prazo')]) +
-      `<div class="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-xl">${num('preco', '1. Preço de venda por m² (R$/m²)', 'KPI "Preço de venda por m²" = [Valor do contrato] ÷ [Área construída]')}${num('mrg', '2. Margem bruta estimada (%)')}${lock('mrgV', 'Margem bruta estimada (R$)', 'KPI "Margem bruta" = [Valor do contrato] × [Margem bruta %]')}${lock('cmaxV', '3. Custo máximo compatível com a margem', 'KPI "Custo máximo" = [Valor do contrato] − [Margem bruta (R$)]')}</div>` +
+      `<div class="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-xl">${num('preco', '1. Preço de venda por m² (R$/m²)', 'KPI "Preço de venda por m²" = [Valor do contrato] ÷ [Área construída]', 1)}${num('mrg', '2. Margem bruta estimada (%)')}${lock('mrgV', 'Margem bruta estimada (R$)', 'KPI "Margem bruta" = [Valor do contrato] × [Margem bruta %]')}${lock('cmaxV', '3. Custo máximo compatível com a margem', 'KPI "Custo máximo" = [Valor do contrato] − [Margem bruta (R$)]')}</div>` +
       ta('t1', '4. Interpretação: o que esses números indicam sobre o contrato?') + res('res1'),
       bt('AVANÇAR PARA PRODUTIVIDADE →', 'an.next(1)'));
 
@@ -63,17 +89,14 @@
     const p3 = P(3, '3. Análise de Custos e Margem',
       '<p class="text-slate-600">Tenho a receita do contrato. Quanto posso gastar e ainda manter a margem?</p>' +
       grid(3, [sys('valor', 'Receita contratual'), sys('mrgIni', 'Margem desejada'), sys('cmaxV', 'Custo máximo admissível', 'KPI "Custo máximo" = [Receita] × (1 − [Margem desejada])')]) +
-      grid(2, CUSTOS.map(c => num(c[0], c[1] + ' (R$)'))) +
-      grid(2, [sys('cust', 'Custo total projetado', 'KPI "Custo total" = soma dos 7 componentes'), sys('mproj', 'Margem projetada', 'KPI "Margem projetada" = ([Receita] − [Custo total]) ÷ [Receita]')]) +
-      '<p data-k="dif" class="text-[11px] text-slate-600"></p>' +
+      cols(CUSTOS.map(c => num(c[0], c[1], '', 1)).join(''), sys('cust', 'Custo total projetado', 'KPI "Custo total" = soma dos 7 componentes') + sys('mproj', 'Margem projetada', 'KPI "Margem projetada" = ([Receita] − [Custo total]) ÷ [Receita]') + '<p data-k="dif" class="text-[11px] text-slate-600"></p>') +
       rad('mrgok', 'A margem projetada permanece próxima dos <span data-k="mrgIni">—</span> inicialmente estimados?', ['Sim', 'Não', 'Está em situação de alerta']) +
       ta('an3', 'Justifique sua avaliação:'),
       bt('AVANÇAR PARA CAPITAL DE GIRO →', 'an.next(3)'));
 
     const p4 = P(4, '4. Capital de Giro e Mobilização',
       '<p class="text-slate-600">O cronograma de mobilização inicial exige um desembolso pesado nos primeiros 60 dias. <b>Período crítico: primeiros 60 dias.</b></p>' +
-      grid(2, DESEMB.map(c => num(c[0], c[1] + ' (R$)'))) +
-      grid(2, [sys('desemb', 'Desembolso inicial estimado', 'KPI "Desembolso inicial" = soma dos 5 desembolsos'), sys('pdes', 'Peso sobre a receita', 'KPI "Peso do desembolso" = [Desembolso inicial] ÷ [Receita]')]) +
+      cols(DESEMB.map(c => num(c[0], c[1], '', 1)).join(''), sys('desemb', 'Desembolso inicial estimado', 'KPI "Desembolso inicial" = soma dos 5 desembolsos') + sys('pdes', 'Peso sobre a receita', 'KPI "Peso do desembolso" = [Desembolso inicial] ÷ [Receita]')) +
       rad('pres', 'Como você classifica a pressão sobre o capital de giro?', ['🟢 Baixa', '🟡 Moderada', '🟠 Alta', '🔴 Crítica']) +
       ta('an4', 'Por que o desembolso inicial pode representar um risco mesmo que o contrato seja lucrativo?'),
       bt('AVANÇAR PARA MATRIZ DE RISCOS →', 'an.next(4)'));
@@ -391,9 +414,9 @@
 /* ===== Módulos 2 a 5: o aluno calcula o KPI (fórmula + Ok/No) ===== */
 (function () {
   const g = id => document.getElementById(id), q = s => document.querySelector(s);
-  const v = el => parseFloat(el && el.value) || 0;
+  const v = el => anNum(el);
   const fm = n => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-  const IN = 'w-full mt-1 p-2 border rounded-lg bg-white', LB = 'font-bold text-slate-600';
+  const IN = 'w-full mt-1 p-1.5 border rounded-lg bg-white text-xs', LB = 'font-bold text-slate-600';
   const kpi = f => `<p class="mt-1 px-2 py-1 rounded bg-indigo-50 border border-indigo-200 text-indigo-800 font-semibold text-[11px]">${f}</p>`;
   const sum = (sel, fn) => [...document.querySelectorAll(sel)].reduce((s, e) => s + fn(e), 0);
   const DES = [], hooks = [];
@@ -401,7 +424,7 @@
   function desafio(ref, pos, o) {
     const d = document.createElement('div');
     d.className = 'no-print p-3 rounded-xl border border-indigo-200 bg-indigo-50 space-y-1 text-xs';
-    d.innerHTML = `${o.tit ? `<p class="font-bold text-indigo-900">${o.tit}</p>` : ''}${kpi(o.f)}<label class="${LB}">${o.lab}</label><input type="number" step="any" id="${o.id}" class="${IN}"><p id="${o.id}_m" class="text-xs font-bold"></p>`;
+    d.innerHTML = `${o.tit ? `<p class="font-bold text-indigo-900">${o.tit}</p>` : ''}${kpi(o.f)}<label class="${LB}">${o.lab}</label><input ${o.money ? 'type="text" inputmode="decimal" data-money="1" placeholder="R$ 0,00"' + (o.neg ? ' data-neg="1"' : '') : 'type="number" step="any"'} id="${o.id}" class="${IN}"><p id="${o.id}_m" class="text-xs font-bold"></p>`;
     ref.insertAdjacentElement(pos, d);
     DES.push(o);
   }
@@ -413,7 +436,7 @@
       if (i.value === '') m.textContent = '';
       else {
         const e = o.exp();
-        ok = Math.abs(parseFloat(i.value) - e) <= Math.max(.01, Math.abs(e) * .005);
+        ok = Math.abs(anNum(i) - e) <= Math.max(.01, Math.abs(e) * .005);
         m.textContent = ok ? '✔ Ok! Parabéns!' : '✖ No! Refaça o cálculo.';
         m.className = 'text-xs font-bold ' + (ok ? 'text-emerald-700' : 'text-rose-700');
       }
@@ -423,21 +446,21 @@
     hooks.forEach(h => h());
   }
 
-  const cap = (id, f) => { const t = g(id); if (t) t.closest('.overflow-x-auto').insertAdjacentHTML('beforebegin', kpi(f)); };
+  const cap = (id, f) => { const t = g(id), w = t && t.closest('.overflow-x-auto'); if (w) w.insertAdjacentHTML('beforebegin', kpi(f)); };
 
   /* Módulo 2: orçamento */
   cap('tabelaMOP', 'KPI "Total da linha" = [Qtd] × [Salário + Encargos] × [Meses]');
   cap('tabelaOrcamento', 'KPI "Total do item" = [Qtd] × [Custo unit.]');
   const totMop = g('resumoTotalMOP');
   if (totMop) desafio(totMop.closest('.pt-2'), 'afterend', {
-    id: 'k_mop', tit: 'Desafio KPI: Total da Mão de Obra Própria',
+    money: 1, id: 'k_mop', tit: 'Desafio KPI: Total da Mão de Obra Própria',
     f: 'KPI "Total MOP" = Σ ([Qtd] × [Salário + Encargos] × [Meses])', lab: 'Qual é o Total MOP? (R$)',
     exp: () => sum('#tabelaMOP tr', tr => v(tr.querySelector('.qtd-mop')) * v(tr.querySelector('.sal-mop')) * v(tr.querySelector('.mes-mop'))),
     rev: ok => { totMop.parentElement.style.display = ok ? '' : 'none'; }
   });
   const addEap = q('button[onclick="adicionarLinhaOrcamento()"]');
   if (addEap) desafio(addEap, 'afterend', {
-    id: 'k_eap', tit: 'Desafio KPI: Custo total da EAP',
+    money: 1, id: 'k_eap', tit: 'Desafio KPI: Custo total da EAP',
     f: 'KPI "Custo total da EAP" = Σ ([Qtd] × [Custo unit.])', lab: 'Qual é o custo total da EAP? (R$)',
     exp: () => sum('#tabelaOrcamento tr', tr => v(tr.querySelector('.qtd-item')) * v(tr.querySelector('.val-item')))
   });
@@ -466,7 +489,7 @@
   cap('tabelaMedicao', 'KPI "Qtd acumulada" = [Qtd anterior] + [Qtd período] · KPI "Saldo a executar" = [Qtd prevista] − [Qtd acumulada]');
   const rm = g('resMed');
   if (rm) desafio(rm, 'beforebegin', {
-    id: 'k_med', tit: 'Desafio KPI: Valor total medido no período',
+    money: 1, id: 'k_med', tit: 'Desafio KPI: Valor total medido no período',
     f: 'KPI "Valor medido" = [Qtd do período] × [Custo unit.] (some todos os itens)', lab: 'Qual é o valor total medido? (R$)',
     exp: () => sum('#tabelaMedicao .qtd-periodo', e => v(e) * (parseFloat(e.getAttribute('data-val')) || 0)),
     rev: ok => { rm.style.display = ok ? '' : 'none'; }
@@ -489,7 +512,7 @@
       ['k_cpi', 'Índice de desempenho de custos (CPI)', '[EV] ÷ [AC]', 'CPI', cpi],
       ['k_eac', 'Estimativa de custo no término (EAC)', '[BAC] ÷ [CPI]', 'EAC (R$)', eac]
     ];
-    E.forEach(x => desafio(c, 'beforeend', { id: x[0], f: `KPI "${x[1]}" = ${x[2]}`, lab: x[3], exp: x[4] }));
+    E.forEach(x => desafio(c, 'beforeend', { id: x[0], money: /R\$/.test(x[3]), neg: x[0] === 'k_sv' || x[0] === 'k_cv', f: `KPI "${x[1]}" = ${x[2]}`, lab: x[3], exp: x[4] }));
     hooks.push(() => {
       const all = E.every(x => DES.find(o => o.id === x[0]).done);
       g('resEVM').classList.toggle('hidden', !all);
