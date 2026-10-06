@@ -87,16 +87,16 @@ document.addEventListener('focusout', e => {
       bt('AVANÇAR PARA CUSTOS E MARGEM →', 'an.next(2)'));
 
     const p3 = P(3, '3. Análise de Custos e Margem',
-      '<p class="text-slate-600">Tenho a receita do contrato. Quanto posso gastar e ainda manter a margem?</p>' +
+      '<p class="text-slate-600">Tenho a receita do contrato. Quanto posso gastar e ainda manter a margem? Preencha os custos, use a fórmula de cada KPI, calcule e digite o resultado.</p>' +
       grid(3, [sys('valor', 'Receita contratual'), sys('mrgIni', 'Margem desejada'), sys('cmaxV', 'Custo máximo admissível', 'KPI "Custo máximo" = [Receita] × (1 − [Margem desejada])')]) +
-      cols(CUSTOS.map(c => num(c[0], c[1], '', 1)).join(''), sys('cust', 'Custo total projetado', 'KPI "Custo total" = soma dos 7 componentes') + sys('mproj', 'Margem projetada', 'KPI "Margem projetada" = ([Receita] − [Custo total]) ÷ [Receita]') + '<p data-k="dif" class="text-[11px] text-slate-600"></p>') +
+      cols(CUSTOS.map(c => num(c[0], c[1], '', 1)).join(''), num('kc', 'Custo total projetado (R$)', 'KPI "Custo total" = soma dos 7 componentes', 1) + num('km', 'Margem projetada (%)', 'KPI "Margem projetada" = ([Receita] − [Custo total]) ÷ [Receita] × 100') + '<p data-k="dif" class="text-[11px] text-slate-600"></p>') +
       rad('mrgok', 'A margem projetada permanece próxima dos <span data-k="mrgIni">—</span> inicialmente estimados?', ['Sim', 'Não', 'Está em situação de alerta']) +
       ta('an3', 'Justifique sua avaliação:'),
       bt('AVANÇAR PARA CAPITAL DE GIRO →', 'an.next(3)'));
 
     const p4 = P(4, '4. Capital de Giro e Mobilização',
-      '<p class="text-slate-600">O cronograma de mobilização inicial exige um desembolso pesado nos primeiros 60 dias. <b>Período crítico: primeiros 60 dias.</b></p>' +
-      cols(DESEMB.map(c => num(c[0], c[1], '', 1)).join(''), sys('desemb', 'Desembolso inicial estimado', 'KPI "Desembolso inicial" = soma dos 5 desembolsos') + sys('pdes', 'Peso sobre a receita', 'KPI "Peso do desembolso" = [Desembolso inicial] ÷ [Receita]')) +
+      '<p class="text-slate-600">O cronograma de mobilização inicial exige um desembolso pesado nos primeiros 60 dias. <b>Período crítico: primeiros 60 dias.</b> Preencha os desembolsos, use a fórmula de cada KPI, calcule e digite o resultado.</p>' +
+      cols(DESEMB.map(c => num(c[0], c[1], '', 1)).join(''), num('kd', 'Desembolso inicial estimado (R$)', 'KPI "Desembolso inicial" = soma dos 5 desembolsos', 1) + num('kp', 'Peso sobre a receita (%)', 'KPI "Peso do desembolso" = [Desembolso inicial] ÷ [Receita] × 100')) +
       rad('pres', 'Como você classifica a pressão sobre o capital de giro?', ['🟢 Baixa', '🟡 Moderada', '🟠 Alta', '🔴 Crítica']) +
       ta('an4', 'Por que o desembolso inicial pode representar um risco mesmo que o contrato seja lucrativo?'),
       bt('AVANÇAR PARA MATRIZ DE RISCOS →', 'an.next(4)'));
@@ -146,7 +146,8 @@ document.addEventListener('focusout', e => {
       if (s && (!top || s > top.s)) top = { r, s, t: n[0] };
     });
     const okp = okv('preco', pm2), okm = okv('pm', pmed), oka = okv('ac', ac), okc = okv('pc', pc);
-    Z.cust = cust; Z.des = des; Z.ok = { preco: okp, pm: okm, ac: oka, pc: okc };
+    const okkc = okv('kc', cust), okkm = okv('km', mproj), okkd = okv('kd', des), okkp = okv('kp', val ? des / val * 100 : 0);
+    Z.cust = cust; Z.des = des; Z.ok = { preco: okp, pm: okm, ac: oka, pc: okc, kc: okkc, km: okkm, kd: okkd, kp: okkp };
     D = {
       valor: val ? fm(val) : '—', area: ar ? n0(ar) + ' m²' : '—', prazo: pz ? n0(pz) + ' meses' : '—',
       pm2: pm2 ? fm(pm2) + '/m²' : '—', mrgIni: mp ? np(mp) + '%' : '—',
@@ -159,9 +160,10 @@ document.addEventListener('focusout', e => {
         : 'Calcule corretamente o preço por m² e informe a margem para ver o resultado.',
       prodMed: pmed ? n2(pmed) + ' m²/mês' : '—', prodConc: pc ? n2(pc) + ' m²/mês' : '—',
       pm_chk: msg('pm', okm), ac_chk: msg('ac', oka), pc_chk: msg('pc', okc),
+      kc_chk: msg('kc', okkc), km_chk: msg('km', okkm), kd_chk: msg('kd', okkd), kp_chk: msg('kp', okkp),
       res2: !(okm && oka && okc) ? 'O resultado da etapa aparece quando os três cálculos estiverem corretos.' : `A produção média planejada é de ${n2(pmed)} m²/mês. Caso 20% da área seja concentrada nos últimos três meses, a produtividade necessária nesse período sobe para ${n2(pc)} m²/mês, aumentando a pressão sobre equipes, equipamentos, suprimentos e prazo.`,
       cust: cust ? fm(cust) : '—', mproj: cust ? np(mproj) + '%' : '—',
-      dif: cust && mp ? `Diferença para a meta: ${np(mproj - mp)} ponto(s) percentual(is).` : '',
+      dif: okkm && mp ? `Diferença para a meta: ${np(mproj - mp)} ponto(s) percentual(is).` : '',
       desemb: des ? fm(des) : '—', pdes: des && val ? `${np(des / val * 100)}% da receita contratual` : '—',
       risco: g('rp').value || '—', topRisk: top ? `${top.r} (${top.s} · ${top.t})` : '—'
     };
@@ -204,7 +206,9 @@ document.addEventListener('focusout', e => {
     if (n === 1 && !Z.ok.preco) return 'Refaça o cálculo do preço de venda por m² para avançar.';
     if (n === 2 && !(Z.ok.pm && Z.ok.ac && Z.ok.pc)) return 'Refaça os cálculos marcados com "No!" para avançar.';
     if (n === 3 && Z.cust <= 0) return 'Informe os valores da estimativa de custos.';
+    if (n === 3 && !(Z.ok.kc && Z.ok.km)) return 'Refaça os cálculos marcados com "No!" para avançar.';
     if (n === 4 && Z.des <= 0) return 'Informe os valores dos desembolsos iniciais.';
+    if (n === 4 && !(Z.ok.kd && Z.ok.kp)) return 'Refaça os cálculos marcados com "No!" para avançar.';
     if (n === 5) {
       if (RISC.some((r, i) => !v('p' + i) || !v('i' + i))) return 'Classifique probabilidade e impacto de todos os riscos.';
       if (!document.querySelector('.med:checked')) return 'Selecione ao menos uma medida recomendada.';
