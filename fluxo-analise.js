@@ -27,9 +27,10 @@
   let D = {};
 
   /* ---------- pedaços de HTML ---------- */
-  const IN = 'w-full mt-1 p-2.5 border rounded-lg bg-white', LB = 'font-bold text-slate-600';
+  const IN = 'w-full mt-1 p-2 border rounded-lg bg-white', LB = 'font-bold text-slate-600';
   const grid = (c, a) => `<div class="grid grid-cols-1 md:grid-cols-${c} gap-3">${a.join('')}</div>`;
   const sys = (k, l) => `<div class="bg-blue-50 border border-blue-200 rounded-lg p-3"><p class="text-[10px] font-bold uppercase text-blue-700">${l}</p><p data-k="${k}" class="text-sm font-extrabold text-blue-900">—</p></div>`;
+  const lock = (k, l, fk) => `<div><label class="${LB}">${l}</label><div class="mt-1 p-2 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-between"><span data-k="${k}" class="font-extrabold text-slate-800">—</span><i class="fa-solid fa-lock text-slate-400 text-[10px]"></i></div><p data-k="${fk}" class="text-[11px] text-slate-500"></p></div>`;
   const num = (id, l, chk) => `<div><label class="${LB}">${l}</label><input type="number" step="any" id="${id}" oninput="an.calc()" class="${IN}">${chk ? `<p data-k="${id}_chk" class="text-[11px]"></p>` : ''}</div>`;
   const txt = (id, l, ro) => `<div><label class="${LB}">${l}</label><input type="text" id="${id}" ${ro ? 'readonly' : ''} class="${IN} ${ro ? 'bg-slate-100 font-bold' : ''}"></div>`;
   const ta = (id, l) => `<div><label class="${LB}">${l}</label><textarea id="${id}" rows="3" class="${IN}"></textarea></div>`;
@@ -43,9 +44,7 @@
     const p1 = P(1, '1. Análise Econômica do Contrato',
       '<p class="text-slate-500">Dados trazidos automaticamente do cadastro acima.</p>' +
       grid(3, [sys('valor', 'Valor do contrato'), sys('area', 'Área construída'), sys('prazo', 'Prazo')]) +
-      num('preco', '1. Preço de venda por m² (R$/m²)', 1) +
-      grid(2, [num('mrg', '2. Margem bruta estimada (%)'), sys('mrgF', 'Sistema calcula: margem bruta estimada')]) +
-      sys('cmaxF', '3. Custo máximo compatível com a margem') +
+      `<div class="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-xl">${num('preco', '1. Preço de venda por m² (R$/m²)', 1)}${num('mrg', '2. Margem bruta estimada (%)')}${lock('mrgV', 'Margem bruta estimada (R$)', 'mrgF')}${lock('cmaxV', '3. Custo máximo compatível com a margem', 'cmaxF')}</div>` +
       ta('t1', '4. Interpretação: o que esses números indicam sobre o contrato?') + res('res1'),
       bt('AVANÇAR PARA PRODUTIVIDADE →', 'an.next(1)'));
 
@@ -123,6 +122,7 @@
     D = {
       valor: val ? fm(val) : '—', area: ar ? n0(ar) + ' m²' : '—', prazo: pz ? n0(pz) + ' meses' : '—',
       pm2: pm2 ? fm(pm2) + '/m²' : '—', mrgIni: mp ? np(mp) + '%' : '—',
+      mrgV: mp ? fm(mR) : '—',
       mrgF: mp ? `${fm(val)} × ${np(mp)}% = ${fm(mR)}` : '—',
       cmaxF: mp ? `${fm(val)} − ${fm(mR)} = ${fm(cmax)}` : '—', cmaxV: mp ? fm(cmax) : '—',
       preco_chk: ck('preco', pm2, `${fm(val)} ÷ ${n0(ar)} m² = ${fm(pm2)}/m²`),
@@ -262,6 +262,16 @@
   box.id = 'fluxoAn';
   box.className = 'hidden space-y-4 text-xs';
   g('resCad').insertAdjacentElement('afterend', box);
+
+  box.addEventListener('keydown', e => {
+    const t = e.target;
+    if (e.key !== 'Enter' || !/^(INPUT|SELECT)$/.test(t.tagName) || t.type === 'radio' || t.type === 'checkbox') return;
+    e.preventDefault();
+    const pn = t.closest('[id^="pn"]');
+    const f = [...pn.querySelectorAll('input:not([readonly]):not([type=radio]):not([type=checkbox]),select,textarea')];
+    const nx = f[f.indexOf(t) + 1] || pn.querySelector(':scope > button');
+    if (nx) nx.focus();
+  });
 
   const salvarOriginal = window.salvarCadastro;
   window.salvarCadastro = function () {
